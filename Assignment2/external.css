@@ -1,47 +1,19 @@
-
-.container{
-    
-    height:100vh;
-    
-    display:flex;
-    
-
-
+body{
+    background:#edf0f1;
+}
+.leftsection{
+    background-color:green;
+    color:white;
+    padding:40px;
 }
 
-.left{
-    width:50%;
-    border:1px solid black;
-    text-align:center;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background-image:url("laptop.jpg");
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-position :center;
-
-
+.leftsection h1{
+    font-size:40px;
+    font-weight:bold;
 }
 
-.card{
-    background-color:rgb(167, 226, 226);
-    margin:20px;
-    border:1px solid black;
-    padding:30px;
-}
-.left h1{
-    font-style:bold;
-    font-weight:40px;
-    font-size:45px;
-    color:purple;
-    text-shadow:2px 2px 4px black;
-    
-}
-.right{
-    width:50%;
-    border:1px solid black;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+
+.form-control{
+    border:none;
+    padding:12px;
 }
