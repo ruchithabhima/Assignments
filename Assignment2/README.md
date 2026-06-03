@@ -1,23 +1,24 @@
-Assignment-2:Student Registration Form
-This project is about developing a simple registration form by using HTML and CSS.
-Features:
-User cana Enter details to register
-The input fields are:
-1)Name
-2)Email
-3)Password
-4)Age
-5)Phone NUmber
-6)Date of Birth
-7)Skills
-8)Registration Button
-9)The webpage has stwo column layout using CSS Flexbox
-Technologies Used:
-HTML5
-CSS
-Project Structure:
-Assignment2\
+##Assignment 2:Student registration System
+overview:
+This project is about building a responsive registration web page which is developed using html,css and bootstrap.
+##Features:
+-Resposive design using Bootstrap
+-student registration form
+-Input Feilds:
+  -Name
+  -Email
+  -password
+  -Phone Number
+##Technologies used:
+-HTML5
+-CSS
+-Bootstrap 5
+##Project Structure:
+Assignment2/
+  screenshot
+  README.md
+  external.css
   form.html
-  screenshot/
-    image.jpeg
+  ##Author
+Bhima Ruchitha
   
