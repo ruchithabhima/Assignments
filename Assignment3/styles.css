@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap');
+body{
+    background:#edf0f1;
+
+}
+
+.leftsection{
+    background-color:green;
+    color:white;
+    padding:40px;
+    font-size:40px;
+    width:270px;
+    margin:15px;
+  
+    border-radius:5px;
+
+}
+
+.leftsection h1{
+    
+    font-weight:bold;
+    font-family: 'open sans', sans-serif;
+   
+}
+.container{
+    width:600px;
+    margin-top:20px;
+    border-radius:8px;
+}
+
+.form-control{
+    border:none;
+    padding:12px;
+}
+.rightsection{
+    width:300px;
+    font-family: 'Roboto', sans-serif;
+}
+.leftsection2{
+background-color:rgb(240, 240, 240);
+ width:300px;
+ font-family: 'Roboto', sans-serif;
+}
+.rightsection2{
+     
+    font-weight:bold;
+    font-family: 'open sans', sans-serif;
+    background-color:green;
+    padding:40px;
+    font-size:40px;
+    width:270px;
+    margin:15px;
+
+    border-radius:5px;
+    
+}
+.heading{
+ color:white;
+ font-weight:bold;
+}
+.size{
+    font-size:28px;
+}
+.box{
+    width:1000px;
+    min-height:550px;
+    border-radius:20px;
+    overflow:hidden;
+
+}
+#checkforerror{
+    font-size:16px;
+    color:red;
+    font-family: 'open sans',sans-serif;
+}
+#checkforerror2{
+    font-size:16px;
+    color:red;
+    font-family: 'open sans',sans-serif;
+}
