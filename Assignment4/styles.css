@@ -1,0 +1,62 @@
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:999;
+   
+}
+.sidebar{
+   position:sticky;
+    top:110px; 
+}
+.p1{
+    padding: 8px;
+    /* transform:ease all 0.3sec; */
+    &:hover{
+background-color: #1c43d0;
+cursor: pointer;
+color:#fff;
+    }
+}
+.relative{
+    position:relative;
+    background-color: #1c43d0;
+    height:100px;
+    padding:10px;
+    color:white;
+    font-size:20px;
+    border-radius:10px;
+}
+.static{
+    position:relative;
+    background-color: #1c43d0;
+    height:100px;
+    padding:10px;
+    color:white;
+    font-size:20px;
+    border-radius:10px;
+}
+.absolute{
+    position:absolute;
+    background-color:rgb(255, 255, 255);
+    bottom:8px;
+    right:4px;
+    color: #1c43d0;
+    font-size:20px;
+    height:30px;
+    border-radius:10px;
+}
+.fixed{
+    position:fixed;
+    bottom:2px;
+    right:4px;
+    height:60px;
+    font-size:25px;
+    background-color: #1c43d0;
+    color:white;
+    padding:10px;
+    border-radius:10px;
+}
+.home-content{
+    font-size:26px;
+    
+}

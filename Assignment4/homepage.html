@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Home page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img src="1200x630wa.png" alt="" width="140" height="80">
+LOGO</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+   <i class="bi bi-list" id="menuIcon"></i>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navbarNav">
+    
+    <ul class="navbar-nav  ms-auto gap-2">
+      <li class="nav-item active">
+        <a class="nav-link p1  rounded-3 p-3 " href="#">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p1  rounded-3 p-3" href="#">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p1  rounded-3 p-3" href="#">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p1  rounded-3 p-3" href="#">settings</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sticky border border-top-0 border-start-0 border-bottom-0 border-3 border-primary">
+            <div class="d-flex flex-column sidebar d-none d-md-block">
+               <p class="p1">History</p> 
+               <p class="p1">About Us</p>
+               <p class="p1">Contact Us</p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="relative mt-3">
+                content in relative parent div
+                <div class="absolute">
+                    content in adsolute div
+                </div>
+            </div>
+            <div class="relative mt-3" style="top:20px">
+                content in relative  div
+            </div>
+             <div class="static mt-3">
+                content in static div
+            </div>
+            <section class="home-content">
+    <h1>Welcome to Our Website</h1>
+
+    <p>
+        We provide innovative solutions to help individuals and businesses
+        achieve their goals. Our platform is designed to deliver a seamless,
+        user-friendly, and efficient experience.
+    </p>
+
+    <p>
+        Explore our dashboard, manage your profile, customize your settings,
+        and stay updated with the latest features. We are committed to
+        continuous improvement and customer satisfaction.
+    </p>
+
+    <h3>Our Features</h3>
+
+    <ul>
+        <li>Responsive and modern design</li>
+        <li>User-friendly dashboard</li>
+        <li>Secure profile management</li>
+        <li>Real-time updates and notifications</li>
+        <li>24/7 customer support</li>
+    </ul>
+
+    <p>
+        Thank you for visiting our website. We look forward to serving you
+        and helping you make the most of our services.
+    </p>
+</section>
+            <div class="fixed">
+            Give Feedback
+        </div>
+        </div>
+        
+    </div>
+
+</div>
+   
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   <script src="closemenu.js"></script>
+</body>
+</html>
