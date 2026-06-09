@@ -2,10 +2,42 @@
     padding: 8px;
     /* transform:ease all 0.3sec; */
     &:hover{
-background-color: #1c43d0;
+background-color: #ac71e4;
 cursor: pointer;
 color:#fff;
 }
+}
+.enrollbutton{
+
+    border-radius:10px;
+    background-color: #7dc1ee;
+    height: 33px;
+    width: 67px;
+}
+.enrollbutton2{
+
+    border-radius:10px;
+    background-color: #9fecc3;
+    height: 33px;
+    width: 67px;
+}
+.resumebutton{
+
+    border-radius:10px;
+    background-color: #ebefb9;
+    height: 33px;
+    width: 67px;
+}
+.btnoutline{
+    background-color:transparent;
+    border:1px solid #ac71e4;
+    color:#ac71e4;
+}
+.bgtab.active{
+    background-color:transparent !important;
+    border-bottom: 3px solid #cf80eb !important;
+    color: #b355d8 !important;
+    border-radius: 0px !important;
 }
 .watchDemo-button{
     &:hover{
@@ -32,6 +64,11 @@ color:#fff;
     font-size: 13px;
     color:rgb(55, 110, 172);
 }
+.bgtab{
+    /* border-bottom:3px solid rgb(186, 73, 186); */
+    color:#4b4f54;
+    border-radius:0px;
+}
 .bgspace{
     height:140px;
     width:240px;
@@ -40,16 +77,94 @@ color:#fff;
 .tocenterpara{
     padding-left:136px;
 }
+.footerlinks{
+   color:rgb(177, 165, 165);
+}
 body{
       font-family: "Times New Roman", Times, serif;
 
     font-weight: 700;
+}
+.fontblue{
+    color:rgb(16, 146, 226);
+}
+.btnyellow{
+    background-color: #f5eda9fd;
+    color:rgba(66, 29, 8, 0.938);
+}
+.btnhover{
+  &:hover{
+        background-color:#a386d2;
+        color:white;
+    }
+    border-radius:20px;
+}
+.ul{
+    list-style-type: none;
+}  
+.heading{
+    color:#a2b6c3;
+}
+.leaderboardprofile1{
+    background-color: #fac775;
+
+}
+.bgleaderboard1{
+    background-color: #faeeda;
+}
+.colornum1{
+    color:#fac775;
+}
+.colornum2{
+    color:#d3d1c7;
+}
+.leaderboardprofile2{
+    background-color:#d3d1c7;
+
+}
+.bgleaderboard2{
+    background-color: #f1efe8;
+}
+.leaderboardprofile3{
+    background-color:#f5c4b3;
+
+}
+.bgleaderboard3{
+    background-color: #faece7
+}
+.leaderboardprofile3{
+    background-color:#f5c4b3;
+
+}
+.leaderboardprofile4{
+    background-color:#5adae3;
+
+}
+.bgleaderboard4{
+    background-color: #cbe3ed
+}
+.btnpurple{
+     background-color:rgb(228, 227, 227);
+        color:rgb(93, 120, 186); 
+}
+.btnred{
+   background-color:#d9b3b3;
+        color:rgb(145, 11, 11); 
 }
 .bghover1{
     &:hover{
     background-color:rgb(190, 183, 230);
     color:rgb(96, 76, 208);
     }
+}
+.btngreen{
+    background-color:rgb(174, 239, 229);
+    color:green;
+    &:hover{
+        background-color:#a386d2;
+        color:white;
+    }
+    border-radius:20px;
 }
 .bghover2{
     &:hover{

@@ -17,7 +17,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#"><img src="1200x630wa.png" alt="" width="100" height="50">
-LOGO</a>
+DevPortal</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
      <i class="bi bi-list" id="menuIcon"></i>
   </button>
@@ -39,7 +39,7 @@ LOGO</a>
     </ul>
     <form class=" ms-auto d-flex  gap-3">
       <input class="form-control mr-sm-2 h-28" type="search" placeholder="Search" aria-label="Search">
-      <button type="button" class="btn btn-outline-primary  background text-nowrap ms-auto btn-sm"  data-bs-toggle="modal" data-bs-target="#example">
+      <button type="button" class="btn btnoutline background text-nowrap ms-auto btn-sm"  data-bs-toggle="modal" data-bs-target="#example">
         Register Now</button>
     </form>
   </div>
@@ -100,7 +100,7 @@ LOGO</a>
             <div class="form-check">
             <input class="form-check-input" type="checkbox" id="gridCheck">
             <label class="form-check-label" for="gridCheck">
-                I agree to tha terms and conditions & Privacy Policy 
+                I agree to the terms and conditions & Privacy Policy 
             </label>
             </div>
         </div>
@@ -201,10 +201,10 @@ LOGO</a>
         </div>
     </div>
 </div> -->
-<div class="container-fluid bggrey">
+<div class="container-fluid bggrey ">
     
-    <div class="row d-flex justify-content-center gap-2">
-        <div class=" tocenterpara">
+    <div class="row d-flex justify-content-center gap-2 ">
+        <div class=" tocenterpara mt-3">
          <h3 class="bgskyblue">Program Overview</h3>
          <p class="parafontsize">Here u have detailed infromation of our program</p>
         
@@ -217,20 +217,20 @@ LOGO</a>
         </div>
          <div class="d-flex flex-column  p-2 my-2 bg-light  border border-dark border-1 bgspace rounded-3 ">
               <div class=" color-box color-box2"></div>  
-            <h2 class="bgskyblue">12</h2>
-            <p class="fontcolor">Total Courses</p>
-            <p class="smallfont">+3 this week</p>
+            <h2 class="bgskyblue">248</h2>
+            <p class="fontcolor">Active students</p>
+            <p class="smallfont">+18 this week</p>
         </div>
          <div class=" d-flex flex-column p-2 my-2 bg-light  border border-dark border-1 bgspace rounded-3 ">
             <div class="color-box color-box3"></div>
-            <h2 class="bgskyblue">12</h2>
-            <p class="fontcolor">Total Courses</p>
+            <h2 class="bgskyblue">840</h2>
+            <p class="fontcolor">Assignments</p>
             <p class="smallfontblue">10 due today</p>
         </div>
          <div class="d-flex flex-column p-2 my-2 bg-light border border-dark border-1 bgspace  rounded-3 ">
              <div class=" color-box color-box4"></div> 
-            <h2 class="bgskyblue">12</h2>
-            <p class="fontcolor">Total Courses</p>
+            <h2 class="bgskyblue">87%</h2>
+            <p class="fontcolor">Completion rate</p>
             <p class="smallfont">%4 vs last week</p>
         </div>
     </div>
@@ -254,29 +254,32 @@ LOGO</a>
     
 </div> 
 </div>
-<div class="container" >
+<div class="container mt-3" >
     <div class="row contentpara2">
         <h3 class="bgskyblue">Learning Hub</h3>
          <p class="parafontsize"> Find Courses according to your learning pace</p>
     </div>
     <div class="row contentpara2">
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills" id="pills-tab" role="tablist" style="
+    border-bottom: 1px solid #b7b4b4;">
         <li class="nav-item ">
-            <a class="bghoverpurple nav-link" aria-current="page" href="#courses">Available courses</a>
+            <button class=" bgtab   nav-link active" id="available-courses-tab" data-bs-toggle="pill" data-bs-target="#available-courses" type="button" role="tab" aria-controls="available-courses" aria-selected="true" aria-current="page" >Available courses</button>
          </li>
         <li class="nav-item">
-            <a class="bghoverpurple nav-link" href="#assignments">My Assignments</a>
+            <button class=" bgtab nav-link " id="assignments-tab" data-bs-toggle="pill" data-bs-target="#assignments" type="button" role="tab" aria-controls="assignments" aria-selected="true" aria-current="page" >My Assignments</button>
          </li>
         <li class="nav-item">
-            <a class="bghoverpurple nav-link" href="#">Leaderboard</a>
+            <button class="bgtab  nav-link " id="leaderboard-tab" data-bs-toggle="pill" data-bs-target="#leaderboard" type="button" role="tab" aria-controls="leaderboard" aria-selected="true" aria-current="page" >Leaderboard</button>
          </li>
  
         </ul>
     </div>
-<div class="tab-pane fade show active" id="courses">
-    <div class=" contentpara2">
-        <div class="d-flex bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
-            <div class="color-box color-box1"></div>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="available-courses" role="tabpanel" aria-labelledby="available-courses" tabindex="0" style="
+    max-width: 90%;
+    margin: auto;">
+        <div class="d-flex  align-items-center bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
+            <div class="color-box color-box1 "></div>
             <div class="d-flex flex-column m-1 mt-0">
              <h5 class="bgskyblue">HTML and CSS Fundamentals</h5>
              <div class="d-flex">
@@ -284,10 +287,10 @@ LOGO</a>
                <p class="parafontsize">84mins</p>
                </div>
              </div>
+             <button class="btn ms-auto  text-dark btn-sm enrollbutton btnhover">Enrolled</button>
         </div>
-  </div>
-  <div class=" contentpara2">
-        <div class="d-flex bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
+ 
+        <div class="d-flex align-items-center bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
             <div class="color-box color-box2"></div>
             <div class="d-flex flex-column m-1 mt-0">
              <h5 class="bgskyblue">Javascript Deep dive</h5>
@@ -296,10 +299,10 @@ LOGO</a>
                <p class="parafontsize">4mins</p>
                </div>
              </div>
+             <button class="btn ms-auto  text-dark btn-sm resumebutton btnhover">Resume</button>
         </div>
-  </div>
-  <div class=" contentpara2">
-        <div class="d-flex bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
+  
+        <div class="d-flex align-items-center bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
             <div class="color-box color-box3"></div>
             <div class="d-flex flex-column m-1 mt-0">
              <h5 class="bgskyblue">React & Modern Frontend</h5>
@@ -308,10 +311,10 @@ LOGO</a>
                <p class="parafontsize">40mins</p>
                </div>
              </div>
+             <button class="btn ms-auto  text-dark btn-sm enrollbutton2 btnhover">Enroll</button>
         </div>
-  </div>
-  <div class=" contentpara2">
-        <div class="d-flex bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
+ 
+        <div class="d-flex align-items-center bg-light rounded-3 my-2 p-2 border border-dark border-1 boxsize">
             <div class="color-box color-box4"></div>
             <div class="d-flex flex-column m-1 mt-0">
              <h5 class="bgskyblue">Node Js & Express Backend</h5>
@@ -320,11 +323,204 @@ LOGO</a>
                <p class="parafontsize">64mins</p>
                </div>
              </div>
+             <button class="btn ms-auto  text-dark btn-sm enrollbutton btnhover">Enrolled</button>
         </div>
+  
   </div>
-  </div>
+    <div class="tab-pane fade" id="assignments" role="tabpanel" aria-labelledby="assignments" tabindex="0" style="
+    max-width: 90%;
+    margin: auto;">
+
+        <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Assignment</th>
+      <th scope="col">Course</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th ><p class="fontblue">Personal bio page(HTML)only</p></th>
+      <td>HTML &CSS</td>
+      <td>Jun 6</td>
+      <td><button class="btn btngreen btnhover">Submitted</button></td>
+      <td>95/100&emsp;&emsp;&emsp;
+      <button class="btn text-dark btn-outline-dark bg-transparent bghover1">View</button></td>
+    </tr>
+     <tr>
+      <th scope="row"><p class="fontblue">Registration form with validation</p></th>
+      <td >HTML &CSS</td>
+      <td>Jun 7</td>
+      <td><button class="btn btngreen btnhover">Submitted</button></td>
+      <td>88/100&emsp;&emsp;&emsp;
+      <button class="btn text-dark btn-outline-dark bg-transparent bghover1 ">View</button></td>
+    </tr>
+     <tr>
+      <th scope="row"><p class="fontblue">CSS profile page styling</p></th>
+      <td>HTML &CSS</td>
+      <td>Jun 8</td>
+      <td><button class="btn btnyellow btnhover">In Progress</button></td>
+      <td>45/100&emsp;&emsp;&emsp;
+      <button class="btn text-dark btn-outline-dark bg-transparent bghover1">Continue</button></td>
+    </tr>
+     <tr>
+      <th scope="row"><p class="fontblue">Flexbox dashbord layout</p></th>
+      <td>CSS</td>
+      <td>Jun 9</td>
+      <td><button class="btn btnhover btnred">Overdue</button></td>
+      <td>87/100&emsp;&emsp;&emsp;
+      <button class="btn text-danger btn-outline-danger bg-transparent bghover1">submit</button></td>
+    </tr>
+     <tr>
+      <th scope="row"><p class="fontblue">Bootstrap internship portal</p></th>
+      <td>Boostrap</td>
+      <td>Jun 12</td>
+      <td><button class="btn btnhover btnpurple">Not started</button></td>
+      <td>53/100&emsp;&emsp;&emsp;
+      <button class="btn text-dark btn-outline-dark bg-transparent bghover1">Start</button></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+<div class="tab-pane fade" id="leaderboard" role="tabpanel" aria-labelledby="leaderboard" tabindex="0" >
+    <div class="contentpara2">
+        <div class=" rounded-3 my-2 p-2 border border-dark border-1 boxsize bgleaderboard1">
+            <div class="d-flex">
+            
+            <h5 class="m-1 p-1 mx-2">1</h5>
+            <div class="leaderboardprofile1 rounded-circle d-flex justify-content-center align-items-center" style="width:40px;height:40px;">AR</div>
+            <div class="d-flex flex-column m-1 mt-0">
+             <h5 class="bgskyblue mb-0 mx-2">Arjun Reddy</h5>
+             <p class="parafontsize mx-2">FullStack</p>
+             </div>
+            
+             <div class="ms-auto ">
+            <div class="d-flex flex-column ">
+             <h5 class="bgskyblue mb-0">2890 pts</h5>
+             <p class="parafontsize ">Top performer</p>
+             </div>
+             </div>
+             </div>
+             
+        </div>
+        <div class=" rounded-3 my-2 p-2 border border-dark border-1 boxsize bgleaderboard2">
+            <div class="d-flex">
+            <h5 class="m-1 p-1 mx-2">2</h5>
+            <div class="leaderboardprofile2 rounded-circle d-flex justify-content-center align-items-center" style="width:40px;height:40px;">P</div>
+            <div class="d-flex flex-column m-1 mt-0">
+             <h5 class="bgskyblue mb-0 mx-2">Priya</h5>
+            <p class="parafontsize mx-2">Frontend</p>
+             </div>
+             <div class="ms-auto mr-2">
+            <div class="d-flex flex-column ">
+             <h5 class="bgskyblue mb-0">2653 pts</h5>
+             <p class="parafontsize ">Rising Star</p>
+             </div>
+             </div>
+             </div>
+        </div>
+        <div class="d-flex   rounded-3 my-2 p-2 border border-dark border-1 boxsize bgleaderboard3">
+              <h5 class="m-1 p-1 mx-2">3</h5>
+            <div class="leaderboardprofile3 rounded-circle d-flex justify-content-center align-items-center" style="width:40px;height:40px;">RN</div>
+            <div class="d-flex flex-column m-1 mt-0">
+             <h5 class="bgskyblue mb-0 mx-2">Rajesh Naidu</h5>
+            
+              <p class="parafontsize mx-2">Backend</p>
+             
+               
+             </div>
+             <div class="ms-auto">
+            <div class="d-flex flex-column ">
+             <h5 class="bgskyblue mb-0">2498 pts</h5>
+             <p class="parafontsize ">Consistent</p>
+             </div>
+             </div>
+        </div>
+         <div class="d-flex  rounded-3 my-2 p-2 border border-dark border-1 boxsize bg-light">
+              <h5 class="m-1 p-1 mx-2">4</h5>
+            <div class="leaderboardprofile1 rounded-circle d-flex justify-content-center align-items-center" style="width:40px;height:40px;">VS</div>
+            <div class="d-flex flex-column m-1 mt-0">
+             <h5 class="bgskyblue mb-0 mx-2">Vimal Singh</h5>
+             
+              <p class="parafontsize  mx-2">Backend</p>
+             </div>
+             <div class="ms-auto">
+            <div class="d-flex flex-column ">
+             <h5 class="bgskyblue mb-0">2302 pts</h5>
+             
+             </div>
+             </div>
+        </div>
+        <div class="d-flex   rounded-3 my-2 p-2 border border-dark border-1 boxsize bgleaderboard4">
+              <h5 class="m-1 mx-2 p-1 ">5</h5>
+            <div class="leaderboardprofile4 rounded-circle d-flex justify-content-center align-items-center" style="width:40px;height:40px;">J</div>
+            <div class="d-flex flex-column m-1 mt-0">
+             <h5 class="bgskyblue mb-0 mx-2"> Jaishree</h5>
+             <p class="parafontsize mx-2">Fullstack</p>
+             </div>
+             <div class="ms-auto">
+            <div class="d-flex flex-column ">
+             <h5 class="bgskyblue mb-0">2190 pts</h5>
+             
+             </div>
+             </div>
+        </div>
  
+    </div>
 </div>
 </div>
+</div>
+<div class="container-fluid bgblue text-white">
+    <div class="container d-flex ">
+    <div class="row m-2 p-5">
+        <div class="col-md-5 ">
+            <div class="d-flex ">
+          <div class="color-box color-box1 my-2"></div>
+          <h5 class="heading m-2">DevPortal</h5>
+          </div>
+          <p class="para m-2">A 30-day AI powered full stack internship program.
+            .From HTMl basics to Node.js --build real projects and launch your career.
+                </p>
+        </div>
+        <div class="col-md-2">
+            <h6 class="footerlinks">QUICK LINKS</h6>
+            
+                <P class="para ul">Home</P>
+                <P  class="para ul">All courses</P>
+                <P  class="para ul">Assignments</P>
+                <P  class="para ul">Leaderboard</P>
+                <P  class="para ul">Certifications<P>
+                
+            
+        </div>
+        <div class="col-md-2">
+             <h6 class="footerlinks">RESOURCES</h6>
+            
+                <P class="para ul">Docs</P>
+                <P  class="para ul">Curriculum PDF</P>
+                <P  class="para ul">GitHub repo</P>
+                <P  class="para ul">Blog</P>
+                <P  class="para ul">FAQ</P>
+                
+        </div>
+        <div class="col-md-3">
+             <h6 class="footerlinks">CONTACT</h6>
+            
+                <p class="para ul">devportal@gmail.com</p>
+                <p  class="para ul">+91 809342567</p>
+                <p  class="para ul">Tirupati,Ap</p>
+                <p  class="para ul">Mon-Sat 9:30 -6:30 PM</p>
+                
+                
+        </div>
+    </div>
+    </div>
+</div>
+
+
 </body>
 </html>
