@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Course page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="styles.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+         
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid bggrey">
+    <h3 class="bgskyblue pb-0 mb-0">Find Courses you are interested in !</h3>
+        <div class="d-flex align-items-center" style="padding: 30px;">
+            <div class="row">
+            <div class=" col-md-6">
+                <label for="inputcourse" class="highlight" >COURSE</label>
+                <input type="text" class="form-control " id="course" placeholder="Enter Course Name">
+            </div>
+            <div class="col-md-6">
+            <p style="margin-bottom: 0px;" class="highlight">SELECT CATEGORY</p>
+            <div class="input-group mb-3">
+            <select class="custom-select" id="category" style="height: 35px;">
+
+            
+            <option value="" selected>All</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            <option value="Database">Database</option>
+            </select>
+        
+            </div>
+            </div>
+        </div>
+        <div class="ms-auto">
+            <button class="btn btngreen btnhover" onclick="showcourses()" style="width: 92px;">Apply</button>
+            <button class="btn btnhover btnred" onclick="resetcourses()" style="width: 92px;">Reset</button>
+        </div>
+        </div>
+        <div id="coursecards" class="d-flex flex-wrap gap-4 " style="padding: 30px;"></div>
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+    
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body toastcolor">
+       Filter applied Successfully
+        </div>
+        </div>
+        </div>
+    </div>
+   <script type="text/javascript" src="javascript.js"></script>
+</body>
+</html>

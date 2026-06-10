@@ -1,0 +1,46 @@
+.bggrey{
+       background-color: #273958;
+}
+.bgskyblue{
+    color:  #e0e4f0;
+    padding: 30px;
+}
+.btngreen{
+    background-color:rgb(174, 239, 229);
+    color:green;
+    &:hover{
+        background-color:#a386d2;
+        color:white;
+    }
+    border-radius:20px;
+}
+.btnred{
+   background-color:#d9b3b3;
+        color:rgb(145, 11, 11); 
+}
+.btnhover{
+  &:hover{
+        background-color:#a386d2;
+        color:white;
+    }
+    border-radius:20px;
+}
+body{
+      font-family: "Times New Roman", Times, serif;
+
+    font-weight: 700;
+}
+.highlight{
+    color:  #e9c3fa;
+    font-size: 17px;
+}
+.bgcard{
+        padding: 18px;
+    background-color: rgb(239 238 243);
+    width: 168px;
+    height: 145px;
+}
+.toastcolor{
+    color:#455088;
+    font-size:15px;
+}
