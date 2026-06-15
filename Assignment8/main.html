@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>CSS Properties page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      
+        
+</head>
+<body>
+    <div class="container-fluid bgimage rounded-3 d-flex flex-column p-5" >
+        <div class="heading">
+          <h1 class="h1">CSS Transformations,Backgrounds & Multimedia</h1>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="nav nav-pills" id="pills-tab" role="tablist" style=" border-bottom: 1px solid #b7b4b4;">
+        <li class="nav-item ">
+            <button class=" bgtab   nav-link active" id="transformations-tab" data-bs-toggle="pill" data-bs-target="#transformations" type="button" role="tab" aria-controls="transformations" aria-selected="true" aria-current="page" >Transformtions</button>
+         </li>
+        <li class="nav-item">
+            <button class=" bgtab nav-link " id="backgrounds-tab" data-bs-toggle="pill" data-bs-target="#backgrounds" type="button" role="tab" aria-controls="backgrounds" aria-selected="true" aria-current="page" >Backgrounds</button>
+         </li>
+        <li class="nav-item">
+            <button class="bgtab  nav-link " id="multimedia-tab" data-bs-toggle="pill" data-bs-target="#multimedia" type="button" role="tab" aria-controls="multimedia" aria-selected="true" aria-current="page" >Multimedia</button>
+         </li>
+ 
+        </ul>
+    
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="transformations" role="tabpanel" aria-labelledby="transformations" tabindex="0" >
+        <div class="card1 d-flex flex-column mt-3">
+           <div class="d-flex gap-3">
+            <div class="translate1 m-2">This div is moved 5px from  width and height</div>
+             <div class="rotate1 m-2">This div is rotated 30 deg in clockwise</div>
+              <div class="rotate2 m-2">This is a 3D transformation</div>
+            </div>
+            <div class="d-flex gap-3 mt-4">
+            <div class="skew m-2">This div is skewed 15deg along both x and y axis</div>
+             <div class="rotatexaxis m-2">This div is rotated along x-axis</div>
+              <div class="scaley m-2">This div is scaledalong y-axis</div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade " id="backgrounds" role="tabpanel" aria-labelledby="backgrounds" tabindex="0" >
+        <div class="d-flex gap-3 mt-3">
+        <div class="d-flex flex-column bgcolor rounded-3">
+            <div class="bgimage1 rounded-3">
+                 <h4>This is a div having background image with value as <span style="color:aqua;">cover</span></h4>
+            </div>
+           
+        </div>
+        <div class="d-flex flex-column bgcolor rounded-3">
+            <div class="bgimage2 rounded-3 ">
+                 <h4>This is a div having background image with value as <span style="color:aqua;">contain</span></h4>
+            </div>
+        </div>
+        <div class="d-flex flex-column bgcolor rounded-3">
+            <div class="bgimage3 rounded-3">
+                 <h4>This is a div having background image with value as <span style="color:aqua;">100% of div</span></h4>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="tab-pane fade " id="multimedia" role="tabpanel" aria-labelledby="multimedia" tabindex="0" >
+        
+        <div class="card d-flex flex-column justify-content-center cardsize bgcard mt-3">
+          <!--<iframe
+                width="400"
+                height="315"
+                src="https://www.youtube.com/embed/qz0aGYrrlhU"
+                allowfullscreen>
+            </iframe> -->
+            <div class="d-flex  gap-2">
+            <video width="400" height="240" controls>
+            <source src="1.mp4" type="video/mp4">
+            </video>
+            <div class="d-flex flex-column justify-content-center bgcard rounded-3">
+            <h4>Find Flute music below </h4>
+            
+            <audio controls >
+                <source src="krishna_flute.mp3" type="audio/mpeg">
+            </audio>
+            </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+body{
+    font-family:"Times New Roman", Times, serif;
+    background-color: #e9e0d6;
+}
+.bgimage{
+    background-image: url('city.jfif');
+    background-size:cover;
+    
+   
+}
+.h1{
+    color:rgb(243, 243, 244);
+    width:250px;
+    height:150px;
+}
+.translate1{
+background-color:rgb(209, 188, 228);
+width:100px;
+height:100px;
+transform:translate(5px,5px);
+}
+.rotate1{
+background-color: rgb(209, 188, 228);
+width:100px;
+height:100px;
+transform:rotate(45deg);
+}
+.rotate2{
+background-color: rgb(209, 188, 228);
+width:100px;
+height:100px;
+transform:rotateZ(180deg);
+}
+.rotatexaxis{
+background-color: rgb(209, 188, 228);
+width:100px;
+height:100px;
+transform:rotateX(180deg);
+}
+.bgtab.active{
+    background-color:transparent !important;
+    border-bottom: 3px solid #cf80eb !important;
+    color: #b355d8 !important;
+    border-radius: 0px !important;
+}
+.bgtab{
+    /* border-bottom:3px solid rgb(186, 73, 186); */
+    color:#4b4f54;
+    border-radius:0px;
+}
+.rotateyaxis{
+background-color: rgb(209, 188, 228);
+width:100px;
+height:100px;
+transform:rotateY(180deg);
+}
+.bgcard{
+    background-color: rgb(209, 188, 228);
+}
+.skew{
+background-color: rgb(209, 188, 228);
+width:100px;
+height:100px;
+transform:skew(15deg,15deg);
+}
+.scaley{
+background-color: rgb(209, 188, 228);
+width:100px;
+height:100px;
+transform:scaleY(67%);
+}
+.bgimage1{
+    background-image: url('beach.jfif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color:aliceblue;
+   height:200px;
+   width:300px;
+}
+.bgimage2{
+    background-image: url('resort.jfif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    color:rgb(15, 45, 71);
+   height:200px;
+   width:300px;
+}
+.bgimage3{
+    background-image: url('mountain.jfif');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color:rgb(202, 220, 236);
+   height:200px;
+   width:300px;
+}
+.bgcolor{
+    background-color: rgb(209, 188, 228);
+}
+.cardsize{
+    width:400px;
+    height:250px;
+}
