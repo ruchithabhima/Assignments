@@ -1,0 +1,141 @@
+.background{
+    padding: 8px;
+    /* transform:ease all 0.3sec; */
+    &:hover{
+background-color: #9b5cff;
+
+
+cursor: pointer;
+color:#fff;
+}
+}
+.navbar{
+     position:sticky;
+    top:0;
+    z-index:999;
+   height:60px;
+}
+.times{
+font-weight: 500;
+
+}
+.name{
+    padding-left: 35px;
+    color: #46396a;
+    font-size: 23px;
+}
+.navbar{
+        padding-right: 15px;
+
+}
+.img{
+    border: radius 50px;
+}
+
+.heading{
+    font-size:5rem;
+    font-weight:800;
+    line-height:1.1;
+    color:white;
+}
+.hero-img{
+   width: 340px;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 180px;
+        box-shadow: 0 0 30px rgba(138, 92, 246, 0.3);
+
+
+}
+.highlight{
+    color:#9b5cff;
+}
+.h2{
+    color:white;
+    font-size: 18px;
+
+}
+.container{
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+#hero{
+    min-height:100vh;
+    background:rgb(22, 20, 43);
+    display:flex;
+    align-items:center;
+}
+#about{
+    min-height:100vh;
+    background:rgb(22, 20, 43);
+
+}
+.subtitle{
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #d1d5db;
+    margin-top: 1rem;
+}
+.bgcard{
+    background-color: #d1d5db;
+    height: 200px;
+    width: 300px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+   
+}
+.paracolor{
+    color:rgb(52, 51, 51);
+    font-size:medium;
+}
+.heading2{
+    color:white;
+    font-size:5rem;
+    font-weight:800;
+    line-height:1.1;
+    text-decoration:underline;
+    text-decoration-color:#9b5cff; 
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+}
+.heading3{
+    color:white;
+    font-size:2rem;
+    font-weight:800;
+    line-height:1.1;
+    text-decoration:underline;
+    text-decoration-color:#9b5cff; 
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+}
+.fontcolor{
+   font-size: 1.1rem;
+    line-height: 1.9;
+    color: #d1d5db;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+    
+}
+
+#stats{
+    min-height:100vh;
+    background:rgb(22, 20, 43);
+
+}
+
+
+
+.skill-category h4{
+    color:#8b5cf6;
+    font-size:2rem;
+    font-weight:500;
+    margin-bottom:20px;
+}
+.skill-category{
+    background:#d9dce3;
+    border-radius:30px;
+    padding:25px 30px;
+    min-height:180px;
+}
