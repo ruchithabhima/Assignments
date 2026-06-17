@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <title>Porfolio</title>
+        <title>My Porfolio</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta name="description" content="Portfolio of Ruchitha, a Computer Science student and aspiring Full Stack Developer. Explore projects, skills, internship experience, and contact information.">
+        <meta name="keywords" content="Ruchitha, Portfolio, Full Stack Developer, Web Developer, HTML, CSS, JavaScript, React, Node.js, MongoDB, Student Portfolio">
+        <meta name="author" content="Ruchitha">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="styles.css">
@@ -11,8 +14,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script type="text/javascript" src="closemenu.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <header>
@@ -25,16 +30,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ms-auto  gap-2">
       <li class="nav-item active">
-        <a class="nav-link background rounded-3" href="#" >Home </a>
+        <a class="nav-link background rounded-3" href="#hero" >Home </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link background rounded-3" href="#">About</a>
+        <a class="nav-link background rounded-3" href="#about">About</a>
       </li>
      <li class="nav-item">
-        <a class="nav-link background rounded-3" href="#">Projects</a>
+        <a class="nav-link background rounded-3" href="#projects">Projects</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link background rounded-3" href="#">Contact</a>
+        <a class="nav-link background rounded-3" href="#contact">Contact</a>
       </li>
     </ul>
     
@@ -54,7 +59,7 @@
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-center align-items-center">
-                <img class="hero-img" src="C:\Users\SSS\Documents\Assignments\Assignment9\WhatsApp Image 2026-06-16 at 3.37.36 PM.jpeg">
+                <img class="hero-img" src="profile_image.jpeg">
             </div>
         </div>
     </div>
@@ -75,9 +80,9 @@
     <section id="stats">
         <div class="container">
         <div class="row">
-        <h3 class="heading3 mt-5 mb-5">Skills</h3>
+        <h3 class="heading2 mt-5 mb-5">Skills</h3>
        
-        <div class="d-flex flex-column justify-content-center gap-3">
+        
         <div class=" d-flex gap-3">
             
             <div class="skill-category bgcard">
@@ -91,14 +96,14 @@
             <div class="skill-category bgcard">
                 <h4>Web Development</h4>
                 <div class="d-flex flex-column">
-                <p class="paracolor">HTML, CSS & JavaScript</p>
-                <p class="paracolor">Bootstrap</p>
+                <p class="paracolor">HTML, CSS, Bootstrap & JavaScript</p>
+                <p class="paracolor">Node.js, Express.js</p>
                 </div>
                 
             </div>
-        </div>
+        
         <div class="d-flex gap-3">
-            <div class="skill-category bgcard">
+            <div class="skill-category bgcard shadow">
                 <h4>Database Management</h4>
                 <div class="d-flex flex-column">
                 <p class="paracolor">SQL / MySQL</p>
@@ -116,10 +121,135 @@
 
         </div>
         </div>
-        </div>
         
         </div>
+        </div>
     </section>
+    <section id="projects">
+        <div class="container">
+            <h1 class="heading2 pt-3 pb-3">My Projects</h1>
+            <div class="d-flex gap-4">
+                <div class="project-card">
+                     <div class="d-flex flex-column">
+                    <div class="project-image2">
+                    <img src="C:\Users\SSS\Documents\Assignments\Assignment9\projectimages\minihomepage.jpeg" alt="StudyBud">
+                    </div>
+                    <div class="content">
+                    <h2>StudyBud</h2>
+                    <p>
+                    AI-powered learning platform that transforms YouTube
+                    videos into summaries, notes and quizzes to enhance
+                    the learning experience.
+                    </p>
+                    <div class="technologies">
+                        <span class="bghover2">React</span>
+                        <span class="bghover2">Node.js</span>
+                        <span class="bghover2">Express</span>
+                        <span class="bghover2">MongoDB</span>
+                        <span class="bghover2">JWT</span>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="project-card shadow">
+                     <div class="d-flex flex-column">
+                    <div class="project-image2">
+                    <img src="C:\Users\SSS\Documents\Assignments\Assignment9\projectimages\createpost_homepage.jpeg" alt="ConnectFeed">
+                    </div>
+                    <div class="content">
+                    <h2>ConnectFeed</h2>
+                    <p>
+                    A full-stack social media application that allows users to create, upload, and share image-based posts. 
+                    </p>
+                    <div class="technologies">
+                        <span class="bghover2">HTML</span>
+                        <span class="bghover2">CSS</span>
+                        <span class="bghover2">Bootstrap</span>
+                        <span class="bghover2">MongoDB</span>
+                        <span class="bghover2">Node.js</span>
+                        <span class="bghover2">Express.js</span>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex gap-4">
+                <div class="project-card">
+                    <div class="d-flex flex-column">
+                    <div class="project-image2">
+                    <img src="C:\Users\SSS\Documents\Assignments\Assignment9\projectimages\wheatherhome.png" alt="wheatherForecast">
+                    </div>
+                    <div class="content">
+                    <h2>Skycast</h2>
+                    <p>
+                   A responsive weather forecasting application that provides real-time weather conditions, temperature, humidity & location-based forecasts using weather APIs.
+                    </p>
+                    <div class="technologies">
+                        <span class="bghover2">HTML</span>
+                        <span class="bghover2">CSS</span>
+                        <span class="bghover2">Bootstrap</span>
+                        <span class="bghover2">Javascript</span>
+                        <span class="bghover2">wheather api</span>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                     <div class="d-flex flex-column">
+                    <div class="project-image2">
+                    <img src="C:\Users\SSS\Documents\Assignments\Assignment9\projectimages\internportal.png" alt="ConnectFeed">
+                    </div>
+                    <div class="content">
+                    <h2>Internportal</h2>
+                    <p>
+                    Developed a responsive Internship Portal frontend with multiple sections, intuitive navigation, and mobile-friendly layouts. 
+                    <div class="technologies">
+                        <span class="bghover2">HTML</span>
+                        <span class="bghover2">CSS</span>
+                        <span class="bghover2">Bootstrap</span>
+                        <span class="bghover2">Javascript</span>
+                        
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+        <h2 class="heading pt-4">Let's Connect!</h2>
+        <div class="contact-info">
+            <div class="email-section">
+            <i class="fa-solid fa-envelope email-icon"></i>
+            <span class="email-text">
+                ruchithabhima@gmail.com
+            </span>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/ruchitha-bhima-328a79344?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/ruchithabhima" target="_blank"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-8 contact-form">
+        <div class="d-flex flex-column gap-4">
+            <input class="form-control bginput" type="text" placeholder="Your Name"></input>
+            <input class="form-control bginput" type="email" placeholder="Your Email"></input>
+            <textarea class="form-control bgtextarea" rows="6" cols="55" placeholder="Message"></textarea>
+            
+            <button type="submit" class="btn btnbg">Submit</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    <footer class="footer">
+    <p>© 2026 Ruchitha Bhima. All rights reserved.</p>
+</footer>
+</section>
 </main>
+
 </body>
 </html>
