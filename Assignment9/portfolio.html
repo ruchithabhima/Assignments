@@ -283,12 +283,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </div>
         </div>
         <div class="col-md-8 contact-form">
+             <form id="contactForm" onsubmit="handleSubmit(event)">
         <div class="d-flex flex-column gap-4">
-            <input class="form-control bginput" type="text" placeholder="Your Name"></input>
-            <input class="form-control bginput" type="email" placeholder="Your Email"></input>
-            <textarea class="form-control bgtextarea" rows="6" cols="55" placeholder="Message"></textarea>
+           
+            <input class="form-control bginput" type="text" placeholder="Your Name" required minlength="3" id="name"></input>
+            <input class="form-control bginput" type="email" placeholder="Your Email" required id="email"></input>
+            <textarea class="form-control bgtextarea" rows="6" cols="55" placeholder="Message" required id="message"></textarea>
             
-            <button type="submit" class="btn btnbg">Submit</button>
+            <button type="submit" class="btn btnbg" ">Submit</button>
+            </div>
+            </form>
         </div>
         </div>
         </div>
