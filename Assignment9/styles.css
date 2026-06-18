@@ -12,6 +12,9 @@ cursor: pointer;
 color:#fff;
 }
 }
+p{
+    margin-bottom:0px !important;
+}
 .imgstyle{
     width: 350px;
     height: 415px
@@ -27,11 +30,15 @@ color:#fff;
 .card1:hover{
     transform:translateY(-10px);
 }
-.navbar{
-     position:sticky;
+header{
+position:sticky;
     top:0;
-    z-index:999;
+    z-index:1030;
+}
+.navbar{
+    
    height:60px;
+   padding-right: 15px;
 }
 .times{
 font-weight: 500;
@@ -42,10 +49,7 @@ font-weight: 500;
     color: #46396a;
     font-size: 23px;
 }
-.navbar{
-        padding-right: 15px;
 
-}
 .img{
     border: radius 50px;
 }
@@ -84,9 +88,13 @@ font-weight: 500;
     display:flex;
     align-items:center;
 }
+#resume{
+   min-height:100vh;
+    background:rgb(22, 20, 43);  
+}
 #contact{
-    padding-top:55px;
-    min-height:80vh;
+   
+    min-height:100vh;
     background:rgb(22, 20, 43); 
 }
 #about{
@@ -110,7 +118,7 @@ font-weight: 500;
    padding:25px;
 }
 #projects{
-    min-height:100vh;
+    
     background:rgb(22, 20, 43);
 }
 .paracolor{
@@ -145,7 +153,7 @@ font-weight: 500;
 }
 
 #stats{
-    min-height:100vh;
+    min-height:65vh;
     background:rgb(22, 20, 43);
 
 }
@@ -200,7 +208,7 @@ font-weight: 500;
     border-radius:30px;
     padding:25px 30px;
     min-height:180px;
-    max-width:270px;
+    max-width:255px;
 }
 .project-card{
     display:flex;
@@ -212,7 +220,7 @@ font-weight: 500;
     border-radius:20px;
 
     padding:25px;
-    margin-top:30px;
+    margin-top:5px;
 
     box-shadow:0 10px 30px rgba(0,0,0,0.1);
 
@@ -323,10 +331,190 @@ font-weight: 500;
 }
 .footer{
         text-align: center;
-    padding: 20px 0;
+    padding: 25px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #dfdcdc;
     font-weight: 600;
-    margin-top: 15px;
+    /* margin-top: 30px; */
     background-color: #626273;
+}
+.timeline{
+    position:relative;
+    max-width:1200px;
+    margin:auto;
+}
+
+.timeline::after{
+    content:'';
+    position:absolute;
+    width:4px;
+    background:#c173e6;
+    top:0;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+}
+.padding{
+    padding-top:60px;
+}
+.card{
+    position:relative;
+    width:45%;
+}
+.cardright{
+    position:relative;
+    width:45%;
+    margin-left:55px;
+}
+
+.timeline-content{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+.timeline-item{
+   
+    margin-top:35px;
+}
+.leftside{
+    left:0
+}
+.rightside{
+    right:-50%;
+}
+.rightside::after{
+    left:-11px;
+}
+.card::after{
+    content:'';
+    position:absolute;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#bfa9db;
+    top:50%;
+    right:-67px;
+    z-index:2;
+     transform:translateY(-50%);
+}
+
+.cardright::after{
+    content:'';
+    position:absolute;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#bfa9db;
+    top:50%;
+    left:-67px;
+    z-index:2;
+      transform:translateY(-50%);
+}
+.timeline-content span{
+    color: rgb(175, 82, 218);
+    font-size: 20px;
+    font-weight: 600;
+}
+.timeline-content p{
+    color: #645b5b;
+    font-weight: 500;
+}
+.navbar-collapse{
+    background: #eee7fc;
+}
+@media (max-width: 768px){
+    .heading{
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom:5px;
+  
+    }
+    .hero-img{
+        margin-top:-20px;
+    }
+    .heading2{
+        font-size: 2rem;
+    }
+    .subtitle{
+        font-size: 15px;
+  
+    }
+    .btn{
+        width:100px !important;
+        height:40px !important;
+        text-align:center;
+
+    }
+    .btnbg{
+        padding:10px;
+        font-size:20px;
+    }
+    .contact-form button{
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        max-width: 90px;
+    }
+    .navbar-collapse{
+        
+        padding-left: 30px;
+        padding-right: 345px;
+        padding-bottom: 10px;
+    }
+    .project-card{
+        min-height:500px;
+    }
+    .timeline::after{
+        left:30px;
+    }
+    .email-section{
+        gap:5px;
+        margin-bottom:0px;
+    }
+    .fa-linkedin{
+        font-size:40px !important;
+    }
+     .fa-github{
+        font-size:40px !important;
+    }
+    .contact-form{
+        padding:20px;
+        margin-top:0px;
+    }
+    
+    .email-icon{
+        font-size:17px;
+    }
+    .email-text{
+        font-size:16px;
+    }
+    .card,
+    .cardright{
+        width:calc(100% - 70px);
+        margin-left:70px;
+        margin-right:0;
+    }
+
+    .cardright{
+        left:0;
+    }
+
+    .card::after,
+    .cardright::after{
+        left:-50px;
+        right:auto;
+    }
+
+    .timeline-content{
+        padding:20px;
+    }
+
+    .timeline-content h3{
+        font-size:1.5rem;
+    }
+
+    .timeline-content p{
+        font-size:0.9rem;
+    }
 }
