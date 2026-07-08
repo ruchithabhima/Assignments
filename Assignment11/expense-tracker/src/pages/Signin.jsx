@@ -21,7 +21,7 @@ const Signin = () => {
         <div className="col-md-7 leftsection2 d-flex flex-column justify-content-center aign-items-center text-center p-5">
           <h1>Sign In To Your Account</h1>
           <p id="checkforerror2"></p>
-          <form>
+          <form onSubmit={handleSignin}>
             <input
               type="text"
                value={name}
@@ -42,9 +42,8 @@ const Signin = () => {
                <p className="text-danger">{error}</p>
             <div className="text-center">
               <button
-                type="button"
+                type="submit"
                 className="btn btn-bg rounded-pill mt-4 px-5"
-                onClick={handleSignin}
               >
                 Sign In
               </button>

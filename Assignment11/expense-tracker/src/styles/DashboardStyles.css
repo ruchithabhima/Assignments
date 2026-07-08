@@ -1,0 +1,257 @@
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+}
+.content {
+  flex: 1;
+  margin-left: 250px;
+  background: #f8fafc;
+}
+.content.collapsed{
+    margin-left:80px;
+}
+.sidebar {
+  width: 250px;
+  background: #023047;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  transition: 0.3s;
+
+  z-index: 999;
+  height: 100vh;
+}
+.hamburger{
+  cursor:pointer;
+  font-size:22px;
+  margin-right:20px;
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+.sidebar.collapsed{
+  width:80px;
+}
+.sidebar.collapsed ul{
+    padding:0;
+}
+.menu-link{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:white;
+  text-decoration:none;
+  padding:12px;
+  border-radius:12px;
+}
+
+.active{
+  background:#a7e8f5;
+  color:#023047;
+}
+.sidebar li svg {
+  font-size: 24px;
+}
+.sidebar.collapsed li{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  margin: 20px auto;
+  border-radius: 12px;
+}
+.sideicons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+   
+  
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 3px;
+  }
+}
+.containercard {
+  padding: 20px;
+}
+.brand {
+  color: #003680;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.listsidebar {
+  list-style-type: none;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  gap: 50px;
+  padding-left: 5px;
+}
+.walleticon {
+  color: #21e9ac;
+  font-size: 32px;
+}
+.h2 {
+  font-size: 23px;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px;
+}
+.welcome-card {
+  background: #d0ecf0;
+  padding: 25px;
+  border-radius: 15px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+.card1 {
+  border: 0px solid white;
+  border-radius: 10px;
+  padding: 10px;
+}
+.transactions-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.transaction-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.transaction-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e8f7f6;
+  font-size: 20px;
+}
+.transaction-icon2 {
+  width: 45px;
+  height: 45px;
+  border-radius: 50% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: center;
+  background: #93e6f3;
+  font-size: 20px;
+  color: black;
+  &:hover {
+    color: #93e6f3;
+    background-color: black;
+  }
+}
+
+.grid-con {
+  display: grid;
+
+  grid-template-columns: 1.5fr 1.5fr;
+  gap: 15px;
+  width: 100%;
+}
+.chart-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.expense-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  min-width: 40vw;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.legend {
+  min-width: 220px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+.cardheading {
+  font-size: 17px;
+}
+.value {
+  font-size: 30px;
+}
+.icon-container {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+.transaction-info h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.transaction-info p {
+  margin: 0;
+  color: gray;
+}
+
+.transaction-date {
+  color: #666;
+}
+
+.income {
+  min-width: 100px;
+  text-align: right;
+  color: green;
+  font-weight: bold;
+}
+
+.expense {
+  min-width: 100px;
+  text-align: right;
+  color: red;
+  font-weight: bold;
+}

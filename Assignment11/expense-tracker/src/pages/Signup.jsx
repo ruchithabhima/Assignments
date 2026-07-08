@@ -32,7 +32,7 @@ const signup = () => {
             </h1>
 
             <a
-              href="sign_in.html"
+              href="signin"
               className="btn btn-outline-light rounded-pill px-5 mt-3"
             >
               SIGN IN
@@ -43,7 +43,7 @@ const signup = () => {
             <h1 className="size ">Create Account</h1>
             <p id="checkforerror"></p>
 
-            <form>
+            <form onSubmit={handleSignup}>
               <input
                 type="text"
                 value={name}
@@ -66,9 +66,9 @@ const signup = () => {
               <p className="text-danger">{error}</p>
               <div class="text-center">
                 <button
-                  type="button"
+                  type="submit"
                   className="btn btn-bg rounded-pill mt-4 px-5"
-                  onClick={handleSignup}
+                 
                 >
                   SIGN UP
                 </button>
