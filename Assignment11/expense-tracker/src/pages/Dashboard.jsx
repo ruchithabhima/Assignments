@@ -24,94 +24,89 @@ const Dashboard = () => {
     "#a855f7",
     "#d1d5db",
   ];
-  const [collapsed,setCollapsed]=useState(false);
+const user = JSON.parse(localStorage.getItem("user"));
   return (
     <>
       <div className="dashboard">
-        <Sidebar collapsed={collapsed}/>
-
-        <div className={`content ${collapsed ? "collapsed" : ""}`}>
-          <Navbar collapsed={collapsed} setCollapsed={setCollapsed} />
-          <div className="containercard d-flex flex-column gap-3">
-            <div className="welcome-card shadow">
-              <div>
-                <h2>Welcome Back, Ruchi 👋</h2>
-                <p>Here's what's happening today.</p>
-              </div>
+        <div className="containercard d-flex flex-column gap-3">
+          <div className="welcome-card shadow">
+            <div>
+              <h2 className="welcome-card-head">Welcome Back,{user?.name} 👋</h2>
+              <p>Here's what's happening today.</p>
             </div>
+          </div>
 
-            <div className="cards">
-              <SummaryCards
-                title="Income"
-                value="₹45,000"
-                color="#16a34a"
-                bgColor="#add8bc"
-                Icon={MdTrendingUp}
-              />
+          <div className="cards">
+            <SummaryCards
+              title="Income"
+              value="₹45,000"
+              color="#16a34a"
+              bgColor="#add8bc"
+              Icon={MdTrendingUp}
+            />
 
-              <SummaryCards
-                title="Expenses"
-                value="₹28,350"
-                color="#ef4444"
-                bgColor="#fee2e2"
-                Icon={MdTrendingDown}
-              />
+            <SummaryCards
+              title="Expenses"
+              value="₹28,350"
+              color="#ef4444"
+              bgColor="#fee2e2"
+              Icon={MdTrendingDown}
+            />
 
-              <SummaryCards
-                title="Balance"
-                value="₹16,650"
-                color="#2563eb"
-                bgColor="#dbeafe"
-                Icon={MdAccountBalanceWallet}
-              />
+            <SummaryCards
+              title="Balance"
+              value="₹16,650"
+              color="#2563eb"
+              bgColor="#dbeafe"
+              Icon={MdAccountBalanceWallet}
+            />
 
-              <SummaryCards
-                title="savings/month"
-                value="₹50,000"
-                color="#b91091"
-                bgColor="#ead1fa"
-                Icon={FaPiggyBank}
-              />
-              <SummaryCards
-                title="Budget Used"
-                value="₹60,000"
-                color="#9333ea"
-                bgColor="#f3e8ff"
-                Icon={MdPieChart}
-              />
-              <SummaryCards
-                title="No.of Transactions"
-                value="3"
-                color="#f59e0b"
-                bgColor="#fef3c7"
-                Icon={MdReceiptLong}
-              />
-            </div>
-            <div className="grid-con ">
-              <Transactions />
+            <SummaryCards
+              title="savings/month"
+              value="₹50,000"
+              color="#b91091"
+              bgColor="#ead1fa"
+              Icon={FaPiggyBank}
+            />
+            <SummaryCards
+              title="Budget Used"
+              value="₹60,000"
+              color="#9333ea"
+              bgColor="#f3e8ff"
+              Icon={MdPieChart}
+            />
+            <SummaryCards
+              title="No.of Transactions"
+              value="3"
+              color="#f59e0b"
+              bgColor="#fef3c7"
+              Icon={MdReceiptLong}
+            />
+          </div>
+          <div className="grid-con ">
+            <Transactions />
 
-              <div className=" expense-card shadow">
-                <h3>Expense Chart</h3>
-                <div className="chart-content">
-                  <ExpenseChart />
+            <div className=" expense-card shadow">
+              <h4>Expense Chart</h4>
+              <div className="chart-content">
+                <ExpenseChart />
 
-                  <div className="legend">
-                    {" "}
-                    {expensedata.map((item, index) => (
-                      <div className="legend-item" key={index}>
-                        <span
-                          className="dot"
-                          style={{
-                            backgroundColor: COLORS[index],
-                          }}
-                        ></span>
+                <div className="legend">
+                  {" "}
+                  {expensedata.map((item, index) => (
+                    <div className="legend-item" key={index}>
+                      <span
+                        className="dot"
+                        style={{
+                          backgroundColor: COLORS[index],
+                        }}
+                      ></span>
 
-                        <span>{item.name}</span>
+                      <span>{item.name}</span>
 
-                        <span>₹{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
+                      <span>₹{item.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

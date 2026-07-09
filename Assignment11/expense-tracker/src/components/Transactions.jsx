@@ -5,7 +5,7 @@ const Transactions = () => {
   return (
     <>
       <div className="transactions-card shadow">
-        <h3>Recent Transactions</h3>
+        <h4>Recent Transactions</h4>
 
         {transactions.map((item) => {
           const Icon = item.icon;

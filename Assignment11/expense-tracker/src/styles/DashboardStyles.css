@@ -4,14 +4,14 @@
 }
 .content {
   flex: 1;
-  margin-left: 250px;
+  margin-left: 225px;
   background: #f8fafc;
 }
 .content.collapsed{
     margin-left:80px;
 }
 .sidebar {
-  width: 250px;
+  width: 225px;
   background: #023047;
   color: white;
   padding: 20px;
@@ -46,6 +46,7 @@
   text-decoration:none;
   padding:12px;
   border-radius:12px;
+      font-size: 15px;
 }
 
 .active{
@@ -69,23 +70,15 @@
   align-items: center;
   gap: 10px;
 
-  &:hover {
-   
   
-    border-radius: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    padding-left: 3px;
-  }
 }
 .containercard {
-  padding: 20px;
+  padding: 15px;
 }
 .brand {
   color: #003680;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 .listsidebar {
@@ -94,15 +87,15 @@
   display: flex;
   flex-direction: column;
   padding-top: 20px;
-  gap: 50px;
+  gap: 15px;
   padding-left: 5px;
 }
 .walleticon {
-  color: #21e9ac;
+  color: #3cfbff;;
   font-size: 32px;
 }
 .h2 {
-  font-size: 23px;
+  font-size: 20px;
 }
 header {
   position: sticky;
@@ -113,12 +106,12 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+height: 40px !important;;
   padding: 10px;
 }
 .welcome-card {
   background: #d0ecf0;
-  padding: 25px;
+  padding: 17px;
   border-radius: 15px;
 }
 .cards {
@@ -153,8 +146,8 @@ header {
 }
 
 .transaction-icon {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -163,8 +156,8 @@ header {
   font-size: 20px;
 }
 .transaction-icon2 {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 50% !important;
   display: flex;
   justify-content: center;
@@ -217,11 +210,14 @@ header {
   font-size: 17px;
 }
 .value {
-  font-size: 30px;
+  font-size: 25px;
+}
+.welcome-card-head{
+  font-size:25px;
 }
 .icon-container {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -254,4 +250,35 @@ header {
   text-align: right;
   color: red;
   font-weight: bold;
+}
+.profile-dropdown {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 180px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+  padding: 12px;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color:#12609e;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+  background: #f5f5f5;
+
+}
+.logout{
+  color:red !important;
 }
