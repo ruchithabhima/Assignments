@@ -1,8 +1,8 @@
 export const expensedata = [
-  { name: "Food & Dining", value: 8450 },
-  { name: "Transport", value: 6200 },
-  { name: "Shopping", value: 4800 },
-  { name: "Bills & Utilities", value: 3600 },
-  { name: "Entertainment", value: 2300 },
-  { name: "Others", value: 3000 },
+  { name: "Food & Dining", Value: 8450 },
+  { name: "Transport", Value: 6200 },
+  { name: "Shopping", Value: 4800 },
+  { name: "Bills & Utilities", Value: 3600 },
+  { name: "Entertainment", Value: 2300 },
+  { name: "Others", Value: 3000 },
 ];

@@ -15,7 +15,7 @@ const Navbar = ({ collapsed, setCollapsed }) => {
       : loaction.pathname === "/profile"
         ? "Profile"
         : loaction.pathname === "/settings"
-          ? "Settings"
+          ? "Settings":location.pathname==="/income"?"Income Management":location.pathname==="/expense"?"Expense Management"
           : "Dashboard";
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
@@ -64,11 +64,31 @@ const Navbar = ({ collapsed, setCollapsed }) => {
               </li>
               {showMenu && (
                 <div className="profile-dropdown">
-                  <Link to="/profile">My Profile</Link>
+                  <button
+                    onClick={() => {
+                      navigate("/profile");
+                      setShowMenu(false);
+                    }}
+                  >
+                    My Profile
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate("/settings");
+                      setShowMenu(false);
+                    }}
+                  >
+                    change password
+                  </button>
 
-                  <Link to="/settings">Change Password</Link>
-
-                  <button onClick={handleLogout} className="logout">Logout </button>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setShowMenu(false);
+                    }} className="logout"
+                  >
+                    Logout{" "}
+                  </button>
                 </div>
               )}
             </ul>

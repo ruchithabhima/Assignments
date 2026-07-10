@@ -115,14 +115,14 @@ const Profile = () => {
               <div className="form-group">
                 <label>Full Name</label>
 
-                <div className="input-wrapper">
+                <div className="input-wrapper2">
                   <FaUser />
                   <input
                     type="text"
                     name="fullName"
                     value={profile.fullName}
                     onChange={handleChange}
-                    
+                    placeholder="Enter Your Full Name"
                   />
                 </div>
                 {errors.fullName && (
@@ -136,13 +136,14 @@ const Profile = () => {
               <div className="form-group">
                 <label>Monthly Budget</label>
 
-                <div className="input-wrapper">
+                <div className="input-wrapper2">
                   <MdCurrencyRupee />
                   <input
                     type="number"
                     name="monthlyBudget"
                     value={profile.monthlyBudget}
                     onChange={handleChange}
+                    placeholder="Enter Monthly Budget"
                    
                   />
                 </div>
@@ -157,7 +158,7 @@ const Profile = () => {
               <div className="form-group">
                 <label>Preferred Currency</label>
 
-                <div className="input-wrapper">
+                <div className="input-wrapper2">
                   <FaGlobe />
                   <select
                     name="currency"

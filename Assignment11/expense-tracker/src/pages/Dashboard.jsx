@@ -90,24 +90,6 @@ const user = JSON.parse(localStorage.getItem("user"));
               <h4>Expense Chart</h4>
               <div className="chart-content">
                 <ExpenseChart />
-
-                <div className="legend">
-                  {" "}
-                  {expensedata.map((item, index) => (
-                    <div className="legend-item" key={index}>
-                      <span
-                        className="dot"
-                        style={{
-                          backgroundColor: COLORS[index],
-                        }}
-                      ></span>
-
-                      <span>{item.name}</span>
-
-                      <span>₹{item.value}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>

@@ -10,6 +10,15 @@
 .content.collapsed{
     margin-left:80px;
 }
+.filter-btn{
+  height:42px;
+  padding:0 18px;
+  border:none;
+  border-radius:10px;
+  background:#eef9fb;
+  color:#0ea5a5;
+  cursor:pointer;
+}
 .sidebar {
   width: 225px;
   background: #023047;
@@ -46,7 +55,7 @@
   text-decoration:none;
   padding:12px;
   border-radius:12px;
-      font-size: 15px;
+      font-size: 14px;
 }
 
 .active{
@@ -189,7 +198,7 @@ height: 40px !important;;
   background: white;
   padding: 20px;
   border-radius: 16px;
-  min-width: 40vw;
+  
 }
 .dot {
   width: 10px;
@@ -281,4 +290,73 @@ height: 40px !important;;
 }
 .logout{
   color:red !important;
+}
+.chart-container {
+  display: flex;
+  align-items: center;
+  
+}
+
+.chart-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  width: 215px;
+  padding: 10px;
+
+  background: white;
+  border-radius: 16px;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.info-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+
+  background: #14b8a6;
+}
+
+.info-header h4 {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.info-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+
+  margin-bottom: 8px;
+}
+
+.info-percentage {
+  font-size: 14px;
+  color: #64748b;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

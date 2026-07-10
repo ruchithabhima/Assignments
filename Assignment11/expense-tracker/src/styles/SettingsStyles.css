@@ -19,7 +19,7 @@
   font-size:15px;
 }
 
-.input-wrapper {
+.input-wrapper3 {
   width: 100%;
   display: flex;
   align-items: center;
@@ -29,8 +29,8 @@
   padding: 14px;
 }
 
-.input-wrapper input,
-.input-wrapper select {
+.input-wrapper3 input,
+.input-wrapper3 select {
   width: 100%;
   border: none;
   outline: none;

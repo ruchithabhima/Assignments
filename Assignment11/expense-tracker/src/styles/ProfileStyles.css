@@ -76,7 +76,7 @@
   font-size:15px;
 }
 
-.input-wrapper {
+.input-wrapper2 {
   width: 100%;
   display: flex;
   align-items: center;
@@ -86,12 +86,13 @@
   padding: 14px;
 }
 
-.input-wrapper input,
-.input-wrapper select {
+.input-wrapper2 input,
+.input-wrapper2 select {
   width: 100%;
   border: none;
   outline: none;
   background: transparent;
+ 
 }
 .save-btn {
   width: 100%;

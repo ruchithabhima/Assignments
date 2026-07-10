@@ -66,7 +66,7 @@ const Settings = () => {
             <div className="form-group">
               <label>Current Password</label>
 
-              <div className="input-wrapper">
+              <div className="input-wrapper3">
                 <MdLock />
                 <input
                   type="password"
@@ -81,7 +81,7 @@ const Settings = () => {
 
             <div className="form-group">
               <label>New Password</label>
-              <div className="input-wrapper">
+              <div className="input-wrapper3">
                 <MdLock />
                 <input
                   type="password"
@@ -96,7 +96,7 @@ const Settings = () => {
             </div>
             <div className="form-group">
               <label>New Password</label>
-              <div className="input-wrapper">
+              <div className="input-wrapper3">
                 <MdLock />
                 <input
                   type="password"
