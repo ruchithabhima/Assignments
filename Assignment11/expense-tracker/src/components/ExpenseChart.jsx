@@ -1,17 +1,30 @@
 // ExpenseChart.jsx
-import { expensedata } from "../data/expensedata";
+
 import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import "../styles/DashboardStyles.css";
-function ExpenseChart() {
+function ExpenseChart({ expenseList }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const categoryTotals = {};
 
-  const total = expensedata.reduce((sum, item) => sum + item.Value, 0);
+  expenseList.forEach((expense) => {
+    if (categoryTotals[expense.category]) {
+      categoryTotals[expense.category] += Number(expense.amount);
+    } else {
+      categoryTotals[expense.category] = Number(expense.amount);
+    }
+  });
+
+  const chartData = Object.keys(categoryTotals).map((category) => ({
+    name: category,
+    value: categoryTotals[category],
+  }));
+  const total = chartData.reduce((sum, item) => sum + item.value, 0);
   const handlePieClick = (data, index) => {
     console.log(data);
-    console.log(expensedata[index]);
+    console.log(chartData[index]);
 
-    setSelectedCategory(expensedata[index]);
+    setSelectedCategory(chartData[index]);
   };
   const COLORS = [
     "#14b8a6",
@@ -48,12 +61,12 @@ function ExpenseChart() {
             </text>
 
             <Pie
-              data={expensedata}
-              dataKey="Value"
+              data={chartData}
+              dataKey="value"
               innerRadius={60}
               outerRadius={90}
             >
-              {expensedata.map((entry, index) => (
+              {chartData.map((entry, index) => (
                 <Cell
                   key={index}
                   fill={COLORS[index]}
@@ -70,7 +83,7 @@ function ExpenseChart() {
         <div className="chart-side">
           <div className="legend">
             {" "}
-            {expensedata.map((item, index) => (
+            {chartData.map((item, index) => (
               <div className="legend-item" key={index}>
                 <span
                   className="dot"
@@ -93,7 +106,7 @@ function ExpenseChart() {
                   style={{
                     backgroundColor:
                       COLORS[
-                        expensedata.findIndex(
+                        chartData.findIndex(
                           (item) => item.name === selectedCategory.name,
                         )
                       ],
@@ -102,10 +115,10 @@ function ExpenseChart() {
                 <h4>{selectedCategory.name}</h4>
               </div>
 
-              <div className="info-value">₹{selectedCategory.Value}</div>
+              <div className="info-value">₹{selectedCategory.value}</div>
 
               <div className="info-percentage">
-                {((selectedCategory.Value / total) * 100).toFixed(1)}% of total
+                {((selectedCategory.value / total) * 100).toFixed(1)}% of total
                 expenses
               </div>
             </div>

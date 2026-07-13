@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 const ExpenseManagement = () => {
+  console.log("ExpenseManagement Rendered");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
@@ -17,11 +18,19 @@ const ExpenseManagement = () => {
   const [notes, setNotes] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [expenseList, setExpenseList] = useState([]);
+  const [searchExpense, setSearchExpense] = useState("");
+  const [editId, setEditId] = useState(null);
+  const [sortBy, setSortBy] = useState("");
+  const [fromDate, setFromDate] = useState("");
+const [toDate, setToDate] = useState("");
   useEffect(() => {
     const storedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
     setExpenseList(storedExpenses);
   }, []);
+  useEffect(() => {
+    console.log("Expense List State:", expenseList);
+  }, [expenseList]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -43,31 +52,111 @@ const ExpenseManagement = () => {
         ? Math.max(...existingExpenses.map((expense) => expense.id)) + 1
         : 1;
 
-    const newExpense = {
-      id: newId,
-      name,
-      category,
-      amount,
-      date,
-      paymentMode,
-      notes,
-    };
+    if (editId !== null) {
+      const updatedExpenses = existingExpenses.map((expense) =>
+        expense.id === editId
+          ? {
+              ...expense,
+              name,
+              category,
+              amount,
+              date,
+              paymentMode,
+              notes,
+            }
+          : expense,
+      );
 
-    existingExpenses.push(newExpense);
+      localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
 
-    localStorage.setItem("expenses", JSON.stringify(existingExpenses));
+      setExpenseList(updatedExpenses);
 
-    setExpenseList(existingExpenses);
+      setEditId(null);
+      alert("Expense updated Successfully");
+    } else {
+      const newExpense = {
+        id: newId,
+        name,
+        category,
+        amount,
+        date,
+        paymentMode,
+        notes,
+      };
 
-    setExpenseName("");
+      existingExpenses.push(newExpense);
+
+      localStorage.setItem("expenses", JSON.stringify(existingExpenses));
+
+      setExpenseList(existingExpenses);
+      alert("Expense added Successfully");
+    }
+    setName("");
     setCategory("");
     setAmount("");
     setDate("");
     setPaymentMode("");
     setNotes("");
-
-    alert("Expense Added Successfully");
   };
+  const handleEdit = (id) => {
+    const selectedExpense = expenseList.find((expense) => expense.id === id);
+
+    setName(selectedExpense.name);
+    setCategory(selectedExpense.category);
+    setAmount(selectedExpense.amount);
+    setDate(selectedExpense.date);
+    setPaymentMode(selectedExpense.paymentMode);
+    setNotes(selectedExpense.notes);
+
+    setEditId(id);
+  };
+  const handleDelete = (id) => {
+    const updatedExpenses = expenseList.filter((expense) => expense.id !== id);
+
+    setExpenseList(updatedExpenses);
+
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+    alert("Expense deleted Successfully");
+  };
+  const searchedExpenses = expenseList.filter(
+    (expense) =>
+      expense.name.toLowerCase().includes(searchExpense.toLowerCase()) ||
+      expense.amount.toLowerCase().includes(searchExpense.toLowerCase()) ||
+      expense.paymentMode.toLowerCase().includes(searchExpense.toLowerCase()) ||
+      expense.category.toLowerCase().includes(searchExpense.toLowerCase()),
+  );
+  const filteredExpenses =
+    filterCategory === ""
+      ? searchedExpenses
+      : searchedExpenses.filter(
+          (expense) => expense.category === filterCategory,
+        );
+  const dateFilteredExpenses = filteredExpenses.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+
+    const startDate = fromDate ? new Date(fromDate) : null;
+    const endDate = toDate ? new Date(toDate) : null;
+
+    if (endDate) {
+      endDate.setHours(23, 59, 59, 999);
+    }
+
+    return (
+      (!startDate || expenseDate >= startDate) &&
+      (!endDate || expenseDate <= endDate)
+    );
+  });
+ let sortedExpenses = [...dateFilteredExpenses];
+  if (sortBy === "lowtohigh") {
+    sortedExpenses.sort((a, b) => Number(a.amount) - Number(b.amount));
+  }
+  if (sortBy === "hightolow") {
+    sortedExpenses.sort((a, b) => Number(b.amount) - Number(a.amount));
+  }
+  if (sortBy === "date") {
+    sortedExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+  
   return (
     <>
       <div className="containercard d-flex flex-column gap-2">
@@ -195,11 +284,36 @@ const ExpenseManagement = () => {
           </div>
           <div className="expense-records-card">
             <div className="records-header ">
-            
-              <h2 className="welcome-card-head">Expense Records</h2>
-                <div className="ms-auto">
-              <div className="table-actions">
-                <input type="text" placeholder="Search expenses..." className="search"/>
+              <h2 className="records-title">
+                Expense Records
+                <span className="record-count">({sortedExpenses.length})</span>
+              </h2>
+            </div>
+            <div className=" ms-auto ">
+              <div className="d-flex flex-column gap-2">
+              <div className="d-fex flex-row gap-2">
+                <input
+                  type="text"
+                  placeholder="Search expenses..."
+                  className="search"
+                  value={searchExpense}
+                  onChange={(e) => setSearchExpense(e.target.value)}
+                />
+                <input
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                  className="date-filter"
+                />
+
+                <input
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                  className="date-filter"
+                />
+                </div>
+                 <div className="d-fex flex-row gap-2">
                 <select
                   value={filterCategory}
                   onChange={(e) => setFilterCategory(e.target.value)}
@@ -214,19 +328,23 @@ const ExpenseManagement = () => {
                   <option value="Travel">Travel</option>
                   <option value="Others">Others</option>
                 </select>
-                <select>
-                  <option>Sort By</option>
-                  <option>Date</option>
-                  <option>Amount</option>
-                  <option>Category</option>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                >
+                  <option value="">Sort By</option>
+                  <option value="date">Date</option>
+                  <option value="lowtohigh">Low to High</option>
+                  <option value="hightolow"> High to Low</option>
                 </select>
-                </div>
+              </div>
               </div>
             </div>
 
             <table className="expense-table">
               <thead>
                 <tr>
+                  <th>Expense Name</th>
                   <th>Category</th>
                   <th>Amount</th>
                   <th>Date</th>
@@ -237,8 +355,9 @@ const ExpenseManagement = () => {
               </thead>
 
               <tbody>
-                {expenseList.map((expense) => (
+                {sortedExpenses.map((expense) => (
                   <tr key={expense.id}>
+                    <td>{expense.name}</td>
                     <td>
                       <span className="category-badge">{expense.category}</span>
                     </td>
@@ -251,13 +370,13 @@ const ExpenseManagement = () => {
 
                     <td>{expense.notes}</td>
 
-                    <td>
+                    <td className="d-flex flex-column justify-content-center align-item-center gap-2">
                       <button className="edit-btn">
-                        <FaEdit />
+                        <FaEdit onClick={() => handleEdit(expense.id)} />
                       </button>
 
                       <button className="delete-btn">
-                        <FaTrash />
+                        <FaTrash onClick={() => handleDelete(expense.id)} />
                       </button>
                     </td>
                   </tr>

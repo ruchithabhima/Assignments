@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import IncomeManagement from "./pages/IncomeManagement";
 import ExpenseManagement from "./pages/ExpenseManagement";
 import "./styles/DashboardStyles.css";
+import Reports from "./pages/Reports";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
          <Route path="/settings" element={<Settings />} />
          <Route path="/income" element={<IncomeManagement />} />
          <Route path="/expense" element={<ExpenseManagement />} />
+         <Route path="/report" element={<Reports />} />
         </Route>
       </Routes>
     </BrowserRouter>

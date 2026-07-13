@@ -50,7 +50,7 @@ function Sidebar({ collapsed }) {
         </div>
         <div className="sideicons">
           <NavLink
-            to="/reports"
+            to="/report"
             className={({ isActive }) =>
               isActive ? "menu-link active" : "menu-link"
             }
