@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 import { MdAccountBalanceWallet } from "react-icons/md";
 function Sidebar({ collapsed }) {
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+   <div className={`sidebar ${collapsed ? "collapsed mobile-show" : ""}`}>
       <div className="d-flex gap-2 align-items-center">
         <MdAccountBalanceWallet className="walleticon ml-5" />
         {!collapsed && <h2 className="h2">Expense Tracker</h2>}

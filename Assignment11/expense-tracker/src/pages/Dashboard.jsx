@@ -23,14 +23,23 @@ const Dashboard = () => {
     "#a855f7",
     "#d1d5db",
   ];
-  const user = JSON.parse(localStorage.getItem("user"));
+ 
+  const currentUser = JSON.parse(
+  localStorage.getItem("currentUser")
+);
   const incomeList = JSON.parse(localStorage.getItem("income")) || [];
 
   const expenseList = JSON.parse(localStorage.getItem("expenses")) || [];
-  
+  const userIncomes = incomeList.filter(
+  income => income.userId === currentUser.id
+);
+
+const userExpenses = expenseList.filter(
+  expense => expense.userId === currentUser.id
+);
 
   const transactions = [
-    ...incomeList.map((item) => ({
+    ...userIncomes.map((item) => ({
       id: item.id,
       title: item.source,
       category: "Income",
@@ -39,7 +48,7 @@ const Dashboard = () => {
       type: "income",
     })),
 
-    ...expenseList.map((item) => ({
+    ...userExpenses.map((item) => ({
       id: item.id,
       title: item.name,
       category: item.category,
@@ -56,15 +65,15 @@ const [selectedMonth, setSelectedMonth] = useState(
 );
   const filteredExpenses =
   selectedMonth === "all"
-    ? expenseList
-    : expenseList.filter(
+    ? userExpenses
+    : userExpenses.filter(
         item =>
           new Date(item.date).getMonth() === Number(selectedMonth)
       );
       const filteredIncome =
   selectedMonth === "all"
-    ? incomeList
-    : incomeList.filter(
+    ? userIncomes
+    : userIncomes.filter(
         item =>
           new Date(item.date).getMonth() === Number(selectedMonth)
       );
@@ -100,7 +109,7 @@ const totalTransactions =
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
-  const monthlyIncome = incomeList
+  const monthlyIncome = userIncomes
     .filter((income) => {
       const incomeDate = new Date(income.date);
 
@@ -111,7 +120,7 @@ const totalTransactions =
     })
     .reduce((sum, income) => sum + Number(income.amount), 0);
 
-  const monthlyExpense = expenseList
+  const monthlyExpense = userExpenses
     .filter((expense) => {
       const expenseDate = new Date(expense.date);
 
@@ -135,8 +144,8 @@ const transactionCount=filteredExpenses.length+filteredIncome.length;
 useEffect(() => {
   localStorage.setItem("selectedMonth", selectedMonth);
 }, [selectedMonth]);
-  console.log(incomeList);
-  console.log(expenseList);
+  console.log(userExpenses);
+  console.log(userIncomes);
   console.log(transactions);
   return (
     <>
@@ -145,7 +154,7 @@ useEffect(() => {
           <div className="welcome-card shadow">
             <div>
               <h2 className="welcome-card-head">
-                Welcome Back,{user?.name} 👋
+                Welcome Back,{currentUser?.name} 👋
               </h2>
               <p>Here's what's happening today.</p>
             </div>
@@ -168,7 +177,7 @@ useEffect(() => {
   </select>
 </div>
             
-              <div class="row ">
+              <div className="row ">
               <div className="col-12 col-sm-6 col-lg-4 mb-3">
                 <SummaryCards
                   title="Total Income"
@@ -198,7 +207,7 @@ useEffect(() => {
                  
                 />
               </div>
-              <div className="col-12 col-sm-6 col-lg-4 ">
+              <div className="col-12 col-sm-6 col-lg-4 mb-3">
                 <SummaryCards
                   title="savings/month"
                   value={`₹${balance}`}
@@ -226,7 +235,7 @@ useEffect(() => {
             <div className=" expense-card shadow">
               <h4>Expense Chart</h4>
               <div className="chart-content">
-                <ExpenseChart expenseList={filteredExpenses} />
+                <ExpenseChart userExpenses={filteredExpenses} />
               </div>
             </div>
           </div>

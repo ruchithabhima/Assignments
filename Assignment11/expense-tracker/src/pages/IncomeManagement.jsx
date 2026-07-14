@@ -20,6 +20,12 @@ const IncomeManagement = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [incomeList, setIncomeList] = useState([]);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userIncome =
+incomeList.filter(
+ item =>
+ item.userId === currentUser.id
+);
   useEffect(() => {
     const storedIncome = JSON.parse(localStorage.getItem("income")) || [];
 
@@ -40,7 +46,7 @@ const IncomeManagement = () => {
       existingIncome.length > 0
         ? existingIncome[existingIncome.length - 1].id + 1
         : 1;
-    const newIncome = { id: newId, source, amount, date, remarks };
+    const newIncome = { id: newId,userId: currentUser.id, source, amount, date, remarks };
     existingIncome.push(newIncome);
     localStorage.setItem("income", JSON.stringify(existingIncome));
 
@@ -64,7 +70,7 @@ const IncomeManagement = () => {
             <p>Here you can track and Manage your Income</p>
           </div>
         </div>
-       
+
         <div className="income-page  align-items-start">
           <div className="income-form-card">
             <div className="card-header">
@@ -78,8 +84,9 @@ const IncomeManagement = () => {
                 </label>
 
                 <div className="input-wrapper1">
-                    <div className="pr">
-                  <FaUser className="input-icon " /></div>
+                  <div className="pr">
+                    <FaUser className="input-icon " />
+                  </div>
                   <input
                     type="text"
                     placeholder="Enter income source"
@@ -96,8 +103,9 @@ const IncomeManagement = () => {
                 </label>
 
                 <div className="input-wrapper1">
-                    <div className="pr">
-                  <FaRupeeSign className="input-icon" /></div>
+                  <div className="pr">
+                    <FaRupeeSign className="input-icon" />
+                  </div>
                   <input
                     type="number"
                     placeholder="Enter amount"
@@ -113,8 +121,9 @@ const IncomeManagement = () => {
                 </label>
 
                 <div className="input-wrapper1">
-                    <div className="pr">
-                  <FaCalendarAlt className="input-icon" /></div>
+                  <div className="pr">
+                    <FaCalendarAlt className="input-icon" />
+                  </div>
                   <input
                     type="date"
                     value={date}
@@ -127,8 +136,9 @@ const IncomeManagement = () => {
                 <label>Remarks (Optional)</label>
 
                 <div className="input-wrapper1">
-                    <div className="pr">
-                  <FaRegStickyNote className="input-icon" /></div>
+                  <div className="pr">
+                    <FaRegStickyNote className="input-icon" />
+                  </div>
                   <input
                     type="text"
                     placeholder="Enter remarks (optional)"
@@ -156,7 +166,6 @@ const IncomeManagement = () => {
             <table className="income-table">
               <thead>
                 <tr>
-                  
                   <th>Source</th>
                   <th>Amount</th>
                   <th>Date</th>
@@ -165,10 +174,8 @@ const IncomeManagement = () => {
               </thead>
 
               <tbody>
-                {incomeList.map((income) => (
+                {userIncome.map((income) => (
                   <tr key={income.id}>
-                    
-
                     <td>{income.source}</td>
 
                     <td>₹{income.amount}</td>

@@ -5,7 +5,7 @@ body{
 }
 
 .leftsection{
-    background-color:teal;
+    background-color:#0ba3d7;
     color:white;
     padding:40px;
     font-size:40px;
@@ -45,7 +45,7 @@ background-color:rgb(240, 240, 240);
      
     font-weight:bold;
     font-family: 'open sans', sans-serif;
-    background-color:teal;
+    background-color:#0ba3d7;
     padding:40px;
     font-size:40px;
     width:270px;
@@ -60,10 +60,10 @@ background-color:rgb(240, 240, 240);
 }
 .size{
     font-size:28px;
-    color:teal
+    color:#0ba3d7
 }
 .btn-bg{
-    background-color: teal !important;
+    background-color: #0ba3d7 !important;
     color:white;
     &:hover{
         background-color: black;
@@ -86,4 +86,32 @@ background-color:rgb(240, 240, 240);
     font-size:16px;
     color:red;
     font-family: 'open sans',sans-serif;
+}
+@media (max-width: 768px){
+    .rightsection2{
+        display:none !important;
+    }
+    .leftsection2{
+            width: fit-content;
+    background-color: aliceblue;
+    }
+    .leftsection{
+         display:none !important;
+    
+    }
+    .rightsection{
+        width: fit-content;
+    background-color: aliceblue; 
+    }
+     .box {
+    min-height: auto;
+    width: fit-content;
+  }
+  .form-control{
+   
+    width:300px;
+}
+.container{
+    width:fit-content
+}
 }

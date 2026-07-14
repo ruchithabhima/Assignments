@@ -27,14 +27,15 @@ const Navbar = ({ collapsed, setCollapsed }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+   
+    localStorage.removeItem("isAuthenticated");
     navigate("/signin");
   };
   return (
     <header>
       <nav
         className="navbar navbar-expand-lg navbar-light  times"
-        style={{ backgroundColor: "#f4f4f4", height: "58px" }}
+        style={{ backgroundColor: "#f4f4f4", height: "62px" }}
       >
         <div className="nav-left d-flex gap-2 align-items-center">
           <FaBars
@@ -46,28 +47,14 @@ const Navbar = ({ collapsed, setCollapsed }) => {
           </a>
         </div>
         <div className="nav-right">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            onClick={handleMenuClick}
-          >
-            <i className={`bi ${isOpen ? "bi-x" : "bi-list"}`}></i>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto  gap-2">
-              <li className="nav-item">
+          
                 <Link
                   className="nav-link  transaction-icon2 rounded-3"
                   onClick={() => setShowMenu(!showMenu)}
                 >
                   <FaRegUser />
                 </Link>
-              </li>
+            
               {showMenu && (
                 <div className="profile-dropdown">
                   <button
@@ -98,10 +85,8 @@ const Navbar = ({ collapsed, setCollapsed }) => {
                   </button>
                 </div>
               )}
-            </ul>
-          </div>
-        </div>
-      </nav>
+              </div>
+          </nav>
     </header>
   );
 };

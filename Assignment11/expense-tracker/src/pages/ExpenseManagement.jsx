@@ -23,6 +23,10 @@ const ExpenseManagement = () => {
   const [sortBy, setSortBy] = useState("");
   const [fromDate, setFromDate] = useState("");
 const [toDate, setToDate] = useState("");
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+const userExpenses = expenseList.filter(
+  expense => expense.userId === currentUser.id
+);
   useEffect(() => {
     const storedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
@@ -57,6 +61,7 @@ const [toDate, setToDate] = useState("");
         expense.id === editId
           ? {
               ...expense,
+              
               name,
               category,
               amount,
@@ -76,6 +81,7 @@ const [toDate, setToDate] = useState("");
     } else {
       const newExpense = {
         id: newId,
+        userId:currentUser.id,
         name,
         category,
         amount,
@@ -99,7 +105,7 @@ const [toDate, setToDate] = useState("");
     setNotes("");
   };
   const handleEdit = (id) => {
-    const selectedExpense = expenseList.find((expense) => expense.id === id);
+    const selectedExpense = userExpenses.find((expense) => expense.id === id);
 
     setName(selectedExpense.name);
     setCategory(selectedExpense.category);
@@ -118,7 +124,7 @@ const [toDate, setToDate] = useState("");
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
     alert("Expense deleted Successfully");
   };
-  const searchedExpenses = expenseList.filter(
+  const searchedExpenses = userExpenses.filter(
     (expense) =>
       expense.name.toLowerCase().includes(searchExpense.toLowerCase()) ||
       expense.amount.toLowerCase().includes(searchExpense.toLowerCase()) ||
@@ -289,9 +295,10 @@ const [toDate, setToDate] = useState("");
                 <span className="record-count">({sortedExpenses.length})</span>
               </h2>
             </div>
-            <div className=" ms-auto ">
-              <div className="d-flex flex-column gap-2">
-              <div className="d-fex flex-row gap-2">
+            <div className=" ms-auto table-actions mb-3">
+              
+             
+              
                 <input
                   type="text"
                   placeholder="Search expenses..."
@@ -312,8 +319,9 @@ const [toDate, setToDate] = useState("");
                   onChange={(e) => setToDate(e.target.value)}
                   className="date-filter"
                 />
-                </div>
-                 <div className="d-fex flex-row gap-2">
+               
+                
+                  
                 <select
                   value={filterCategory}
                   onChange={(e) => setFilterCategory(e.target.value)}
@@ -328,6 +336,7 @@ const [toDate, setToDate] = useState("");
                   <option value="Travel">Travel</option>
                   <option value="Others">Others</option>
                 </select>
+                
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
@@ -337,8 +346,7 @@ const [toDate, setToDate] = useState("");
                   <option value="lowtohigh">Low to High</option>
                   <option value="hightolow"> High to Low</option>
                 </select>
-              </div>
-              </div>
+              
             </div>
 
             <table className="expense-table">
@@ -348,8 +356,8 @@ const [toDate, setToDate] = useState("");
                   <th>Category</th>
                   <th>Amount</th>
                   <th>Date</th>
-                  <th>Payment</th>
-                  <th>Notes</th>
+                  <th className="payment-column">Payment</th>
+                  <th className="notes-column">Notes</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -366,9 +374,9 @@ const [toDate, setToDate] = useState("");
 
                     <td>{expense.date}</td>
 
-                    <td>{expense.paymentMode}</td>
+                    <td className="payment-column">{expense.paymentMode}</td>
 
-                    <td>{expense.notes}</td>
+                    <td className="notes-column">{expense.notes}</td>
 
                     <td className="d-flex flex-column justify-content-center align-item-center gap-2">
                       <button className="edit-btn">

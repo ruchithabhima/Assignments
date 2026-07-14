@@ -33,6 +33,7 @@
   border-radius:20px;
   padding:17px;
   box-shadow:0 4px 20px rgba(0,0,0,0.08);
+  min-width:70px;
 }
 
 /* Header */
@@ -155,17 +156,17 @@
 /* Search + Sort */
 
 .table-actions{
-  display:flex;
-  justify-content: space-between;
-  margin-bottom:10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .table-actions input{
-  width:220px;
+  width:110px;
   height:42px;
   border:1px solid #ddd;
   border-radius:10px;
-  padding:0 15px;
+  padding:0 10px;
 }
 
 .table-actions select{
@@ -259,4 +260,23 @@
 
 .delete-btn:hover{
   background:#fee2e2;
+}
+@media (max-width: 768px){
+  .expense-page{
+    display:grid;
+    grid-template-columns: 1fr;
+  }
+  .table-actions{
+      flex-direction: column;
+
+}
+ .table-actions input,
+  .table-actions select {
+    width: 100%;
+  }
+  .notes-column,
+  .payment-column {
+    display: none;
+  }
+
 }

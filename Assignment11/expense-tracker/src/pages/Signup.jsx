@@ -7,17 +7,29 @@ const signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const handleSignup = () => {
+  const handleSignup = (e) => {
+    e.preventDefault();
     if (name.trim === "") {
       setError("Please enter your name");
       return;
     }
     if (password.length < 6) {
       setError("Please enter a stronger password");
-      return
+      return;
     }
-    const user = { name, password };
-    localStorage.setItem("user", JSON.stringify(user));
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const newId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+    const newUser = {
+      id: newId,
+      name,
+      password,
+    };
+
+    users.push(newUser);
+
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
+    localStorage.setItem("isAuthenticated", "true");
     alert("Account Created");
     navigate("/dashboard");
   };
@@ -25,7 +37,7 @@ const signup = () => {
     <>
       <div className="container vh-100 d-flex justify-content-center align-items-center ">
         <div className="row box shadow">
-          <div className="col-md-5 leftsection d-flex flex-column justify-content-center aign-items-center text-center">
+          <div className="col-md-5  leftsection d-flex flex-column justify-content-center aign-items-center text-center">
             <h1>
               Personal <br />
               Expense Tracker
@@ -39,7 +51,7 @@ const signup = () => {
             </a>
           </div>
 
-          <div className="col-md-7 rightsection d-flex flex-column justify-content-center aign-items-center text-success p-5">
+          <div className="col-md-7 col-12 rightsection d-flex flex-column justify-content-center aign-items-center text-success p-5">
             <h1 className="size ">Create Account</h1>
             <p id="checkforerror"></p>
 
@@ -68,7 +80,6 @@ const signup = () => {
                 <button
                   type="submit"
                   className="btn btn-bg rounded-pill mt-4 px-5"
-                 
                 >
                   SIGN UP
                 </button>

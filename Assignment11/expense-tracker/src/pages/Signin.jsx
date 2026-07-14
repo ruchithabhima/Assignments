@@ -7,12 +7,20 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const handleSignin = () => {
-    const user = JSON.parse (localStorage.getItem("user"));
-    if (user && user.name === name && user.password === password) {
+  const handleSignin = (e) => {
+    e.preventDefault();
+    const users = JSON.parse(localStorage.getItem("users"));
+    const foundUser = users.find(
+      (user) => user.name === name && user.password === password,
+    );
+    if (foundUser) {
+      localStorage.setItem("currentUser", JSON.stringify(foundUser));
+
+      localStorage.setItem("isAuthenticated", "true");
+
       navigate("/dashboard");
     } else {
-     setError("Invalid Credentials")
+      setError("Invalid Credentials");
     }
   };
   return (
@@ -24,8 +32,8 @@ const Signin = () => {
           <form onSubmit={handleSignin}>
             <input
               type="text"
-               value={name}
-                onChange={(e) => setName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="form-control mt-3"
               placeholder="Enter Your Name"
             />
@@ -33,13 +41,13 @@ const Signin = () => {
             <input
               type="password"
               value={password}
-                onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="form-control mt-3"
               placeholder="Password"
               maxlength="10"
               minlength="6"
             />
-               <p className="text-danger">{error}</p>
+            <p className="text-danger">{error}</p>
             <div className="text-center">
               <button
                 type="submit"
@@ -51,7 +59,7 @@ const Signin = () => {
           </form>
         </div>
 
-        <div className="col-md-5 rightsection2 d-flex flex-column justify-content-center aign-items-center text-success p-5">
+        <div className="col-md-5 col-12  rightsection2 d-flex flex-column justify-content-center aign-items-center text-success p-5">
           <h1 className="heading text-center">
             Track
             <br /> Your Expenses

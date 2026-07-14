@@ -9,20 +9,21 @@ import IncomeManagement from "./pages/IncomeManagement";
 import ExpenseManagement from "./pages/ExpenseManagement";
 import "./styles/DashboardStyles.css";
 import Reports from "./pages/Reports";
-
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<PublicRoute><Signin /></PublicRoute>} />
         <Route element={<Layout/>}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
-         <Route path="/settings" element={<Settings />} />
-         <Route path="/income" element={<IncomeManagement />} />
-         <Route path="/expense" element={<ExpenseManagement />} />
-         <Route path="/report" element={<Reports />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+         <Route path="/settings" element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
+         <Route path="/income" element={<ProtectedRoute><IncomeManagement /></ProtectedRoute>} />
+         <Route path="/expense" element={<ProtectedRoute><ExpenseManagement /></ProtectedRoute>} />
+         <Route path="/report" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>

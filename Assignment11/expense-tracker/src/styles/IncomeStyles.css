@@ -165,4 +165,11 @@ padding-right: 18px;
 .income-table tr:hover {
   background: #f8fcfd;
 }
+@media (max-width: 768px){
+  .income-page{
+    display:grid;
+    grid-template-columns: 1fr;
+  }
+  
+}
 

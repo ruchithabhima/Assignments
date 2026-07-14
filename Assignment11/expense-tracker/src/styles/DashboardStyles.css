@@ -83,6 +83,7 @@
 }
 .containercard {
   padding: 15px;
+  width:100%
 }
 .brand {
   color: #003680;
@@ -122,6 +123,8 @@ height: 40px !important;;
   background: #d0ecf0;
   padding: 17px;
   border-radius: 15px;
+  min-width:370px;
+  min-width:100%;
 }
 .cards {
   display: grid;
@@ -198,7 +201,7 @@ height: 40px !important;;
   background: white;
   padding: 20px;
   border-radius: 16px;
-  
+  min-width:50px;
 }
 .dot {
   width: 10px;
@@ -400,10 +403,8 @@ height: 40px !important;;
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  @media screen and (max-width: 768px) {
+ 
+ 
   .month-filter-container {
     flex-direction: column;
     align-items: flex-start;
@@ -413,5 +414,33 @@ height: 40px !important;;
   .month-select {
     width: 100%;
   }
+  
+  .grid-con{
+    display:grid;
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    left: -225px;   /* hide full sidebar */
+    width: 225px;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    z-index: 999;
+  }
+
+  .sidebar.collapsed {
+    left: 0;
+    width: 80px;    /* show only icons */
+  }
+ 
+  .content {
+    margin-left: 0;
+  }
+ .chart-container{
+    display:flex;
+    flex-direction: column;
+  }
+
 }
-}
+

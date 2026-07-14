@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import "../styles/DashboardStyles.css";
-function ExpenseChart({ expenseList }) {
+function ExpenseChart({ userExpenses }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categoryTotals = {};
 
-  expenseList.forEach((expense) => {
+  userExpenses.forEach((expense) => {
     if (categoryTotals[expense.category]) {
       categoryTotals[expense.category] += Number(expense.amount);
     } else {

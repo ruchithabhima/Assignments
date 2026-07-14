@@ -12,7 +12,7 @@ const Settings = () => {
     setError("");
     setSuccess("");
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("users"));
     console.log("User:", user);
     console.log("Stored Password:", user?.password);
     console.log("Current Password:", currentPassword);
@@ -42,7 +42,7 @@ const Settings = () => {
       ...user,
       password: newPassword,
     };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    localStorage.setItem("users", JSON.stringify(updatedUser));
     setSuccess("Password updated successfully");
     setTimeout(() => {
       setSuccess("");
