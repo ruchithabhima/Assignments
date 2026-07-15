@@ -27,7 +27,7 @@ const Signin = () => {
     <div className="container  vh-100 d-flex justify-content-center align-items-center ">
       <div className="row box ">
         <div className="col-md-7 leftsection2 d-flex flex-column justify-content-center aign-items-center text-center p-5">
-          <h1>Sign In To Your Account</h1>
+          <h1 className="size">Sign In To Your Account</h1>
           <p id="checkforerror2"></p>
           <form onSubmit={handleSignin}>
             <input

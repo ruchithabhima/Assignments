@@ -9,7 +9,7 @@ body{
     color:white;
     padding:40px;
     font-size:40px;
-    width:320px;
+    width:300px;
     margin:15px;
   
     border-radius:5px;
@@ -20,27 +20,27 @@ body{
     
     font-weight:bold;
     font-family: 'open sans', sans-serif;
-   
+   font-size:34px;
 }
 .container{
-    width:700px;
+    width:640px;
     margin-top:20px;
     border-radius:8px;
 }
 
 .form-control{
     border:none;
-    padding:20px;
-    font-size:20px;
+    padding:15px;
+    font-size:15px;
 
 }
 .rightsection{
-    width:320px;
+    width:300px;
     font-family: 'Roboto', sans-serif;
 }
 .leftsection2{
 background-color:rgb(240, 240, 240);
- width:320px;
+ width:300px;
  font-family: 'Roboto', sans-serif;
 }
 .rightsection2{
@@ -50,7 +50,7 @@ background-color:rgb(240, 240, 240);
     background-color:#0ba3d7;
     padding:40px;
     font-size:40px;
-    width:320px;
+    width:300px;
     margin:15px;
 
     border-radius:5px;
@@ -59,19 +59,20 @@ background-color:rgb(240, 240, 240);
 .heading{
  color:white;
  font-weight:bold;
+     font-size: 30px;
 }
 .size{
-    font-size: 35px;
+    font-size: 30px;
     color: #0ba3d7;
     width: 250px;
 }
 .fontsize{
-    font-size: 21px;;
+    font-size: 16px;;
 }
 .btn-bg{
     background-color: #0ba3d7 !important;
     color:white;
-    font-size:21px !important;
+    font-size:16px !important;
     &:hover{
         background-color: black;
         color:white
