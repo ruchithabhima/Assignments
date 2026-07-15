@@ -2,15 +2,18 @@ import {
   FaHome,
   FaArrowAltCircleUp,
   FaArrowAltCircleDown,
-  FaChartBar,FaUsers
+  FaChartBar,
+  FaUsers,
 } from "react-icons/fa";
 import React from "react";
 import "../styles/DashboardStyles.css";
 import { NavLink } from "react-router-dom";
 import { MdAccountBalanceWallet } from "react-icons/md";
-function Sidebar({ collapsed }) {
+function Sidebar({ collapsed, isSidebarOpen, setIsSidebarOpen }) {
   return (
-   <div className={`sidebar ${collapsed ? "collapsed mobile-show" : ""}`}>
+    <div
+      className={`sidebar ${collapsed ? "collapsed mobile-show" : ""} ${isSidebarOpen ? "mobile-open" : ""}`}
+    >
       <div className="d-flex gap-2 align-items-center">
         <MdAccountBalanceWallet className="walleticon ml-5" />
         {!collapsed && <h2 className="h2">Expense Tracker</h2>}
@@ -23,6 +26,11 @@ function Sidebar({ collapsed }) {
             className={({ isActive }) =>
               isActive ? "menu-link active" : "menu-link"
             }
+            onClick={() => {
+              if (window.innerWidth <= 768) {
+                setIsSidebarOpen(false);
+              }
+            }}
           >
             <FaHome />
             {!collapsed && <li>Dashboard</li>}
@@ -34,6 +42,11 @@ function Sidebar({ collapsed }) {
             className={({ isActive }) =>
               isActive ? "menu-link active" : "menu-link"
             }
+            onClick={() => {
+              if (window.innerWidth <= 768) {
+                setIsSidebarOpen(false);
+              }
+            }}
           >
             <FaArrowAltCircleUp /> {!collapsed && <li>Income</li>}
           </NavLink>
@@ -44,6 +57,11 @@ function Sidebar({ collapsed }) {
             className={({ isActive }) =>
               isActive ? "menu-link active" : "menu-link"
             }
+            onClick={() => {
+              if (window.innerWidth <= 768) {
+                setIsSidebarOpen(false);
+              }
+            }}
           >
             <FaArrowAltCircleDown /> {!collapsed && <li>Expenses</li>}
           </NavLink>
@@ -54,6 +72,11 @@ function Sidebar({ collapsed }) {
             className={({ isActive }) =>
               isActive ? "menu-link active" : "menu-link"
             }
+            onClick={() => {
+              if (window.innerWidth <= 768) {
+                setIsSidebarOpen(false);
+              }
+            }}
           >
             <FaChartBar /> {!collapsed && <li>Reports</li>}
           </NavLink>
@@ -64,6 +87,11 @@ function Sidebar({ collapsed }) {
             className={({ isActive }) =>
               isActive ? "menu-link active" : "menu-link"
             }
+            onClick={() => {
+              if (window.innerWidth <= 768) {
+                setIsSidebarOpen(false);
+              }
+            }}
           >
             <FaUsers /> {!collapsed && <li>Users</li>}
           </NavLink>

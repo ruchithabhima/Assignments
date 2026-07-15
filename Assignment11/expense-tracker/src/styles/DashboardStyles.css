@@ -56,7 +56,7 @@
   text-decoration:none;
   padding:12px;
   border-radius:12px;
-      font-size: 14px;
+      font-size: 18px;
 }
 
 .active{
@@ -119,7 +119,7 @@ header {
   align-items: center;
 height: 40px !important;;
   padding: 10px;
-  min-height:7vh;
+  min-height:8vh;
 }
 .welcome-card {
   background: #d0ecf0;
@@ -427,10 +427,12 @@ height: 40px !important;;
     width: 225px;
     position: fixed;
     top: 0;
-    height: 100vh;
+  height:100vh;
     z-index: 999;
   }
-
+ .sidebar.mobile-open {
+    left: 0;
+  }
   .sidebar.collapsed {
     left: 0;
     width: 80px;    /* show only icons */
@@ -447,8 +449,6 @@ height: 40px !important;;
    width: 30px;
   height: 30px;
 }
-.navbar{
-  min-height:11vh;
-}
+
 }
 

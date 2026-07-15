@@ -3,7 +3,12 @@ import "../styles/DashboardStyles.css";
 import { FaRegUser, FaCog, FaBars } from "react-icons/fa";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-const Navbar = ({ collapsed, setCollapsed }) => {
+const Navbar = ({
+  collapsed,
+  setCollapsed,
+  isSidebarOpen,
+  setIsSidebarOpen,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleMenuClick = () => {
     setIsOpen(!isOpen);
@@ -21,13 +26,14 @@ const Navbar = ({ collapsed, setCollapsed }) => {
             : location.pathname === "/expense"
               ? "Expense Management"
               : location.pathname === "/report"
-                ? "Reports":location.pathname==="/users"?"Users"
-                : "Dashboard";
+                ? "Reports"
+                : location.pathname === "/users"
+                  ? "Users"
+                  : "Dashboard";
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-   
     localStorage.removeItem("isAuthenticated");
     navigate("/signin");
   };
@@ -40,53 +46,58 @@ const Navbar = ({ collapsed, setCollapsed }) => {
         <div className="nav-left d-flex gap-2 align-items-center">
           <FaBars
             className="hamburger"
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={() => {
+              if (window.innerWidth <= 768) {
+                setIsSidebarOpen(!isSidebarOpen);
+              } else {
+                setCollapsed(!collapsed);
+              }
+            }}
           />
           <a className="navbar-brand name brand" href="#">
             {pageTitle}
           </a>
         </div>
         <div className="nav-right">
-          
-                <Link
-                  className="nav-link  transaction-icon2 rounded-3"
-                  onClick={() => setShowMenu(!showMenu)}
-                >
-                  <FaRegUser />
-                </Link>
-            
-              {showMenu && (
-                <div className="profile-dropdown">
-                  <button
-                    onClick={() => {
-                      navigate("/profile");
-                      setShowMenu(false);
-                    }}
-                  >
-                    My Profile
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigate("/settings");
-                      setShowMenu(false);
-                    }}
-                  >
-                    change password
-                  </button>
+          <Link
+            className="nav-link  transaction-icon2 rounded-3"
+            onClick={() => setShowMenu(!showMenu)}
+          >
+            <FaRegUser />
+          </Link>
 
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setShowMenu(false);
-                    }}
-                    className="logout"
-                  >
-                    Logout{" "}
-                  </button>
-                </div>
-              )}
-              </div>
-          </nav>
+          {showMenu && (
+            <div className="profile-dropdown">
+              <button
+                onClick={() => {
+                  navigate("/profile");
+                  setShowMenu(false);
+                }}
+              >
+                My Profile
+              </button>
+              <button
+                onClick={() => {
+                  navigate("/settings");
+                  setShowMenu(false);
+                }}
+              >
+                change password
+              </button>
+
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setShowMenu(false);
+                }}
+                className="logout"
+              >
+                Logout{" "}
+              </button>
+            </div>
+          )}
+        </div>
+      </nav>
     </header>
   );
 };
