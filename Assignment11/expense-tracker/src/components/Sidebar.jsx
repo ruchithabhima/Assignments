@@ -2,7 +2,7 @@ import {
   FaHome,
   FaArrowAltCircleUp,
   FaArrowAltCircleDown,
-  FaChartBar,
+  FaChartBar,FaUsers
 } from "react-icons/fa";
 import React from "react";
 import "../styles/DashboardStyles.css";
@@ -56,6 +56,16 @@ function Sidebar({ collapsed }) {
             }
           >
             <FaChartBar /> {!collapsed && <li>Reports</li>}
+          </NavLink>
+        </div>
+        <div className="sideicons">
+          <NavLink
+            to="/users"
+            className={({ isActive }) =>
+              isActive ? "menu-link active" : "menu-link"
+            }
+          >
+            <FaUsers /> {!collapsed && <li>Users</li>}
           </NavLink>
         </div>
       </ul>

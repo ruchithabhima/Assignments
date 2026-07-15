@@ -1,11 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import "../styles/DashboardStyles.css";
 import SummaryCards from "../components/SummaryCards";
 import Transactions from "../components/Transactions";
 import ExpenseChart from "../components/ExpenseChart";
-
 
 import {
   MdTrendingUp,
@@ -23,20 +22,18 @@ const Dashboard = () => {
     "#a855f7",
     "#d1d5db",
   ];
- 
-  const currentUser = JSON.parse(
-  localStorage.getItem("currentUser")
-);
+
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const incomeList = JSON.parse(localStorage.getItem("income")) || [];
 
   const expenseList = JSON.parse(localStorage.getItem("expenses")) || [];
   const userIncomes = incomeList.filter(
-  income => income.userId === currentUser.id
-);
+    (income) => income.userId === currentUser.id,
+  );
 
-const userExpenses = expenseList.filter(
-  expense => expense.userId === currentUser.id
-);
+  const userExpenses = expenseList.filter(
+    (expense) => expense.userId === currentUser.id,
+  );
 
   const transactions = [
     ...userIncomes.map((item) => ({
@@ -57,93 +54,64 @@ const userExpenses = expenseList.filter(
       type: "expense",
     })),
   ];
- 
 
-  
-const [selectedMonth, setSelectedMonth] = useState(
-  localStorage.getItem("selectedMonth") || new Date().getMonth().toString()
-);
+  const [selectedMonth, setSelectedMonth] = useState(
+    localStorage.getItem("selectedMonth") || new Date().getMonth().toString(),
+  );
   const filteredExpenses =
-  selectedMonth === "all"
-    ? userExpenses
-    : userExpenses.filter(
-        item =>
-          new Date(item.date).getMonth() === Number(selectedMonth)
-      );
-      const filteredIncome =
-  selectedMonth === "all"
-    ? userIncomes
-    : userIncomes.filter(
-        item =>
-          new Date(item.date).getMonth() === Number(selectedMonth)
-      );
-      const totalIncome = filteredIncome.reduce(
-  (sum, item) => sum + Number(item.amount),
-  0
-);
+    selectedMonth === "all"
+      ? userExpenses
+      : userExpenses.filter(
+          (item) => new Date(item.date).getMonth() === Number(selectedMonth),
+        );
+  const filteredIncome =
+    selectedMonth === "all"
+      ? userIncomes
+      : userIncomes.filter(
+          (item) => new Date(item.date).getMonth() === Number(selectedMonth),
+        );
+  const totalIncome = filteredIncome.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0,
+  );
 
-const totalExpense = filteredExpenses.reduce(
-  (sum, item) => sum + Number(item.amount),
-  0
-);
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+  const totalExpense = filteredExpenses.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0,
+  );
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
+  const totalTransactions = filteredIncome.length + filteredExpenses.length;
+  const currentDate = new Date();
 
-const totalTransactions =
-  filteredIncome.length + filteredExpenses.length;
-   const currentDate = new Date();
+  const balance = totalIncome - totalExpense;
 
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
-
-  const monthlyIncome = userIncomes
-    .filter((income) => {
-      const incomeDate = new Date(income.date);
-
-      return (
-        incomeDate.getMonth() === currentMonth &&
-        incomeDate.getFullYear() === currentYear
-      );
-    })
-    .reduce((sum, income) => sum + Number(income.amount), 0);
-
-  const monthlyExpense = userExpenses
-    .filter((expense) => {
-      const expenseDate = new Date(expense.date);
-
-      return (
-        expenseDate.getMonth() === currentMonth &&
-        expenseDate.getFullYear() === currentYear
-      );
-    })
-    .reduce((sum, expense) => sum + Number(expense.amount), 0);
-    const balance =totalIncome - totalExpense;
-   
-    const filteredTransactions =
-  selectedMonth === "all"
-    ? transactions
-    : transactions.filter(
-        item =>
-          new Date(item.date).getMonth() === Number(selectedMonth)
-      );
-const transactionCount=filteredExpenses.length+filteredIncome.length;
-
-useEffect(() => {
-  localStorage.setItem("selectedMonth", selectedMonth);
-}, [selectedMonth]);
+  const filteredTransactions =
+    selectedMonth === "all"
+      ? transactions
+      : transactions.filter(
+          (item) => new Date(item.date).getMonth() === Number(selectedMonth),
+        );
+  const transactionCount = filteredExpenses.length + filteredIncome.length;
+  useEffect(() => {
+    localStorage.setItem("selectedMonth", selectedMonth);
+  }, [selectedMonth]);
+  useEffect(() => {
+    localStorage.setItem("selectedMonth", selectedMonth);
+  }, [selectedMonth]);
   console.log(userExpenses);
   console.log(userIncomes);
   console.log(transactions);
@@ -160,74 +128,75 @@ useEffect(() => {
             </div>
           </div>
           <div className="month-filter-container">
-  <div className="month-info">
-    <h4>{monthNames[selectedMonth]} 2026</h4>
-    <p>Track your income and expenses for the selected month</p>
-  </div>
+            <div className="month-info">
+              <h4>
+                {selectedMonth === "all"
+                  ? "Year 2026"
+                  : `${monthNames[selectedMonth]} 2026`}
+              </h4>
+              <p>Track your income and expenses for the selected month</p>
+            </div>
 
-  <select
-    value={selectedMonth}
-    onChange={(e) => setSelectedMonth(e.target.value)}
-  >
-    {monthNames.map((month, index) => (
-      <option key={index} value={index}>
-        {month}
-      </option>
-    ))}
-  </select>
-</div>
-            
-              <div className="row ">
-              <div className="col-12 col-sm-6 col-lg-4 mb-3">
-                <SummaryCards
-                  title="Total Income"
-                  value={`₹${totalIncome}`}
-                  color="#16a34a"
-                  bgColor="#add8bc"
-                  Icon={MdTrendingUp}
-                />
-              </div>
-              <div className="col-12 col-sm-6 col-lg-4 mb-3">
-                <SummaryCards
-                  title="Total Expenses"
-                  value={`₹${totalExpense}`}
-                  color="#ef4444"
-                  bgColor="#fee2e2"
-                  Icon={MdTrendingDown}
-                
-                />
-              </div>
-              <div className="col-12 col-sm-6 col-md-4 mb-3">
-                <SummaryCards
-                  title="Balance"
-                  value={`₹${balance}`}
-                  color="#2563eb"
-                  bgColor="#dbeafe"
-                  Icon={MdAccountBalanceWallet}
-                 
-                />
-              </div>
-              <div className="col-12 col-sm-6 col-lg-4 mb-3">
-                <SummaryCards
-                  title="savings/month"
-                  value={`₹${balance}`}
-                  color="#b91091"
-                  bgColor="#ead1fa"
-                  Icon={FaPiggyBank}
-                 
-                />
-              </div>
-              <div className="col-12 col-sm-6 col-lg-4">
-                <SummaryCards
-                  title="No.of Transactions"
-                  value={transactionCount}
-                  color="#f59e0b"
-                  bgColor="#fef3c7"
-                  Icon={MdReceiptLong}
-                 
-                />
-              </div>
-            
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+            >
+              <option value="all">All</option>
+
+              {monthNames.map((month, index) => (
+                <option key={index} value={index}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="row ">
+            <div className="col-12 col-sm-6 col-lg-4 mb-3">
+              <SummaryCards
+                title="Total Income"
+                value={`₹${totalIncome}`}
+                color="#16a34a"
+                bgColor="#add8bc"
+                Icon={MdTrendingUp}
+              />
+            </div>
+            <div className="col-12 col-sm-6 col-lg-4 mb-3">
+              <SummaryCards
+                title="Total Expenses"
+                value={`₹${totalExpense}`}
+                color="#ef4444"
+                bgColor="#fee2e2"
+                Icon={MdTrendingDown}
+              />
+            </div>
+            <div className="col-12 col-sm-6 col-md-4 mb-3">
+              <SummaryCards
+                title="Balance"
+                value={`₹${balance}`}
+                color="#2563eb"
+                bgColor="#dbeafe"
+                Icon={MdAccountBalanceWallet}
+              />
+            </div>
+            <div className="col-12 col-sm-6 col-lg-4 mb-3">
+              <SummaryCards
+                title="savings/month"
+                value={`₹${balance}`}
+                color="#b91091"
+                bgColor="#ead1fa"
+                Icon={FaPiggyBank}
+              />
+            </div>
+            <div className="col-12 col-sm-6 col-lg-4">
+              <SummaryCards
+                title="No.of Transactions"
+                value={transactionCount}
+                color="#f59e0b"
+                bgColor="#fef3c7"
+                Icon={MdReceiptLong}
+              />
+            </div>
           </div>
           <div className="grid-con ">
             <Transactions transactions={filteredTransactions} />

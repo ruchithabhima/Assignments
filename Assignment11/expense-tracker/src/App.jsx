@@ -11,6 +11,7 @@ import "./styles/DashboardStyles.css";
 import Reports from "./pages/Reports";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import Users from "./pages/Users";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
          <Route path="/income" element={<ProtectedRoute><IncomeManagement /></ProtectedRoute>} />
          <Route path="/expense" element={<ProtectedRoute><ExpenseManagement /></ProtectedRoute>} />
          <Route path="/report" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
+         <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -160,7 +160,7 @@ const Profile = () => {
 
                 <div className="input-wrapper2">
                   <FaGlobe />
-                  <select
+                  <select className="border"
                     name="currency"
                     value={profile.currency}
                     onChange={handleChange}

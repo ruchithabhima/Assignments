@@ -21,7 +21,7 @@ const Navbar = ({ collapsed, setCollapsed }) => {
             : location.pathname === "/expense"
               ? "Expense Management"
               : location.pathname === "/report"
-                ? "Reports"
+                ? "Reports":location.pathname==="/users"?"Users"
                 : "Dashboard";
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Navbar = ({ collapsed, setCollapsed }) => {
     <header>
       <nav
         className="navbar navbar-expand-lg navbar-light  times"
-        style={{ backgroundColor: "#f4f4f4", height: "62px" }}
+        style={{ backgroundColor: "#f4f4f4", height: "65px" }}
       >
         <div className="nav-left d-flex gap-2 align-items-center">
           <FaBars

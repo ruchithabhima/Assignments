@@ -23,6 +23,8 @@ const signup = () => {
       id: newId,
       name,
       password,
+
+      joinedDate: new Date().toLocaleDateString(),
     };
 
     users.push(newUser);
@@ -36,7 +38,7 @@ const signup = () => {
   return (
     <>
       <div className="container vh-100 d-flex justify-content-center align-items-center ">
-        <div className="row box shadow">
+        <div className="row box ">
           <div className="col-md-5  leftsection d-flex flex-column justify-content-center aign-items-center text-center">
             <h1>
               Personal <br />
@@ -45,7 +47,7 @@ const signup = () => {
 
             <a
               href="signin"
-              className="btn btn-outline-light rounded-pill px-5 mt-3"
+              className="btn btn-outline-light rounded-pill px-5 mt-3 fontsize"
             >
               SIGN IN
             </a>
@@ -79,7 +81,7 @@ const signup = () => {
               <div class="text-center">
                 <button
                   type="submit"
-                  className="btn btn-bg rounded-pill mt-4 px-5"
+                  className="btn btn-bg rounded-pill mt-4 px-5 "
                 >
                   SIGN UP
                 </button>

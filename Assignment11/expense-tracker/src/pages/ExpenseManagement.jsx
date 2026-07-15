@@ -79,6 +79,8 @@ const userExpenses = expenseList.filter(
       setEditId(null);
       alert("Expense updated Successfully");
     } else {
+      console.log("Current User:", currentUser);
+      console.log(currentUser.id);
       const newExpense = {
         id: newId,
         userId:currentUser.id,
@@ -352,7 +354,7 @@ const userExpenses = expenseList.filter(
             <table className="expense-table">
               <thead>
                 <tr>
-                  <th>Expense Name</th>
+                  <th className="payment-column">Expense Name</th>
                   <th>Category</th>
                   <th>Amount</th>
                   <th>Date</th>
@@ -365,7 +367,7 @@ const userExpenses = expenseList.filter(
               <tbody>
                 {sortedExpenses.map((expense) => (
                   <tr key={expense.id}>
-                    <td>{expense.name}</td>
+                    <td className="payment-column">{expense.name}</td>
                     <td>
                       <span className="category-badge">{expense.category}</span>
                     </td>

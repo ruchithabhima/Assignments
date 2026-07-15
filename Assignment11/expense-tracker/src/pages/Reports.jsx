@@ -8,10 +8,8 @@ import {
   MdAccountBalanceWallet,
 } from "react-icons/md";
 const Reports = () => {
-
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
- 
- 
+
   const [transactions, setTransactions] = useState([]);
   const incomeData = JSON.parse(localStorage.getItem("income")) || [];
   const expenseData = JSON.parse(localStorage.getItem("expenses")) || [];
@@ -23,69 +21,75 @@ const Reports = () => {
     (expense) => expense.userId === currentUser.id,
   );
   const [fromDate, setFromDate] = useState(
-  localStorage.getItem("fromDate") || ""
-);
-
-const [toDate, setToDate] = useState(
-  localStorage.getItem("toDate") || ""
-);
-useEffect(() => {
-  localStorage.setItem("fromDate", fromDate);
-}, [fromDate]);
-
-useEffect(() => {
-  localStorage.setItem("toDate", toDate);
-}, [toDate]);
- const filteredIncomes = userIncomes.filter((income) => {
-  const incomeDate = new Date(income.date);
-
-  const startDate = fromDate ? new Date(fromDate) : null;
-  const endDate = toDate ? new Date(toDate) : null;
-
-  if (endDate) {
-    endDate.setHours(23, 59, 59, 999);
-  }
-
-  return (
-    (!startDate || incomeDate >= startDate) &&
-    (!endDate || incomeDate <= endDate)
+    localStorage.getItem(`fromDate_${currentUser.id}`) || "",
   );
-});
-const filteredExpenses = userExpenses.filter((expense) => {
-  const expenseDate = new Date(expense.date);
 
-  const startDate = fromDate ? new Date(fromDate) : null;
-  const endDate = toDate ? new Date(toDate) : null;
-
-  if (endDate) {
-    endDate.setHours(23, 59, 59, 999);
-  }
-
-  return (
-    (!startDate || expenseDate >= startDate) &&
-    (!endDate || expenseDate <= endDate)
+  const [toDate, setToDate] = useState(
+    localStorage.getItem(`toDate_${currentUser.id}`) || "",
   );
-});
-const totalIncome = filteredIncomes.reduce(
-  (sum, item) => sum + Number(item.amount),
-  0
-);
+  useEffect(() => {
+  localStorage.setItem(
+    `fromDate_${currentUser.id}`,
+    fromDate
+  );
+}, [fromDate, currentUser.id]);
+useEffect(() => {
+  localStorage.setItem(
+    `toDate_${currentUser.id}`,
+    toDate
+  );
+}, [toDate, currentUser.id]);
 
-const totalExpense = filteredExpenses.reduce(
-  (sum, item) => sum + Number(item.amount),
-  0
-);
-const allTransactions = [
-  ...filteredIncomes.map((item) => ({
-    ...item,
-    type: "Income",
-  })),
-  ...filteredExpenses.map((item) => ({
-    ...item,
-    type: "Expense",
-  })),
-];
-const balance = totalIncome - totalExpense;
+  const filteredIncomes = userIncomes.filter((income) => {
+    const incomeDate = new Date(income.date);
+
+    const startDate = fromDate ? new Date(fromDate) : null;
+    const endDate = toDate ? new Date(toDate) : null;
+
+    if (endDate) {
+      endDate.setHours(23, 59, 59, 999);
+    }
+
+    return (
+      (!startDate || incomeDate >= startDate) &&
+      (!endDate || incomeDate <= endDate)
+    );
+  });
+  const filteredExpenses = userExpenses.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+
+    const startDate = fromDate ? new Date(fromDate) : null;
+    const endDate = toDate ? new Date(toDate) : null;
+
+    if (endDate) {
+      endDate.setHours(23, 59, 59, 999);
+    }
+
+    return (
+      (!startDate || expenseDate >= startDate) &&
+      (!endDate || expenseDate <= endDate)
+    );
+  });
+  const totalIncome = filteredIncomes.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0,
+  );
+
+  const totalExpense = filteredExpenses.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0,
+  );
+  const allTransactions = [
+    ...filteredIncomes.map((item) => ({
+      ...item,
+      type: "Income",
+    })),
+    ...filteredExpenses.map((item) => ({
+      ...item,
+      type: "Expense",
+    })),
+  ];
+  const balance = totalIncome - totalExpense;
   return (
     <>
       <div className="containercard d-flex flex-column gap-2">

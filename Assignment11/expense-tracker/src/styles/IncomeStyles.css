@@ -140,6 +140,7 @@ padding-right: 18px;
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  min-width: 70px;
 }
 
 .income-table {
@@ -155,6 +156,7 @@ padding-right: 18px;
   padding: 16px;
   text-align: left;
   font-size: 14px;
+  min-width: 70px;
 }
 
 .income-table td {

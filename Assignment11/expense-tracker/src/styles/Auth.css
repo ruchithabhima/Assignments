@@ -9,7 +9,7 @@ body{
     color:white;
     padding:40px;
     font-size:40px;
-    width:270px;
+    width:320px;
     margin:15px;
   
     border-radius:5px;
@@ -23,22 +23,24 @@ body{
    
 }
 .container{
-    width:600px;
+    width:700px;
     margin-top:20px;
     border-radius:8px;
 }
 
 .form-control{
     border:none;
-    padding:12px;
+    padding:20px;
+    font-size:20px;
+
 }
 .rightsection{
-    width:300px;
+    width:320px;
     font-family: 'Roboto', sans-serif;
 }
 .leftsection2{
 background-color:rgb(240, 240, 240);
- width:300px;
+ width:320px;
  font-family: 'Roboto', sans-serif;
 }
 .rightsection2{
@@ -48,7 +50,7 @@ background-color:rgb(240, 240, 240);
     background-color:#0ba3d7;
     padding:40px;
     font-size:40px;
-    width:270px;
+    width:320px;
     margin:15px;
 
     border-radius:5px;
@@ -59,22 +61,29 @@ background-color:rgb(240, 240, 240);
  font-weight:bold;
 }
 .size{
-    font-size:28px;
-    color:#0ba3d7
+    font-size: 35px;
+    color: #0ba3d7;
+    width: 250px;
+}
+.fontsize{
+    font-size: 21px;;
 }
 .btn-bg{
     background-color: #0ba3d7 !important;
     color:white;
+    font-size:21px !important;
     &:hover{
         background-color: black;
         color:white
     }
+    
 }
 .box{
     width:1000px;
     min-height:550px;
     border-radius:20px;
     overflow:hidden;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 
 }
 #checkforerror{
@@ -106,12 +115,15 @@ background-color:rgb(240, 240, 240);
      .box {
     min-height: auto;
     width: fit-content;
+    box-shadow:none;
   }
   .form-control{
    
     width:300px;
 }
 .container{
-    width:fit-content
+    min-height:100vh;
+    max-width:fit-content;
+    background-color: aliceblue;
 }
 }

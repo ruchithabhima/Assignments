@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import { MdLock } from "react-icons/md";
+import {FaTrash,FaEye, FaEyeSlash } from "react-icons/fa";
 import "../styles/SettingsStyles.css";
 const Settings = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+  const [showPassword3, setShowPassword3] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const handleChangePassword = (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-
-    const user = JSON.parse(localStorage.getItem("users"));
-    console.log("User:", user);
-    console.log("Stored Password:", user?.password);
+    const users = JSON.parse(localStorage.getItem("users"));
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const selectedUser = users.find((user) => user.id === currentUser.id);
+    console.log("User:", users);
+    console.log("Stored Password:", currentUser?.password);
     console.log("Current Password:", currentPassword);
-    if (user.password !== currentPassword) {
+    if (currentUser.password !== currentPassword) {
       setError("Current password is incorrect");
 
       setTimeout(() => {
@@ -38,11 +43,20 @@ const Settings = () => {
       }, 5000);
       return;
     }
-    const updatedUser = {
-      ...user,
+    const updatedUser = users.map((user) =>
+      user.id === currentUser.id
+        ? {
+            ...user,
+            password: newPassword,
+          }
+        : user,
+    );
+    const updatedCurrentUser = {
+      ...currentUser,
       password: newPassword,
     };
     localStorage.setItem("users", JSON.stringify(updatedUser));
+    localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
     setSuccess("Password updated successfully");
     setTimeout(() => {
       setSuccess("");
@@ -66,46 +80,69 @@ const Settings = () => {
             <div className="form-group">
               <label>Current Password</label>
 
-              <div className="input-wrapper3">
+              <div className="input-wrapper3 position-relative ">
                 <MdLock />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="currentPassword"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   placeholder="Enter current password"
-                  required
+                  required className="password-input"
                 />
+                <button
+                  type="button"
+                  className="btn position-absolute top-50 end-0 translate-middle-y border-0 bg-transparent"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
             </div>
 
             <div className="form-group">
               <label>New Password</label>
-              <div className="input-wrapper3">
+              <div className="input-wrapper3 position-relative">
                 <MdLock />
                 <input
-                  type="password"
+                   type={showPassword2 ? "text" : "password"}
                   name="newPassword"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Enter new password"
                   required
                   minLength={6}
+                  required className="password-input"
                 />
+                <button
+                  type="button"
+                  className="btn position-absolute top-50 end-0 translate-middle-y border-0 bg-transparent"
+                  onClick={() => setShowPassword2(!showPassword2)}
+                >
+                  {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
             </div>
             <div className="form-group">
               <label>New Password</label>
-              <div className="input-wrapper3">
+              <div className="input-wrapper3 position-relative">
                 <MdLock />
                 <input
-                  type="password"
+                  type={showPassword3 ? "text" : "password"}
                   name="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm new password"
                   required
+                  required className="password-input"
                 />
+                <button
+                  type="button"
+                  className="btn position-absolute top-50 end-0 translate-middle-y border-0 bg-transparent"
+                  onClick={() => setShowPassword3(!showPassword3)}
+                >
+                  {showPassword3 ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
             </div>
 

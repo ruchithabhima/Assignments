@@ -85,7 +85,9 @@
   border-radius: 12px;
   padding: 14px;
 }
-
+.border{
+  border:0px solid #ddd !important;
+}
 .input-wrapper2 input,
 .input-wrapper2 select {
   width: 100%;
