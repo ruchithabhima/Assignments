@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/ReportStyles.css";
 import { useState, useEffect } from "react";
 import SummaryCards from "../components/SummaryCards";
+import { FaCalendarAlt } from "react-icons/fa";
 import {
   MdTrendingUp,
   MdTrendingDown,
@@ -102,20 +103,30 @@ useEffect(() => {
         <div className="date-filter-card shadow">
           <div className="date-group">
             <label>From Date</label>
-            <input
-              type="date"
+             <div className="input-wrapper1">
+             
+            <FaCalendarAlt className="input-icon" />
+           
+            <input className="padding"
+              type="date" placeholder="From Date"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
             />
+            </div>
           </div>
 
           <div className="date-group">
             <label>To Date</label>
-            <input
-              type="date"
+            <div className="input-wrapper1">
+             
+            <FaCalendarAlt className="input-icon" />
+           
+            <input className="padding"
+              type="date" placeholder="To Date"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
             />
+            </div>
           </div>
         </div>
 

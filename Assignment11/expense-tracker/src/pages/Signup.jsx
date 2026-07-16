@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/Auth.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,8 @@ const signup = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+    const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   const handleSignup = (e) => {
     e.preventDefault();
@@ -32,7 +35,10 @@ const signup = () => {
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("currentUser", JSON.stringify(newUser));
     localStorage.setItem("isAuthenticated", "true");
-    alert("Account Created");
+    setSuccess("Account Created Successfully");
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
     navigate("/dashboard");
   };
   return (
@@ -85,6 +91,13 @@ const signup = () => {
                 >
                   SIGN UP
                 </button>
+                <p className="mt-3 blue d-block d-md-none">
+                  Already have an account?
+                  <Link to="/signin" className="ms-2 text-decoration-none">
+                    Sign In
+                  </Link>
+                </p>
+                 {success && <p className="success-message">{success}</p>}
               </div>
             </form>
           </div>

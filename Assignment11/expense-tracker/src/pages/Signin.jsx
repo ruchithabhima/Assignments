@@ -47,7 +47,7 @@ const Signin = () => {
               maxlength="10"
               minlength="6"
             />
-            <p className="text-danger">{error}</p>
+            {error && <p className="error-message">{error}</p>}
             <div className="text-center">
               <button
                 type="submit"

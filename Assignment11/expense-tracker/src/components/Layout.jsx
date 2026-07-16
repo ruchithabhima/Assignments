@@ -13,7 +13,11 @@ const Layout = () => {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <div className={`content ${collapsed ? "collapsed" : ""}`}>
+        <div
+          className={`content ${
+            isSidebarOpen ? "sidebar-open" : ""
+          } ${collapsed ? "collapsed" : ""}`}
+        >
           <Navbar
             collapsed={collapsed}
             setCollapsed={setCollapsed}

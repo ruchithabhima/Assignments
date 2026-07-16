@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
   FaUsers,
-  FaUser,
   FaPlusCircle,
   FaEdit,
   FaTrash,
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
-import { MdLock } from "react-icons/md";
+
 
 const Users = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +16,8 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [editId, setEditId] = useState(null);
   const [error, setError] = useState("");
+  
+      const [success, setSuccess] = useState("");
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -63,7 +64,10 @@ const Users = () => {
 
       setEditId(null);
 
-      alert("User Updated Successfully");
+     setSuccess("User Updated Successfully");
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
     } else {
       const newUser = {
         id: Date.now(),
@@ -78,7 +82,10 @@ const Users = () => {
 
       localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-      alert("User Added Successfully");
+      setSuccess("User Added Successfully");
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
     }
 
     setName("");
@@ -99,7 +106,10 @@ const Users = () => {
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-    alert("User Deleted Successfully");
+  setSuccess("User Deleted Successfully");
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
   };
   return (
     <>
@@ -123,9 +133,7 @@ const Users = () => {
                 </label>
 
                 <div className="input-wrapper1">
-                  <div className="pr">
-                    <FaUser className="input-icon " />
-                  </div>
+                  
                   <input
                     type="text"
                     value={name}
@@ -142,9 +150,7 @@ const Users = () => {
                 </label>
 
                 <div className="input-wrapper1  position-relative">
-                  <div className="pr">
-                    <MdLock className="input-icon" />
-                  </div>
+                  
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter Password"
@@ -162,12 +168,13 @@ const Users = () => {
                   </button>
                 </div>
               </div>
-              <p className="text-danger">{error}</p>
+               {error && <p className="error-message">{error}</p>}
               <div className="button-group">
                 <button className="save-btn" type="submit">
                   {editId ? "Update User" : "+ Add User"}
                 </button>
               </div>
+               {success && <p className="success-message">{success}</p>}
             </form>
           </div>
 

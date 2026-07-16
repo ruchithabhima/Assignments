@@ -101,6 +101,9 @@ background-color:rgb(240, 240, 240);
     .rightsection2{
         display:none !important;
     }
+    .blue{
+        color:black;
+    }
     .leftsection2{
             width: fit-content;
     background-color: aliceblue;

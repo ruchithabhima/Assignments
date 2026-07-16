@@ -5,7 +5,7 @@ import {
   FaEdit,
   FaTrash,
   FaRupeeSign,
-  FaFileInvoiceDollar,
+  FaFileInvoiceDollar,FaCalendarAlt
 } from "react-icons/fa";
 
 const ExpenseManagement = () => {
@@ -22,11 +22,13 @@ const ExpenseManagement = () => {
   const [editId, setEditId] = useState(null);
   const [sortBy, setSortBy] = useState("");
   const [fromDate, setFromDate] = useState("");
-const [toDate, setToDate] = useState("");
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-const userExpenses = expenseList.filter(
-  expense => expense.userId === currentUser.id
-);
+  const [toDate, setToDate] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userExpenses = expenseList.filter(
+    (expense) => expense.userId === currentUser.id,
+  );
   useEffect(() => {
     const storedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
@@ -45,7 +47,11 @@ const userExpenses = expenseList.filter(
       date === "" ||
       paymentMode === ""
     ) {
-      alert("Please fill all required fields");
+      setError("Please Fill all the required details");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+
       return;
     }
 
@@ -61,7 +67,7 @@ const userExpenses = expenseList.filter(
         expense.id === editId
           ? {
               ...expense,
-              
+
               name,
               category,
               amount,
@@ -77,13 +83,16 @@ const userExpenses = expenseList.filter(
       setExpenseList(updatedExpenses);
 
       setEditId(null);
-      alert("Expense updated Successfully");
+      setSuccess("Expense Updated Successfully");
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
     } else {
       console.log("Current User:", currentUser);
       console.log(currentUser.id);
       const newExpense = {
         id: newId,
-        userId:currentUser.id,
+        userId: currentUser.id,
         name,
         category,
         amount,
@@ -97,7 +106,10 @@ const userExpenses = expenseList.filter(
       localStorage.setItem("expenses", JSON.stringify(existingExpenses));
 
       setExpenseList(existingExpenses);
-      alert("Expense added Successfully");
+      setSuccess("Expense Added Successfully");
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
     }
     setName("");
     setCategory("");
@@ -124,7 +136,10 @@ const userExpenses = expenseList.filter(
     setExpenseList(updatedExpenses);
 
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-    alert("Expense deleted Successfully");
+    setSuccess("Expense Deleted Successfully");
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
   };
   const searchedExpenses = userExpenses.filter(
     (expense) =>
@@ -154,7 +169,7 @@ const userExpenses = expenseList.filter(
       (!endDate || expenseDate <= endDate)
     );
   });
- let sortedExpenses = [...dateFilteredExpenses];
+  let sortedExpenses = [...dateFilteredExpenses];
   if (sortBy === "lowtohigh") {
     sortedExpenses.sort((a, b) => Number(a.amount) - Number(b.amount));
   }
@@ -164,7 +179,7 @@ const userExpenses = expenseList.filter(
   if (sortBy === "date") {
     sortedExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
-  
+
   return (
     <>
       <div className="containercard d-flex flex-column gap-2">
@@ -286,7 +301,8 @@ const userExpenses = expenseList.filter(
                   onChange={(e) => setNotes(e.target.value)}
                 />
               </div>
-
+              {error && <p className="error-message">{error}</p>}
+              {success && <p className="success-message">{success}</p>}
               <button className="save-btn">+ Save Expense</button>
             </form>
           </div>
@@ -298,22 +314,25 @@ const userExpenses = expenseList.filter(
               </h2>
             </div>
             <div className=" ms-auto table-actions mb-3">
-              
-             
-              
-                <input
-                  type="text"
-                  placeholder="Search expenses..."
-                  className="search"
-                  value={searchExpense}
-                  onChange={(e) => setSearchExpense(e.target.value)}
-                />
+              <input
+                type="text"
+                placeholder="Search expenses..."
+                className="search"
+                value={searchExpense}
+                onChange={(e) => setSearchExpense(e.target.value)}
+              />
+              <div className="input-wrapper1">
+                <FaCalendarAlt className="input-icon" />
+
                 <input
                   type="date"
                   value={fromDate}
                   onChange={(e) => setFromDate(e.target.value)}
                   className="date-filter"
                 />
+              </div>
+              <div className="input-wrapper1">
+                <FaCalendarAlt className="input-icon" />
 
                 <input
                   type="date"
@@ -321,34 +340,31 @@ const userExpenses = expenseList.filter(
                   onChange={(e) => setToDate(e.target.value)}
                   className="date-filter"
                 />
-               
-                
-                  
-                <select
-                  value={filterCategory}
-                  onChange={(e) => setFilterCategory(e.target.value)}
-                >
-                  <option value="">All Categories</option>
-                  <option value="Food">Food</option>
-                  <option value="Fuel">Fuel</option>
-                  <option value="Shopping">Shopping</option>
-                  <option value="Medical">Medical</option>
-                  <option value="Bills">Bills</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Travel">Travel</option>
-                  <option value="Others">Others</option>
-                </select>
-                
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                >
-                  <option value="">Sort By</option>
-                  <option value="date">Date</option>
-                  <option value="lowtohigh">Low to High</option>
-                  <option value="hightolow"> High to Low</option>
-                </select>
-              
+              </div>
+              <select
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value)}
+              >
+                <option value="">All Categories</option>
+                <option value="Food">Food</option>
+                <option value="Fuel">Fuel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Medical">Medical</option>
+                <option value="Bills">Bills</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Travel">Travel</option>
+                <option value="Others">Others</option>
+              </select>
+
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="">Sort By</option>
+                <option value="date">Date</option>
+                <option value="lowtohigh">Low to High</option>
+                <option value="hightolow"> High to Low</option>
+              </select>
             </div>
 
             <table className="expense-table">

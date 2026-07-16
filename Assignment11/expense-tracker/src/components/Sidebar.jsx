@@ -10,13 +10,16 @@ import "../styles/DashboardStyles.css";
 import { NavLink } from "react-router-dom";
 import { MdAccountBalanceWallet } from "react-icons/md";
 function Sidebar({ collapsed, isSidebarOpen, setIsSidebarOpen }) {
+  const isDesktop = window.innerWidth <= 768;
   return (
     <div
-      className={`sidebar ${collapsed ? "collapsed mobile-show" : ""} ${isSidebarOpen ? "mobile-open" : ""}`}
+      className={`sidebar ${
+        isSidebarOpen ? "mobile-open" : ""
+      } ${collapsed ? "collapsed" : ""}`}
     >
       <div className="d-flex gap-2 align-items-center">
         <MdAccountBalanceWallet className="walleticon ml-5" />
-        {!collapsed && <h2 className="h2">Expense Tracker</h2>}
+        {!collapsed && !isDesktop && <h2 className="h2">Expense Tracker</h2>}
       </div>
       <hr />
       <ul className="listsidebar">
@@ -33,7 +36,7 @@ function Sidebar({ collapsed, isSidebarOpen, setIsSidebarOpen }) {
             }}
           >
             <FaHome />
-            {!collapsed && <li>Dashboard</li>}
+            {!collapsed && !isDesktop && <li>Dashboard</li>}
           </NavLink>
         </div>
         <div className="sideicons">
@@ -48,7 +51,7 @@ function Sidebar({ collapsed, isSidebarOpen, setIsSidebarOpen }) {
               }
             }}
           >
-            <FaArrowAltCircleUp /> {!collapsed && <li>Income</li>}
+            <FaArrowAltCircleUp /> {!collapsed && !isDesktop && <li>Income</li>}
           </NavLink>
         </div>
         <div className="sideicons">
@@ -63,7 +66,8 @@ function Sidebar({ collapsed, isSidebarOpen, setIsSidebarOpen }) {
               }
             }}
           >
-            <FaArrowAltCircleDown /> {!collapsed && <li>Expenses</li>}
+            <FaArrowAltCircleDown />{" "}
+            {!collapsed && !isDesktop && <li>Expenses</li>}
           </NavLink>
         </div>
         <div className="sideicons">
@@ -78,7 +82,7 @@ function Sidebar({ collapsed, isSidebarOpen, setIsSidebarOpen }) {
               }
             }}
           >
-            <FaChartBar /> {!collapsed && <li>Reports</li>}
+            <FaChartBar /> {!collapsed && !isDesktop && <li>Reports</li>}
           </NavLink>
         </div>
         <div className="sideicons">
@@ -93,7 +97,7 @@ function Sidebar({ collapsed, isSidebarOpen, setIsSidebarOpen }) {
               }
             }}
           >
-            <FaUsers /> {!collapsed && <li>Users</li>}
+            <FaUsers /> {!collapsed && !isDesktop && <li>Users</li>}
           </NavLink>
         </div>
       </ul>

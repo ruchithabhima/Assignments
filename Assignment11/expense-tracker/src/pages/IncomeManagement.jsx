@@ -85,7 +85,7 @@ incomeList.filter(
 
                 <div className="input-wrapper1">
                   <div className="pr">
-                    <FaUser className="input-icon " />
+                   
                   </div>
                   <input
                     type="text"
@@ -104,7 +104,7 @@ incomeList.filter(
 
                 <div className="input-wrapper1">
                   <div className="pr">
-                    <FaRupeeSign className="input-icon" />
+                   
                   </div>
                   <input
                     type="number"
@@ -137,7 +137,7 @@ incomeList.filter(
 
                 <div className="input-wrapper1">
                   <div className="pr">
-                    <FaRegStickyNote className="input-icon" />
+                    
                   </div>
                   <input
                     type="text"
