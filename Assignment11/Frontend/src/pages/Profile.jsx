@@ -18,6 +18,7 @@ const Profile = () => {
     monthlyBudget: "",
     currency: "INR",
   });
+  const [success,setSuccess]=useState("");
   const savedProfile = localStorage.getItem("profile");
 
   const [profileExists, setProfileExists] = useState(
@@ -59,27 +60,13 @@ const Profile = () => {
     }
     localStorage.setItem("profile", JSON.stringify(profile));
    
-
-    alert("Profile Updated Successfully");
+    setSuccess("Profile updated successfully");
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
+   
   };
-  const handleDelete = () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete your profile?",
-    );
-
-    if (confirmDelete) {
-      localStorage.removeItem("profile");
-
-      setProfile({
-        fullName: "",
-        monthlyBudget: "",
-        currency: "INR",
-      });
-
-      setProfileExists(false);
-     
-    }
-  };
+  
   return (
     <>
       <div className="profilecontainer d-flex flex-column gap-3">
@@ -118,10 +105,13 @@ const Profile = () => {
                 <div className="input-wrapper2">
                   <FaUser />
                   <input
+                  
                     type="text"
                     name="fullName"
                     value={profile.fullName}
                     onChange={handleChange}
+
+
                     placeholder="Enter Your Full Name"
                   />
                 </div>
@@ -175,6 +165,7 @@ const Profile = () => {
               <button type="submit" className="save-btn">
                 Save Changes
               </button>
+              {success && <p className="success-message">{success}</p>}
             </form>
           </div>
          
