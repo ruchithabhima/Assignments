@@ -5,6 +5,14 @@ const app = express();
 app.use(express.json())
 const userRoutes=require("./routes/userRoutes");
 app.use(userRoutes);
+const incomeRoutes = require("./routes/incomeRoutes");
+
+const expenseRoutes = require("./routes/expenseRoutes");
+
+app.use("/income", incomeRoutes);
+
+app.use("/expense", expenseRoutes);
+
 async function startserver() {
   try {
     const connection = await db.getConnection();
