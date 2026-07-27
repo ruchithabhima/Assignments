@@ -12,12 +12,24 @@ const getUsers = async (req, res) => {
 const signup = async (req, res) => {
   try {
     const { name, password } = req.body;
+    const [existingUser] = await db.query(
+      "SELECT * FROM users WHERE name = ?",
+      [name],
+    );
+
+    if (existingUser.length > 0) {
+      return res.status(400).json({
+        message: "Username already exists",
+      });
+    }
+
     const joinedDate = new Date();
     const hashedPassword = await bcrypt.hash(password, 10);
     await db.query(
       "insert into users (name,password,joined_date) values(?,?,?)",
       [name, hashedPassword, joinedDate],
     );
+
     res
       .status(201)
       .json({ message: "User resource created in DB successfully" });
@@ -35,7 +47,11 @@ const login = async (req, res) => {
       });
     }
     const user = rows[0];
+    console.log("Entered Password:", password);
+    console.log("Stored Password:", user.password);
+
     const ismatch = await bcrypt.compare(password, user.password);
+    console.log("Password Match:", ismatch);
     if (!ismatch) {
       return res.status(401).json({ message: "user unauthorized" });
     }
@@ -43,17 +59,154 @@ const login = async (req, res) => {
       {
         id: user.id,
         name: user.name,
+        role: user.role,
       },
       process.env.jwt_secret_key,
-      { expiresIn: "1h" },
+      { expiresIn: "1d" },
     );
-    res.status(200).json({ message: "Login successful",token:token });
-    
+    res.status(200).json({ message: "Login successful", token: token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-const getProfile=(req,res)=>{
-  res.status(200).json({message:"Profile Fetched Successfully",user:req.user})
+const getProfile = (req, res) => {
+  res
+    .status(200)
+    .json({ message: "Profile Fetched Successfully", user: req.user });
+};
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, password, role } = req.body;
+    const [rows] = await db.query("SELECT * FROM users WHERE id=?", [id]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    let fields = [];
+    let values = [];
+    if (name !== undefined) {
+      fields.push("name=?");
+      values.push(name);
+    }
+    if (password !== undefined) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      fields.push("password=?");
+      values.push(hashedPassword);
+    }
+    if (role !== undefined) {
+      fields.push("role=?");
+      values.push(role);
+    }
+    if (fields.length === 0) {
+      return res.status(400).json({
+        message: "No fields provided",
+      });
+    }
+    const query = `
+UPDATE users
+SET ${fields.join(", ")}
+WHERE id=?
+`;
+
+    values.push(id);
+
+    await db.query(query, values);
+    return res.status(200).json({
+      message: "User updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [rows] = await db.query(
+            "SELECT * FROM users WHERE id = ?",
+            [id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        await db.query(
+            "DELETE FROM users WHERE id = ?",
+            [id]
+        );
+
+        return res.status(200).json({
+            message: "User deleted successfully"
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        });
+    }
+};
+const changePassword = async (req, res) => {
+    try {
+
+        const userId = req.user.id;
+
+        const {
+            currentPassword,
+            newPassword
+        } = req.body;
+        const [rows] = await db.query(
+    "SELECT * FROM users WHERE id=?",
+    [userId]
+);
+if(rows.length===0){
+    return res.status(404).json({
+        message:"User not found"
+    });
 }
-module.exports = { getUsers, signup, login,getProfile };
+const user = rows[0];
+console.log("Current Password:", currentPassword);
+console.log("User:", user);
+console.log("Stored Password:", user.password);
+const isMatch = await bcrypt.compare(
+    currentPassword,
+    user.password
+);
+
+if(!isMatch){
+    return res.status(401).json({
+        message:"Current password is incorrect"
+    });
+}
+const hashedPassword = await bcrypt.hash(
+    newPassword,
+    10
+);
+await db.query(
+    `
+    UPDATE users
+    SET password=?
+    WHERE id=?
+    `,
+    [hashedPassword,userId]
+);
+return res.status(200).json({
+    message:"Password changed successfully"
+});
+
+    }
+    catch(error){
+
+        return res.status(500).json({
+            message:error.message
+        });
+
+    }
+};
+module.exports = { getUsers, signup, login, getProfile, updateUser ,deleteUser,changePassword};

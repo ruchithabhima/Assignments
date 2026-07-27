@@ -15,6 +15,7 @@ const authenticateToken=(req,res,next)=>{
         console.log(decoded);
         req.user=decoded;
         console.log(req.user.id);
+        console.log(req.user.role)
         next();
         }
     )

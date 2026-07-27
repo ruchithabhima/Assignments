@@ -5,7 +5,7 @@ import "../styles/DashboardStyles.css";
 import SummaryCards from "../components/SummaryCards";
 import Transactions from "../components/Transactions";
 import ExpenseChart from "../components/ExpenseChart";
-
+import { FaWallet } from "react-icons/fa";
 import {
   MdTrendingUp,
   MdTrendingDown,
@@ -195,6 +195,16 @@ const Dashboard = () => {
                 color="#f59e0b"
                 bgColor="#fef3c7"
                 Icon={MdReceiptLong}
+              />
+            </div>
+            <div className="col-12 col-sm-6 col-lg-4">
+              <SummaryCards
+                title="Monthly Budget"
+                
+                value={transactionCount}
+                color="#a855f7"
+                bgColor="#d1d5db"
+                Icon={FaWallet}
               />
             </div>
           </div>

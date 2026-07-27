@@ -12,7 +12,13 @@ const expenseRoutes = require("./routes/expenseRoutes");
 app.use("/income", incomeRoutes);
 
 app.use("/expense", expenseRoutes);
+const reportRoutes=require("./routes/reportRoutes");
+app.use("/report",reportRoutes);
+const profileRoutes=require("./routes/profileRoutes");
+app.use("/userprofile",profileRoutes);
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
+app.use("/dashboard", dashboardRoutes);
 async function startserver() {
   try {
     const connection = await db.getConnection();
