@@ -4,7 +4,7 @@
 }
 .content {
   flex: 1;
-  margin-left: 225px;
+  margin-left: 210px;
   background: #f8fafc;
 }
 .content.collapsed{
@@ -20,7 +20,7 @@
   cursor:pointer;
 }
 .sidebar {
-  width: 225px;
+  width: 210px;
   background: #023047;
   color: white;
   padding: 20px;
@@ -56,7 +56,7 @@
   text-decoration:none;
   padding:12px;
   border-radius:12px;
-      font-size: 18px;
+      font-size: 15px;
 }
 
 .active{
@@ -106,7 +106,7 @@
   font-size: 32px;
 }
 .h2 {
-  font-size: 20px;
+  font-size: 18px;
 }
 header {
   position: sticky;
@@ -252,14 +252,14 @@ height: 40px !important;;
   color: #666;
 }
 
-.income {
+.transaction-income {
   min-width: 100px;
   text-align: right;
   color: green;
   font-weight: bold;
 }
 
-.expense {
+.transaction-expense {
   min-width: 100px;
   text-align: right;
   color: red;
@@ -421,9 +421,11 @@ height: 40px !important;;
     display:grid;
     grid-template-columns: 1fr;
   }
-  
+  .menu-link{
+    font-size: 18px;
+  }
   .sidebar {
-    left: -225px;   /* hide full sidebar */
+    left: -210px;   /* hide full sidebar */
     width: 70px;
     position: fixed;
     top: 0;

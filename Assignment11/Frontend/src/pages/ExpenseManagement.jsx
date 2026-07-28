@@ -5,7 +5,8 @@ import {
   FaEdit,
   FaTrash,
   FaRupeeSign,
-  FaFileInvoiceDollar,FaCalendarAlt
+  FaFileInvoiceDollar,
+  FaCalendarAlt,
 } from "react-icons/fa";
 
 const ExpenseManagement = () => {
@@ -16,171 +17,37 @@ const ExpenseManagement = () => {
   const [date, setDate] = useState("");
   const [paymentMode, setPaymentMode] = useState("");
   const [notes, setNotes] = useState("");
-  const [filterCategory, setFilterCategory] = useState("");
-  const [expenseList, setExpenseList] = useState([]);
-  const [searchExpense, setSearchExpense] = useState("");
   const [editId, setEditId] = useState(null);
-  const [sortBy, setSortBy] = useState("");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const userExpenses = expenseList.filter(
-    (expense) => expense.userId === currentUser.id,
-  );
-  useEffect(() => {
-    const storedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+  const [expenseList, setExpenseList] = useState([]);
+  const fetchExpenses = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-    setExpenseList(storedExpenses);
-  }, []);
-  useEffect(() => {
-    console.log("Expense List State:", expenseList);
-  }, [expenseList]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (
-      name.trim() === "" ||
-      category === "" ||
-      amount === "" ||
-      date === "" ||
-      paymentMode === ""
-    ) {
-      setError("Please Fill all the required details");
-      setTimeout(() => {
-        setError("");
-      }, 3000);
-
-      return;
-    }
-
-    const existingExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
-
-    const newId =
-      existingExpenses.length > 0
-        ? Math.max(...existingExpenses.map((expense) => expense.id)) + 1
-        : 1;
-
-    if (editId !== null) {
-      const updatedExpenses = existingExpenses.map((expense) =>
-        expense.id === editId
-          ? {
-              ...expense,
-
-              name,
-              category,
-              amount,
-              date,
-              paymentMode,
-              notes,
-            }
-          : expense,
-      );
-
-      localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-
-      setExpenseList(updatedExpenses);
-
-      setEditId(null);
-      setSuccess("Expense Updated Successfully");
-      setTimeout(() => {
-        setSuccess("");
-      }, 3000);
-    } else {
-      console.log("Current User:", currentUser);
-      console.log(currentUser.id);
-      const newExpense = {
-        id: newId,
-        userId: currentUser.id,
-        name,
-        category,
-        amount,
-        date,
-        paymentMode,
-        notes,
-      };
-
-      existingExpenses.push(newExpense);
-
-      localStorage.setItem("expenses", JSON.stringify(existingExpenses));
-
-      setExpenseList(existingExpenses);
-      setSuccess("Expense Added Successfully");
-      setTimeout(() => {
-        setSuccess("");
-      }, 3000);
-    }
-    setName("");
-    setCategory("");
-    setAmount("");
-    setDate("");
-    setPaymentMode("");
-    setNotes("");
-  };
-  const handleEdit = (id) => {
-    const selectedExpense = userExpenses.find((expense) => expense.id === id);
-
-    setName(selectedExpense.name);
-    setCategory(selectedExpense.category);
-    setAmount(selectedExpense.amount);
-    setDate(selectedExpense.date);
-    setPaymentMode(selectedExpense.paymentMode);
-    setNotes(selectedExpense.notes);
-
-    setEditId(id);
-  };
-  const handleDelete = (id) => {
-    const updatedExpenses = expenseList.filter((expense) => expense.id !== id);
-
-    setExpenseList(updatedExpenses);
-
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-    setSuccess("Expense Deleted Successfully");
-    setTimeout(() => {
-      setSuccess("");
-    }, 3000);
-  };
-  const searchedExpenses = userExpenses.filter(
-    (expense) =>
-      expense.name.toLowerCase().includes(searchExpense.toLowerCase()) ||
-      expense.amount.toLowerCase().includes(searchExpense.toLowerCase()) ||
-      expense.paymentMode.toLowerCase().includes(searchExpense.toLowerCase()) ||
-      expense.category.toLowerCase().includes(searchExpense.toLowerCase()),
-  );
-  const filteredExpenses =
-    filterCategory === ""
-      ? searchedExpenses
-      : searchedExpenses.filter(
-          (expense) => expense.category === filterCategory,
-        );
-  const dateFilteredExpenses = filteredExpenses.filter((expense) => {
-    const expenseDate = new Date(expense.date);
-
-    const startDate = fromDate ? new Date(fromDate) : null;
-    const endDate = toDate ? new Date(toDate) : null;
-
-    if (endDate) {
-      endDate.setHours(23, 59, 59, 999);
-    }
-
-    return (
-      (!startDate || expenseDate >= startDate) &&
-      (!endDate || expenseDate <= endDate)
+    const response = await fetch(
+      "http://localhost:3000/api/expense",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
-  });
-  let sortedExpenses = [...dateFilteredExpenses];
-  if (sortBy === "lowtohigh") {
-    sortedExpenses.sort((a, b) => Number(a.amount) - Number(b.amount));
-  }
-  if (sortBy === "hightolow") {
-    sortedExpenses.sort((a, b) => Number(b.amount) - Number(a.amount));
-  }
-  if (sortBy === "date") {
-    sortedExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
-  }
+    const data = await response.json();
+    console.log("Expense data:", data);
 
-  return (
+    if (response.ok) {
+      setExpenseList(data);
+    }
+  } catch (error) {
+    console.error("Error fetching expenses:", error);
+  }
+};
+useEffect(() => {
+  fetchExpenses();
+}, []);
+return (
     <>
       <div className="containercard d-flex flex-column gap-2">
         <div className="welcome-card shadow">
@@ -195,7 +62,7 @@ const ExpenseManagement = () => {
               <FaPlusCircle className="header-icon" />
               <h2>Add New Expense</h2>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form /*onSubmit={handleSubmit}*/>
               <div className="form-group">
                 <label>
                   Expense Name <span>*</span>
@@ -310,7 +177,7 @@ const ExpenseManagement = () => {
             <div className="records-header ">
               <h2 className="records-title">
                 Expense Records
-                <span className="record-count">({sortedExpenses.length})</span>
+                <span className="record-count">({expenseList.length})</span>
               </h2>
             </div>
             <div className=" ms-auto table-actions mb-3">
@@ -318,7 +185,7 @@ const ExpenseManagement = () => {
                 type="text"
                 placeholder="Search expenses..."
                 className="search"
-                value={searchExpense}
+                
                 onChange={(e) => setSearchExpense(e.target.value)}
               />
               <div className="input-wrapper1">
@@ -326,7 +193,7 @@ const ExpenseManagement = () => {
 
                 <input
                   type="date"
-                  value={fromDate}
+                 
                   onChange={(e) => setFromDate(e.target.value)}
                   className="date-filter"
                 />
@@ -336,13 +203,13 @@ const ExpenseManagement = () => {
 
                 <input
                   type="date"
-                  value={toDate}
+                 
                   onChange={(e) => setToDate(e.target.value)}
                   className="date-filter"
                 />
               </div>
               <select
-                value={filterCategory}
+              
                 onChange={(e) => setFilterCategory(e.target.value)}
               >
                 <option value="">All Categories</option>
@@ -357,7 +224,7 @@ const ExpenseManagement = () => {
               </select>
 
               <select
-                value={sortBy}
+          
                 onChange={(e) => setSortBy(e.target.value)}
               >
                 <option value="">Sort By</option>
@@ -370,33 +237,42 @@ const ExpenseManagement = () => {
             <table className="expense-table">
               <thead>
                 <tr>
-                  <th className="payment-column">Expense Name</th>
-                  <th>Category</th>
-                  <th>Amount</th>
-                  <th>Date</th>
-                  <th className="payment-column">Payment</th>
-                  <th className="notes-column">Notes</th>
+                  <th className="payment-column text-center">Expense Name</th>
+                  <th className="text-center">Category</th>
+                  <th className="text-center">Amount</th>
+                  <th className="text-center">Date</th>
+                  <th className="payment-column text-center">Payment</th>
+                  <th className="notes-column text-center">Notes</th>
                   <th>Actions</th>
                 </tr>
               </thead>
 
               <tbody>
-                {sortedExpenses.map((expense) => (
+                {expenseList.map((expense) => (
                   <tr key={expense.id}>
-                    <td className="payment-column">{expense.name}</td>
+                    <td className="payment-column text-center">{expense.name}</td>
                     <td>
-                      <span className="category-badge">{expense.category}</span>
+                      <span className="category-badge text-center">{expense.category}</span>
                     </td>
 
-                    <td>₹{expense.amount}</td>
+                    <td className="text-center">₹{Number(expense.amount)}</td>
 
-                    <td>{expense.date}</td>
+                    <td className="text-center">
+                      {new Date(expense.expense_date).toLocaleDateString(
+                        "en-GB",
+                        {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "2-digit",
+                        },
+                      )}
+                    </td>
 
-                    <td className="payment-column">{expense.paymentMode}</td>
+                    <td className="payment-column text-center">{expense.payment_mode}</td>
 
-                    <td className="notes-column">{expense.notes}</td>
+                    <td className="notes-column textx-center">{expense.notes}</td>
 
-                    <td className="d-flex flex-column justify-content-center align-item-center gap-2">
+                    <td className="d-flex flex-column justify-content-center  gap-2">
                       <button className="edit-btn">
                         <FaEdit onClick={() => handleEdit(expense.id)} />
                       </button>

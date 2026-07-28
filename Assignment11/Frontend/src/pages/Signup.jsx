@@ -10,7 +10,7 @@ const signup = () => {
 
     const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const handleSignup = (e) => {
+  const handleSignup = async(e) => {
     e.preventDefault();
     if (name.trim === "") {
       setError("Please enter your name");
@@ -20,26 +20,36 @@ const signup = () => {
       setError("Please enter a stronger password");
       return;
     }
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const newId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
-    const newUser = {
-      id: newId,
-      name,
-      password,
+    try {
+    const response = await fetch("http://localhost:3000/api/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            name,
+            password,
+        }),
+    });
 
-      joinedDate: new Date().toLocaleDateString(),
-    };
+    const data = await response.json();
 
-    users.push(newUser);
+    if (!response.ok) {
+        setError(data.message);
+        return;
+    }
 
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("currentUser", JSON.stringify(newUser));
-    localStorage.setItem("isAuthenticated", "true");
     setSuccess("Account Created Successfully");
+
     setTimeout(() => {
-      setSuccess("");
-    }, 3000);
-    navigate("/dashboard");
+      setSuccess("")
+    navigate("/dashboard");   
+    }, 2000);
+
+} catch (error) {
+    setError("Something went wrong");
+}
+    
   };
   return (
     <>

@@ -9,7 +9,7 @@ const {
 } = require("../controllers/incomeController");
 router.post("/", authenticateToken, addIncome);
 router.get("/", authenticateToken, getIncome);
-router.put("/:id", authenticateToken, updateIncome);
+router.patch("/:id", authenticateToken, updateIncome);
 
 router.delete("/:id", authenticateToken, deleteIncome);
 console.log({

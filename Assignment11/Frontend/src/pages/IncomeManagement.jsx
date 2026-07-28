@@ -10,6 +10,8 @@ import {
   FaRupeeSign,
   FaCalendarAlt,
   FaRegStickyNote,
+  FaEdit,
+  FaTrash,
 } from "react-icons/fa";
 import { BsWallet2 } from "react-icons/bs";
 const IncomeManagement = () => {
@@ -20,47 +22,174 @@ const IncomeManagement = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [incomeList, setIncomeList] = useState([]);
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const userIncome =
-incomeList.filter(
- item =>
- item.userId === currentUser.id
-);
-  useEffect(() => {
-    const storedIncome = JSON.parse(localStorage.getItem("income")) || [];
+  const [editingId, setEditingId] = useState(null);
+  const fetchIncome = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-    setIncomeList(storedIncome);
+      const response = await fetch("http://localhost:3000/api/income", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      console.log("Income API:", data);
+
+      if (response.ok) {
+        setIncomeList(data);
+      }
+    } catch (error) {
+      console.error("Error fetching income:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchIncome();
   }, []);
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (source.trim() === "" || amount.trim() === "" || date === "") {
       setError("Please Fill all required fields");
+
       setTimeout(() => {
         setError("");
       }, 3000);
       return;
     }
+    if (editingId) {
+      const token = localStorage.getItem("token");
 
-    const existingIncome = JSON.parse(localStorage.getItem("income")) || [];
-    const newId =
-      existingIncome.length > 0
-        ? existingIncome[existingIncome.length - 1].id + 1
-        : 1;
-    const newIncome = { id: newId,userId: currentUser.id, source, amount, date, remarks };
-    existingIncome.push(newIncome);
-    localStorage.setItem("income", JSON.stringify(existingIncome));
+      const response = await fetch(
+        `http://localhost:3000/api/income/${editingId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            source,
+            amount,
+            income_date: date,
+            remarks,
+          }),
+        },
+      );
 
-    setSuccess("Income updated successfully");
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Failed to update income");
+        return;
+      }
+      setSuccess("Income updated successfully");
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
+      setEditingId(null);
+      setSource("");
+      setAmount("");
+      setDate("");
+      setRemarks("");
+
+      await fetchIncome();
+
+      return;
+    }
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:3000/api/income", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify({
+          source,
+          amount,
+          income_date: date,
+          remarks,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Failed to add income");
+        return;
+      }
+
+      await fetchIncome();
+      setSource("");
+      setAmount("");
+      setDate("");
+      setRemarks("");
+      setTimeout(() => {
+        setSuccess("Income added successfully");
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+      setError("Something went wrong");
+    }
+  };
+  const handleEdit = (id) => {
+    const incomeToEdit = incomeList.find((income) => income.id === id);
+
+    if (!incomeToEdit) return;
+
+    setSource(incomeToEdit.source);
+    setAmount(incomeToEdit.amount);
+
+    setDate(incomeToEdit.income_date.split("T")[0]);
+
+    setRemarks(incomeToEdit.remarks || "");
+
+    setEditingId(id);
+  };
+  const handleDelete = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      `http://localhost:3000/api/income/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.message || "Failed to delete income");
+
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+
+      return;
+    }
+
+    setSuccess("Income deleted successfully");
+
     setTimeout(() => {
       setSuccess("");
     }, 3000);
 
-    setIncomeList(existingIncome);
-    setSource("");
-    setAmount("");
-    setDate("");
-    setRemarks("");
-  };
+    await fetchIncome();
+  } catch (error) {
+    console.error(error);
+    setError("Something went wrong");
+  }
+};
   return (
     <>
       <div className="containercard d-flex flex-column gap-3">
@@ -84,9 +213,7 @@ incomeList.filter(
                 </label>
 
                 <div className="input-wrapper1">
-                  <div className="pr">
-                   
-                  </div>
+                  <div className="pr"></div>
                   <input
                     type="text"
                     placeholder="Enter income source"
@@ -103,9 +230,7 @@ incomeList.filter(
                 </label>
 
                 <div className="input-wrapper1">
-                  <div className="pr">
-                   
-                  </div>
+                  <div className="pr"></div>
                   <input
                     type="number"
                     placeholder="Enter amount"
@@ -136,9 +261,7 @@ incomeList.filter(
                 <label>Remarks (Optional)</label>
 
                 <div className="input-wrapper1">
-                  <div className="pr">
-                    
-                  </div>
+                  <div className="pr"></div>
                   <input
                     type="text"
                     placeholder="Enter remarks (optional)"
@@ -166,23 +289,50 @@ incomeList.filter(
             <table className="income-table">
               <thead>
                 <tr>
-                  <th>Source</th>
-                  <th>Amount</th>
-                  <th>Date</th>
-                  <th>Remarks</th>
+                  <th className="text-center">Source</th>
+                  <th className="text-center">Amount</th>
+                  <th className="text-center">Date</th>
+
+                  <th >Actions</th>
+                  <th className="remarks-column">Remarks</th>
                 </tr>
               </thead>
 
               <tbody>
-                {userIncome.map((income) => (
+                {incomeList.map((income) => (
                   <tr key={income.id}>
-                    <td>{income.source}</td>
+                    <td className="text-center">{income.source}</td>
 
-                    <td>₹{income.amount}</td>
+                    <td className="text-center">₹{Number(income.amount)}</td>
 
-                    <td>{income.date}</td>
+                    <td className="text-center">
+                      {new Date(income.income_date).toLocaleDateString(
+                        "en-GB",
+                        {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "2-digit",
+                        },
+                      )}
+                    </td>
+                    <td>
+                      <div className="d-flex flex-column justify-content-center align-items-centerr  gap-2">
+                        <button
+                          className="edit-btn"
+                          onClick={() => handleEdit(income.id)}
+                        >
+                          <FaEdit />
+                        </button>
 
-                    <td>{income.remarks}</td>
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDelete(income.id)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </td>
+                    <td className="remarks-column">{income.remarks}</td>
                   </tr>
                 ))}
               </tbody>

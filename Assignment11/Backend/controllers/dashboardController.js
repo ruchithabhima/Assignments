@@ -2,12 +2,28 @@ const db = require("../config/db");
 
 const getDashboard = async (req, res) => {
   const userId = req.user.id;
+  const { month } = req.query;
+
+console.log("Selected month:", month);
   const today = new Date();
   const year = today.getFullYear();
-  const month = today.getMonth() + 1;
-  const firstDay = `${year}-${String(month).padStart(2, "0")}-01`;
+  let firstDay;
+let lastDay;
 
-  const lastDay = `${year}-${String(month).padStart(2, "0")}-31`;
+if (month === "all") {
+  firstDay = `${year}-01-01`;
+  lastDay = `${year}-12-31`;
+} else {
+  const selectedMonth = Number(month) + 1;
+
+  firstDay = `${year}-${String(selectedMonth).padStart(2, "0")}-01`;
+
+  lastDay = `${year}-${String(selectedMonth).padStart(2, "0")}-${new Date(
+    year,
+    selectedMonth,
+    0
+  ).getDate()}`;
+}
   const [incomeResult] = await db.query(
 `
 SELECT COALESCE(SUM(amount),0) AS totalIncome
@@ -113,7 +129,7 @@ GROUP BY category
 );
 return res.status(200).json({
     totalIncome: incomeResult[0].totalIncome,totalExpense: Number(expenseResult[0].totalExpense),balance,monthlyBudget,
-    savings,transactionCount,recentTransactions,expenseChart
+    savings,monthlyBudget,transactionCount,recentTransactions,expenseChart
 });
 
 

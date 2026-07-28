@@ -1,24 +1,14 @@
-// ExpenseChart.jsx
-
 import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import "../styles/DashboardStyles.css";
 function ExpenseChart({ userExpenses }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categoryTotals = {};
+ 
+ const chartData = userExpenses.map((expense) => ({
+  name: expense.category,
+  value: Number(expense.total),
+}));
 
-  userExpenses.forEach((expense) => {
-    if (categoryTotals[expense.category]) {
-      categoryTotals[expense.category] += Number(expense.amount);
-    } else {
-      categoryTotals[expense.category] = Number(expense.amount);
-    }
-  });
-
-  const chartData = Object.keys(categoryTotals).map((category) => ({
-    name: category,
-    value: categoryTotals[category],
-  }));
   const total = chartData.reduce((sum, item) => sum + item.value, 0);
   const handlePieClick = (data, index) => {
     console.log(data);

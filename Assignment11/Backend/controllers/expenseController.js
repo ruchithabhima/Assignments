@@ -24,22 +24,22 @@ const addExpense = async (req, res) => {
   }
 };
 const getExpense = async (req, res) => {
-    try {
-        const userId = req.user.id;
+  try {
+    const userId = req.user.id;
 
-        const { search, category, from, to, sort } = req.query;
+    const { search, category, from, to, sort } = req.query;
 
-        let query = `
+    let query = `
         SELECT *
         FROM expense
         WHERE user_id = ?
         `;
 
-        let values = [userId];
+    let values = [userId];
 
-        // Search
-        if (search) {
-            query += `
+    // Search
+    if (search) {
+      query += `
             AND (
                 name LIKE ?
                 OR category LIKE ?
@@ -47,53 +47,44 @@ const getExpense = async (req, res) => {
             )
             `;
 
-            values.push(
-                `%${search}%`,
-                `%${search}%`,
-                `%${search}%`
-            );
-        }
+      values.push(`%${search}%`, `%${search}%`, `%${search}%`);
+    }
 
-        // Category
-        if (category) {
-            query += `
+    // Category
+    if (category) {
+      query += `
             AND category = ?
             `;
 
-            values.push(category);
-        }
+      values.push(category);
+    }
 
-        // Date
-        if (from && to) {
-            query += `
+    // Date
+    if (from && to) {
+      query += `
             AND expense_date BETWEEN ? AND ?
             `;
 
-            values.push(from, to);
-        }
-
-        // Sort
-        if (sort === "highest") {
-            query += " ORDER BY amount DESC";
-        }
-        else if (sort === "lowest") {
-            query += " ORDER BY amount ASC";
-        }
-        else {
-            query += " ORDER BY expense_date DESC";
-        }
-
-        const [expenses] = await db.query(query, values);
-
-        return res.status(200).json({
-            expenses
-        });
-
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
+      values.push(from, to);
     }
+
+    // Sort
+    if (sort === "highest") {
+      query += " ORDER BY amount DESC";
+    } else if (sort === "lowest") {
+      query += " ORDER BY amount ASC";
+    } else {
+      query += " ORDER BY expense_date DESC";
+    }
+
+    const [expenses] = await db.query(query, values);
+
+    return res.status(200).json(expenses);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 const updateExpense = async (req, res) => {
   try {
@@ -191,6 +182,5 @@ const deleteExpense = async (req, res) => {
       message: "Internal Server Error",
     });
   }
- 
 };
 module.exports = { addExpense, getExpense, updateExpense, deleteExpense };

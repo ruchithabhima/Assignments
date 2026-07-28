@@ -6,23 +6,36 @@ const Signin = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const handleSignin = (e) => {
+  const handleSignin = async (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem("users"));
-    const foundUser = users.find(
-      (user) => user.name === name && user.password === password,
-    );
-    if (foundUser) {
-      localStorage.setItem("currentUser", JSON.stringify(foundUser));
-
-      localStorage.setItem("isAuthenticated", "true");
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name, // or email, depending on your backend
+          password,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.message);
+        return;
+      }
+      localStorage.setItem("token", data.token);
+      console.log("Navigating...");
+      setSuccess("logged in Successfully");
 
       navigate("/dashboard");
-    } else {
-      setError("Invalid Credentials");
+    } catch (error) {
+      setError("Something went wrong");
     }
   };
+
   return (
     <div className="container  vh-100 d-flex justify-content-center align-items-center ">
       <div className="row box ">

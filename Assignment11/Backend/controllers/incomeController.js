@@ -27,24 +27,44 @@ const getIncome = async (req, res) => {
 };
 const updateIncome = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { amount, source, income_date } = req.body;
     const userId = req.user.id;
-    const query = `update income set amount=?,source=?,income_date=? where id=? and user_id=?`;
-    const [result] = await db.query(query, [
-      amount,
-      source,
-      income_date,
-      id,
-      userId,
-    ]);
+    const { id } = req.params;
+
+    const { source, amount, income_date, remarks } = req.body;
+
+    const [result] = await db.query(
+      `UPDATE income
+       SET
+         source = COALESCE(?, source),
+         amount = COALESCE(?, amount),
+         income_date = COALESCE(?, income_date),
+         remarks = COALESCE(?, remarks)
+       WHERE id = ? AND user_id = ?`,
+      [
+        source ?? null,
+        amount ?? null,
+        income_date ?? null,
+        remarks ?? null,
+        id,
+        userId,
+      ]
+    );
+
     if (result.affectedRows === 0) {
-      return res.status(400).json({ message: "Incomem not found" });
+      return res.status(404).json({
+        message: "Income not found",
+      });
     }
-    return res.status(200).json({ message: "Income updated Successfully" });
+
+    return res.status(200).json({
+      message: "Income updated successfully",
+    });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server Error" });
+    console.error("Update income error:", error);
+
+    return res.status(500).json({
+      message: error.message,
+    });
   }
 };
 const deleteIncome = async (req, res) => {

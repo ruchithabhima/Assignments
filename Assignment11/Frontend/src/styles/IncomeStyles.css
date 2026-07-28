@@ -16,7 +16,9 @@
   grid-template-columns: 350px 1fr;
   gap: 15px;
 }
-
+.remarks-column {
+    display: none;
+  }
 .income-form-card {
   background: white;
   border-radius: 20px;
