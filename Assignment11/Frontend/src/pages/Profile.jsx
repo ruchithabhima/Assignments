@@ -13,59 +13,83 @@ import { FaCircleExclamation } from "react-icons/fa6";
 import { MdOutlineCurrencyRupee, MdCurrencyRupee } from "react-icons/md";
 
 const Profile = () => {
-  const [profile, setProfile] = useState({
-    fullName: "",
-    monthlyBudget: "",
-    currency: "INR",
-  });
+const [name, setName] = useState("");
+const [joinedDate, setJoinedDate] = useState("");
+const [monthlyBudget, setMonthlyBudget] = useState("");
+const [preferredCurrency, setPreferredCurrency] = useState("");
+const [role, setRole] = useState("");
+const [loading, setLoading] = useState(true);
   const [success,setSuccess]=useState("");
-  const savedProfile = localStorage.getItem("profile");
+const [errors, setErrors] = useState({});
+const fetchProfile = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-  const [profileExists, setProfileExists] = useState(
-    savedProfile ? true : false,
-  );
-  
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+    const response = await fetch("http://localhost:3000/api/userprofile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    setProfile((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
-  };
-  useEffect(() => {
-    const savedProfile = localStorage.getItem("profile");
+    const data = await response.json();
 
-    if (savedProfile) {
-      setProfile(JSON.parse(savedProfile));
-    }
-  }, []);
-  const [errors, setErrors] = useState({});
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (profile.fullName.trim() === "") {
-      setErrors({
-        fullName: "Name is required",
-      });
+    if (!response.ok) {
+      console.log(data.message);
       return;
     }
 
-    if (profile.monthlyBudget === "") {
-      setErrors({ monthlyBudget: "Please Enter Your Budget" });
+    setName(data.name);
+    setJoinedDate(data.joined_date);
+    setMonthlyBudget(data.monthly_budget);
+    setPreferredCurrency(data.preferred_currency);
+    setRole(data.role);
+
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setLoading(false);
+  }
+};
+useEffect(() => {
+    fetchProfile();
+}, []);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch("http://localhost:3000/api/userprofile", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        monthly_budget: monthlyBudget,
+        preferred_currency: preferredCurrency,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.message);
       return;
     }
-    localStorage.setItem("profile", JSON.stringify(profile));
-   
+
     setSuccess("Profile updated successfully");
+    fetchProfile(); // Refresh profile data
+
     setTimeout(() => {
       setSuccess("");
     }, 3000);
-   
-  };
+
+  } catch (error) {
+    setError("Something went wrong");
+  }
+};
   
   return (
     <>
@@ -94,7 +118,7 @@ const Profile = () => {
               </div>
 
              
-                <h3 className="welcome-card-head">{profile.fullName}</h3>
+                <h3 className="welcome-card-head">{name}</h3>
                
             </div>
 
@@ -108,8 +132,8 @@ const Profile = () => {
                   
                     type="text"
                     name="fullName"
-                    value={profile.fullName}
-                    onChange={handleChange}
+                    value={name}
+                    onChange={(e)=>setName(e.target.value)}
 
 
                     placeholder="Enter Your Full Name"
@@ -131,8 +155,8 @@ const Profile = () => {
                   <input
                     type="number"
                     name="monthlyBudget"
-                    value={profile.monthlyBudget}
-                    onChange={handleChange}
+                    value={monthlyBudget}
+                    onChange={(e) => setMonthlyBudget(e.target.value)}
                     placeholder="Enter Monthly Budget"
                    
                   />
@@ -152,8 +176,8 @@ const Profile = () => {
                   <FaGlobe />
                   <select className="border"
                     name="currency"
-                    value={profile.currency}
-                    onChange={handleChange}
+                    value={preferredCurrency}
+                    onChange={(e) => setPreferredCurrency(e.target.value)}
                    
                   >
                     <option>INR (Indian Rupee)</option>

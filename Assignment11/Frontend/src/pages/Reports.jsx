@@ -8,89 +8,68 @@ import {
   MdTrendingDown,
   MdAccountBalanceWallet,
 } from "react-icons/md";
+import { useSearchParams } from "react-router-dom";
 const Reports = () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalExpense, setTotalExpense] = useState(0);
+  const [balance, setBalance] = useState(0);
+  const [transactionHistory, setTransactionHistory] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const from = searchParams.get("from") || "";
+  const to = searchParams.get("to") || "";
 
-  const [transactions, setTransactions] = useState([]);
-  const incomeData = JSON.parse(localStorage.getItem("income")) || [];
-  const expenseData = JSON.parse(localStorage.getItem("expenses")) || [];
-  const userIncomes = incomeData.filter(
-    (income) => income.userId === currentUser.id,
-  );
+  const fetchReport = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("fetchReport called");
+      console.log("from:", from);
+      console.log("to:", to);
+      const response = await fetch(
+        `http://localhost:3000/api/report?from=${from}&to=${to}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-  const userExpenses = expenseData.filter(
-    (expense) => expense.userId === currentUser.id,
-  );
-  const [fromDate, setFromDate] = useState(
-    localStorage.getItem(`fromDate_${currentUser.id}`) || "",
-  );
+      const data = await response.json();
 
-  const [toDate, setToDate] = useState(
-    localStorage.getItem(`toDate_${currentUser.id}`) || "",
-  );
+      if (response.ok) {
+        setTotalIncome(Number(data.totalIncome));
+        setTotalExpense(Number(data.totalExpense));
+        setBalance(Number(data.balance));
+        setTransactionHistory(data.transactionHistory);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-  localStorage.setItem(
-    `fromDate_${currentUser.id}`,
-    fromDate
-  );
-}, [fromDate, currentUser.id]);
+    fetchReport();
+  }, [from, to]);
+  useEffect(() => {
+    const currentFrom = searchParams.get("from") || "";
+    const currentTo = searchParams.get("to") || "";
+
+    if (currentFrom !== from || currentTo !== to) {
+      const params = {};
+
+      if (from) params.from = from;
+      if (to) params.to = to;
+
+      setSearchParams(params);
+    }
+  }, [from, to]);
 useEffect(() => {
-  localStorage.setItem(
-    `toDate_${currentUser.id}`,
-    toDate
+  sessionStorage.setItem(
+    "reportFilters",
+    JSON.stringify({
+      from,
+      to,
+    })
   );
-}, [toDate, currentUser.id]);
-
-  const filteredIncomes = userIncomes.filter((income) => {
-    const incomeDate = new Date(income.date);
-
-    const startDate = fromDate ? new Date(fromDate) : null;
-    const endDate = toDate ? new Date(toDate) : null;
-
-    if (endDate) {
-      endDate.setHours(23, 59, 59, 999);
-    }
-
-    return (
-      (!startDate || incomeDate >= startDate) &&
-      (!endDate || incomeDate <= endDate)
-    );
-  });
-  const filteredExpenses = userExpenses.filter((expense) => {
-    const expenseDate = new Date(expense.date);
-
-    const startDate = fromDate ? new Date(fromDate) : null;
-    const endDate = toDate ? new Date(toDate) : null;
-
-    if (endDate) {
-      endDate.setHours(23, 59, 59, 999);
-    }
-
-    return (
-      (!startDate || expenseDate >= startDate) &&
-      (!endDate || expenseDate <= endDate)
-    );
-  });
-  const totalIncome = filteredIncomes.reduce(
-    (sum, item) => sum + Number(item.amount),
-    0,
-  );
-
-  const totalExpense = filteredExpenses.reduce(
-    (sum, item) => sum + Number(item.amount),
-    0,
-  );
-  const allTransactions = [
-    ...filteredIncomes.map((item) => ({
-      ...item,
-      type: "Income",
-    })),
-    ...filteredExpenses.map((item) => ({
-      ...item,
-      type: "Expense",
-    })),
-  ];
-  const balance = totalIncome - totalExpense;
+}, [from, to]);
   return (
     <>
       <div className="containercard d-flex flex-column gap-2">
@@ -103,29 +82,39 @@ useEffect(() => {
         <div className="date-filter-card shadow">
           <div className="date-group">
             <label>From Date</label>
-             <div className="input-wrapper1">
-             
-            <FaCalendarAlt className="input-icon" />
-           
-            <input className="padding"
-              type="date" placeholder="From Date"
-              value={fromDate}
-              onChange={(e) => setFromDate(e.target.value)}
-            />
+            <div className="input-wrapper1">
+              <FaCalendarAlt className="input-icon" />
+
+              <input
+                className="padding"
+                type="date"
+                placeholder="From Date"
+                value={from}
+                onChange={(e) => {
+                  const params = Object.fromEntries(searchParams);
+                  params.from = e.target.value;
+                  setSearchParams(params);
+                }}
+              />
             </div>
           </div>
 
           <div className="date-group">
             <label>To Date</label>
             <div className="input-wrapper1">
-             
-            <FaCalendarAlt className="input-icon" />
-           
-            <input className="padding"
-              type="date" placeholder="To Date"
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
-            />
+              <FaCalendarAlt className="input-icon" />
+
+              <input
+                className="padding"
+                type="date"
+                placeholder="To Date"
+                value={to}
+                onChange={(e) => {
+                  const params = Object.fromEntries(searchParams);
+                  params.to = e.target.value;
+                  setSearchParams(params);
+                }}
+              />
             </div>
           </div>
         </div>
@@ -167,20 +156,27 @@ useEffect(() => {
               <tr>
                 <th>Date</th>
                 <th>Type</th>
-                <th>Category</th>
+                <th className="category-col">Category</th>
 
                 <th>Amount</th>
               </tr>
             </thead>
 
             <tbody>
-              {allTransactions.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.date}</td>
+              {transactionHistory.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    {" "}
+                    {new Date(item.date).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "2-digit",
+                    })}
+                  </td>
                   <td>{item.type}</td>
-                  <td>{item.category}</td>
+                  <td className="category-col">{item.category || "-"}</td>
 
-                  <td>₹{item.amount}</td>
+                  <td>₹{Number(item.amount)}</td>
                 </tr>
               ))}
             </tbody>

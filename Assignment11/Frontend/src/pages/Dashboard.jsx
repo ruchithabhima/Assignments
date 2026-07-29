@@ -13,6 +13,7 @@ import {
   MdReceiptLong,
 } from "react-icons/md";
 import { FaPiggyBank } from "react-icons/fa";
+
 const Dashboard = () => {
   const COLORS = [
     "#14b8a6",

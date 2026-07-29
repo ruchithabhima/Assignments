@@ -8,109 +8,143 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 
-
 const Users = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
-  const [editId, setEditId] = useState(null);
+const [editId, setEditId] = useState(null);
+const [name, setName] = useState("");
+const [role, setRole] = useState("");
+const [monthly_budget, setMonthlyBudget] = useState("");
+const [preferredCurrency, setPreferredCurrency] = useState("INR");
   const [error, setError] = useState("");
-  
-      const [success, setSuccess] = useState("");
+
+  const [success, setSuccess] = useState("");
+  const editUser = (user) => {
+    setEditingId(user.id);
+    setName(user.name);
+    setEmail(user.email);
+    setRole(user.role);
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:3000/api/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setUsers(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    setUsers(storedUsers);
+    fetchUsers();
   }, []);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (name.trim() === "" || password.trim() === "") {
-      setError("All fields are required");
-      return;
-    }
+  if (!name.trim()) {
+    setError("Name is required");
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
+    setTimeout(() => {
+      setError("");
+    }, 3000);
 
-    const existingUser = users.find(
-      (user) => user.name.toLowerCase() === name.toLowerCase(),
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      `http://localhost:3000/api/users/${editId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name,
+          role,
+          monthly_budget: monthly_budget,
+          preferred_currency: preferredCurrency,
+        }),
+      }
     );
 
-    if (existingUser && editId === null) {
-      setError("User already exists");
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.message || "Failed to update user");
+
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+
       return;
     }
 
-    setError("");
+    setSuccess("User updated successfully");
 
-    if (editId !== null) {
-      const updatedUsers = users.map((user) =>
-        user.id === editId
-          ? {
-              ...user,
-              name,
-              password,
-            }
-          : user,
-      );
-
-      setUsers(updatedUsers);
-
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-      setEditId(null);
-
-     setSuccess("User Updated Successfully");
     setTimeout(() => {
       setSuccess("");
     }, 3000);
-    } else {
-      const newUser = {
-        id: Date.now(),
-        name,
-        password,
-        joinedDate: new Date().toLocaleDateString(),
-      };
 
-      const updatedUsers = [...users, newUser];
+    await fetchUsers();
 
-      setUsers(updatedUsers);
+    setEditId(null);
+    setName("");
+    setRole("");
+    setMonthlyBudget("");
+    setPreferredCurrency("INR");
 
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
+  } catch (error) {
+    console.error(error);
+    setError("Something went wrong");
+  }
+};
+ const handleEdit = (user) => {
+    setEditId(user.id);
 
-      setSuccess("User Added Successfully");
+    setName(user.name);
+    setRole(user.role);
+    setMonthlyBudget(user.monthly_budget);
+    setPreferredCurrency(user.preferred_currency);
+};
+  const handleDelete = async(id) => {
+    console.log("Deleting user:", id);
+    console.log(`http://localhost:3000/api/users/${id}`);
+    const token = localStorage.getItem("token");
+   await fetch(`http://localhost:3000/api/users/${id}`, {
+  method: "DELETE",
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+fetchUsers();
+
+    setSuccess("User Deleted Successfully");
     setTimeout(() => {
       setSuccess("");
     }, 3000);
-    }
+  };
+  const handleCancel = () => {
+    setEditId(null);
 
     setName("");
-    setPassword("");
-  };
-  const handleEdit = (id) => {
-    const selectedUser = users.find((user) => user.id === id);
-
-    setName(selectedUser.name);
-    setPassword(selectedUser.password);
-
-    setEditId(id);
-  };
-  const handleDelete = (id) => {
-    const updatedUsers = users.filter((user) => user.id !== id);
-
-    setUsers(updatedUsers);
-
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-  setSuccess("User Deleted Successfully");
-    setTimeout(() => {
-      setSuccess("");
-    }, 3000);
-  };
+    setRole("");
+    setMonthlyBudget("");
+    setPreferredCurrency("");
+};
   return (
     <>
       <div className="containercard d-flex flex-column gap-2">
@@ -120,65 +154,8 @@ const Users = () => {
             <p>Manage all the Registered users</p>
           </div>
         </div>
-        <div className="income-page  align-items-start">
-          <div className="income-form-card">
-            <div className="card-header">
-              <FaPlusCircle className="header-icon" />
-              <h2>Add New User</h2>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>
-                  Name <span>*</span>
-                </label>
-
-                <div className="input-wrapper1">
-                  
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
-                    type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>
-                  Password<span>*</span>
-                </label>
-
-                <div className="input-wrapper1  position-relative">
-                  
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required className="password-input"
-                  />
-
-                  <button
-                    type="button"
-                    className="btn position-absolute top-50 end-0 translate-middle-y border-0 bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                </div>
-              </div>
-               {error && <p className="error-message">{error}</p>}
-              <div className="button-group">
-                <button className="save-btn" type="submit">
-                  {editId ? "Update User" : "+ Add User"}
-                </button>
-              </div>
-               {success && <p className="success-message">{success}</p>}
-            </form>
-          </div>
-
-          <div className="income-records-card">
+        <div className="users-page ">
+         <div className="income-records-card">
             <div className="card-header">
               <FaUsers className="header-icon " />
               <h2>All Users</h2>
@@ -187,9 +164,15 @@ const Users = () => {
             <table className="income-table">
               <thead>
                 <tr>
-                  <th>S.No</th>
-                  <th>User Name</th>
-                  <th>Joined on</th>
+                  <th className="display">S.No</th>
+                  <th> Name</th>
+                  <th>Role</th>
+                  <th className="display">Joined on</th>
+                  <th>
+                    Monthly
+                    <br /> Budget
+                  </th>
+                  <th className="display">Currency</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -197,15 +180,22 @@ const Users = () => {
               <tbody>
                 {users.map((user, index) => (
                   <tr key={user.id}>
-                    <td>{index + 1}</td>
+                    <td className="display">{index + 1}</td>
 
                     <td>{user.name}</td>
-
-                    <td>{user.joinedDate}</td>
-
+                    <td>{user.role}</td>
+                    <td className="display">
+                      {new Date(user.joined_date).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "2-digit",
+                      })}
+                    </td>
+                    <td>{user.monthly_budget}</td>
+                    <td className="display">{user.preferred_currency}</td>
                     <td className="d-flex flex-column justify-content-center align-item-center gap-2">
                       <button className="edit-btn">
-                        <FaEdit onClick={() => handleEdit(user.id)} />
+                        <FaEdit onClick={() => handleEdit(user)} />
                       </button>
 
                       <button className="delete-btn">
@@ -217,6 +207,76 @@ const Users = () => {
               </tbody>
             </table>
           </div>
+           {editId && (
+            <div className="income-form-card">
+              <div className="card-header">
+                <FaEdit className="header-icon" />
+                <h2>Edit User</h2>
+              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label>
+                    Name <span>*</span>
+                  </label>
+
+                  <div className="input-wrapper1">
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your name"
+                    
+                    />
+                  </div>
+                </div>
+                 <div className="form-group">
+                <label>
+                  Role <span>*</span>
+                </label>
+                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+                </div>
+                <div className="form-group">
+                  <label>
+                    Monthly Budget <span>*</span>
+                  </label>
+                  <div className="input-wrapper1">
+                    <input
+                      type="number"
+                      value={monthly_budget}
+                      onChange={(e) => setMonthlyBudget(e.target.value)}
+                      placeholder="Enter your Budget"
+                   
+                    />
+                  </div>
+                </div>
+                 <div className="form-group">
+                <label>
+                  Preferred Currency <span>*</span>
+                </label>
+                <select
+                  value={preferredCurrency}
+                  onChange={(e) => setPreferredCurrency(e.target.value)}
+                >
+                  <option value="INR">INR</option>
+                  <option value="USD">USD</option>
+                </select>
+                </div>
+                {error && <p className="error-message">{error}</p>}
+                <div className="form-buttons">
+                  <button className="update-btn" type="submit">
+                    Update User
+                  </button>
+                  <button type="button" className="cancel-btn" onClick={handleCancel}>
+                    Cancel
+                  </button>
+                </div>
+                {success && <p className="success-message">{success}</p>}
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </>

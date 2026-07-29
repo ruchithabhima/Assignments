@@ -8,9 +8,9 @@ const signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-    const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const handleSignup = async(e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     if (name.trim === "") {
       setError("Please enter your name");
@@ -21,35 +21,34 @@ const signup = () => {
       return;
     }
     try {
-    const response = await fetch("http://localhost:3000/api/signup", {
+      const response = await fetch("http://localhost:3000/api/signup", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            name,
-            password,
+          name,
+          password,
         }),
-    });
+      });
 
-    const data = await response.json();
-
-    if (!response.ok) {
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+      if (!response.ok) {
         setError(data.message);
         return;
+      }
+
+      setSuccess("Account Created Successfully");
+
+      setTimeout(() => {
+        setSuccess("");
+        navigate("/dashboard");
+      }, 2000);
+    } catch (error) {
+      setError("Something went wrong");
     }
-
-    setSuccess("Account Created Successfully");
-
-    setTimeout(() => {
-      setSuccess("")
-    navigate("/dashboard");   
-    }, 2000);
-
-} catch (error) {
-    setError("Something went wrong");
-}
-    
   };
   return (
     <>
@@ -107,7 +106,7 @@ const signup = () => {
                     Sign In
                   </Link>
                 </p>
-                 {success && <p className="success-message">{success}</p>}
+                {success && <p className="success-message">{success}</p>}
               </div>
             </form>
           </div>

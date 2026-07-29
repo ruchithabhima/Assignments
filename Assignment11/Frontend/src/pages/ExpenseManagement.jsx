@@ -17,43 +17,190 @@ const ExpenseManagement = () => {
   const [date, setDate] = useState("");
   const [paymentMode, setPaymentMode] = useState("");
   const [notes, setNotes] = useState("");
-  const [editId, setEditId] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [expenseList, setExpenseList] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [searchExpense, setSearchExpense] = useState("");
+const [filterCategory, setFilterCategory] = useState("");
+const [fromDate, setFromDate] = useState("");
+const [toDate, setToDate] = useState("");
+const [sortBy, setSortBy] = useState("");
+  const editExpense = (expense) => {
+    setEditingId(expense.id);
+    setName(expense.name);
+    setCategory(expense.category);
+    setAmount(expense.amount);
+    setDate(expense.expense_date.split("T")[0]);
+    setPaymentMode(expense.payment_mode);
+    setNotes(expense.notes || "");
+  };
   const fetchExpenses = async () => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
+      const params = new URLSearchParams();
 
-    const response = await fetch(
-      "http://localhost:3000/api/expense",
-      {
-        method: "GET",
+      if (searchExpense.trim()) {
+        params.append("search", searchExpense);
+      }
+
+      if (filterCategory) {
+        params.append("category", filterCategory);
+      }
+
+      if (fromDate) {
+        params.append("from", fromDate);
+      }
+
+      if (toDate) {
+        params.append("to", toDate);
+      }
+
+      if (sortBy) {
+        params.append("sort", sortBy);
+      }
+      console.log(sortBy);
+      const response = await fetch(
+        `http://localhost:3000/api/expense?${params.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      const data = await response.json();
+      console.log("Expense data:", data);
+
+      if (response.ok) {
+        setExpenseList(data);
+      }
+    } catch (error) {
+      console.error("Error fetching expenses:", error);
+    }
+  };
+  const addExpense = async (e) => {
+    e.preventDefault();
+
+    if (
+      name.trim() === "" ||
+      amount === "" ||
+      category === "" ||
+      date === "" ||
+      paymentMode === ""
+    ) {
+      setError("Please fill all required fields");
+
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      const url = editingId
+        ? `http://localhost:3000/api/expense/${editingId}`
+        : "http://localhost:3000/api/expense";
+
+      const method = editingId ? "PATCH" : "POST";
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name,
+          category,
+          amount,
+          expense_date: date,
+          payment_mode: paymentMode,
+          notes,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Failed to add expense");
+
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+
+        return;
+      }
+
+      setSuccess(
+        editingId
+          ? "Expense updated successfully"
+          : "Expense added successfully",
+      );
+
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
+
+      await fetchExpenses();
+
+      setName("");
+      setCategory("");
+      setAmount("");
+      setDate("");
+      setPaymentMode("");
+      setNotes("");
+      setEditingId(null);
+    } catch (error) {
+      console.error(error);
+      setError("Something went wrong");
+    }
+  };
+  const deleteExpense = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(`http://localhost:3000/api/expense/${id}`, {
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
-    );
-    const data = await response.json();
-    console.log("Expense data:", data);
+      });
 
-    if (response.ok) {
-      setExpenseList(data);
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Failed to delete expense");
+
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+
+        return;
+      }
+
+      setSuccess("Expense deleted successfully");
+
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
+
+      await fetchExpenses();
+    } catch (error) {
+      console.error(error);
+      setError("Something went wrong");
     }
-  } catch (error) {
-    console.error("Error fetching expenses:", error);
-  }
-};
-useEffect(() => {
-  fetchExpenses();
-}, []);
-return (
+  };
+  useEffect(() => {
+    fetchExpenses();
+  }, [searchExpense, filterCategory, fromDate, toDate, sortBy]);
+  return (
     <>
       <div className="containercard d-flex flex-column gap-2">
         <div className="welcome-card shadow">
           <div>
             <h2 className="welcome-card-head">Manage Your Income</h2>
-            <p>Here you can track and Manage your Income</p>
+            <p className="p">Here you can track and Manage your Income</p>
           </div>
         </div>
         <div className="expense-page align-items-start gap-2">
@@ -62,7 +209,7 @@ return (
               <FaPlusCircle className="header-icon" />
               <h2>Add New Expense</h2>
             </div>
-            <form /*onSubmit={handleSubmit}*/>
+            <form onSubmit={addExpense}>
               <div className="form-group">
                 <label>
                   Expense Name <span>*</span>
@@ -185,7 +332,7 @@ return (
                 type="text"
                 placeholder="Search expenses..."
                 className="search"
-                
+                value={searchExpense}
                 onChange={(e) => setSearchExpense(e.target.value)}
               />
               <div className="input-wrapper1">
@@ -193,7 +340,7 @@ return (
 
                 <input
                   type="date"
-                 
+                  value={fromDate}
                   onChange={(e) => setFromDate(e.target.value)}
                   className="date-filter"
                 />
@@ -203,15 +350,12 @@ return (
 
                 <input
                   type="date"
-                 
+                  value={toDate}
                   onChange={(e) => setToDate(e.target.value)}
                   className="date-filter"
                 />
               </div>
-              <select
-              
-                onChange={(e) => setFilterCategory(e.target.value)}
-              >
+              <select  value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
                 <option value="">All Categories</option>
                 <option value="Food">Food</option>
                 <option value="Fuel">Fuel</option>
@@ -223,14 +367,11 @@ return (
                 <option value="Others">Others</option>
               </select>
 
-              <select
-          
-                onChange={(e) => setSortBy(e.target.value)}
-              >
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                 <option value="">Sort By</option>
                 <option value="date">Date</option>
-                <option value="lowtohigh">Low to High</option>
-                <option value="hightolow"> High to Low</option>
+                <option value="lowest">Low to High</option>
+                <option value="highest"> High to Low</option>
               </select>
             </div>
 
@@ -250,9 +391,13 @@ return (
               <tbody>
                 {expenseList.map((expense) => (
                   <tr key={expense.id}>
-                    <td className="payment-column text-center">{expense.name}</td>
+                    <td className="payment-column text-center">
+                      {expense.name}
+                    </td>
                     <td>
-                      <span className="category-badge text-center">{expense.category}</span>
+                      <span className="category-badge text-center">
+                        {expense.category}
+                      </span>
                     </td>
 
                     <td className="text-center">₹{Number(expense.amount)}</td>
@@ -268,17 +413,24 @@ return (
                       )}
                     </td>
 
-                    <td className="payment-column text-center">{expense.payment_mode}</td>
+                    <td className="payment-column text-center">
+                      {expense.payment_mode}
+                    </td>
 
-                    <td className="notes-column textx-center">{expense.notes}</td>
+                    <td className="notes-column textx-center">
+                      {expense.notes}
+                    </td>
 
                     <td className="d-flex flex-column justify-content-center  gap-2">
                       <button className="edit-btn">
-                        <FaEdit onClick={() => handleEdit(expense.id)} />
+                        <FaEdit onClick={() => editExpense(expense)} />
                       </button>
 
                       <button className="delete-btn">
-                        <FaTrash onClick={() => handleDelete(expense.id)} />
+                        <FaTrash
+                          onClick={() => deleteExpense(expense.id)}
+                          style={{ cursor: "pointer" }}
+                        />
                       </button>
                     </td>
                   </tr>

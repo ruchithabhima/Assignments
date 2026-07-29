@@ -130,8 +130,9 @@ const IncomeManagement = () => {
       setAmount("");
       setDate("");
       setRemarks("");
+       setSuccess("Income Added Successfully");
       setTimeout(() => {
-        setSuccess("Income added successfully");
+        setSuccess("");
       }, 3000);
     } catch (error) {
       console.error(error);

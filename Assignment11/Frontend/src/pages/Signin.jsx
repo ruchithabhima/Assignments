@@ -22,11 +22,13 @@ const Signin = () => {
         }),
       });
       const data = await response.json();
+     console.log("Response:", data);
       if (!response.ok) {
         setError(data.message);
         return;
       }
       localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
       console.log("Navigating...");
       setSuccess("logged in Successfully");
 

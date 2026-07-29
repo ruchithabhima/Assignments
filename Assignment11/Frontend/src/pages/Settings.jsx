@@ -11,24 +11,10 @@ const Settings = () => {
   const [showPassword3, setShowPassword3] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const handleChangePassword = (e) => {
+  const handleChangePassword = async(e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-    const users = JSON.parse(localStorage.getItem("users"));
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const selectedUser = users.find((user) => user.id === currentUser.id);
-    console.log("User:", users);
-    console.log("Stored Password:", currentUser?.password);
-    console.log("Current Password:", currentPassword);
-    if (currentUser.password !== currentPassword) {
-      setError("Current password is incorrect");
-
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-      return;
-    }
     if (newPassword.length < 6) {
       setError("Password must be at least 6 characters");
       setTimeout(() => {
@@ -43,27 +29,44 @@ const Settings = () => {
       }, 5000);
       return;
     }
-    const updatedUser = users.map((user) =>
-      user.id === currentUser.id
-        ? {
-            ...user,
-            password: newPassword,
-          }
-        : user,
+     try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      "http://localhost:3000/api/changepassword",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+        }),
+      }
     );
-    const updatedCurrentUser = {
-      ...currentUser,
-      password: newPassword,
-    };
-    localStorage.setItem("users", JSON.stringify(updatedUser));
-    localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
-    setSuccess("Password updated successfully");
-    setTimeout(() => {
-      setSuccess("");
-    }, 3000);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.message);
+      return;
+    }
+
+    setSuccess(data.message);
+
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
+
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
+  } catch (err) {
+    setError("Something went wrong");
+  }
+   
   };
   return (
     <>

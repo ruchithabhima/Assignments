@@ -11,7 +11,8 @@ const totalExpense = Number(expenseResult[0].totalExpense);
 
 const balance = totalIncome - totalExpense;
 const [transactionHistory]=await db.query(`select income_date as date,
-    'income' as type,Null as category,amount from income where user_id=? and income_date between ? and ? union all select expense_date as date,'Expense' as type,category,amount from expense where user_id=? and expense_date between ? and ?  order by date desc`,[ userId,
+    'income' as type,Null as category,amount from income where user_id=? and income_date between ? and ? union all select expense_date as
+     date,'Expense' as type,category,amount from expense where user_id=? and expense_date between ? and ?  order by date desc`,[ userId,
     from,
     to,
     userId,

@@ -83,10 +83,51 @@ padding-right: 18px;
   color: #8a8a8a;
   font-size: 14px;
 }
+.p{
+      color: #605a5a;
+}
+.quick-actions{
+    margin-top:40px;
+    border-top:1px solid #e9ecef;
+    padding-top:25px;
+}
+
+.quick-actions h3{
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.quick-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.quick-buttons button{
+    background:#2ec4c7;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:12px 24px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.quick-buttons button:hover{
+    background:#1fb5b8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(46,196,199,0.3);
+}
+
+
 @media (max-width: 768px) {
   .welcome-card {
-    padding: 15px;
+    padding: 10px;
+    font-size:14px;
   }
+
   .date-filter-card {
     padding: 10px;
   }

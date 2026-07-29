@@ -2,6 +2,8 @@ const db = require("../config/db");
 
 const getDashboard = async (req, res) => {
   const userId = req.user.id;
+  console.log("Dashboard req.user:", req.user);
+  console.log("Dashboard request user:", req.user.id);
   const { month } = req.query;
 
 console.log("Selected month:", month);

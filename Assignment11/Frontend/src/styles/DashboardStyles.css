@@ -90,6 +90,7 @@
   color: #003680;
   font-weight: 600;
   font-size: 17px;
+  margin-right: 0px;
 }
 
 .listsidebar {
@@ -392,6 +393,49 @@ height: 40px !important;;
 .month-select:focus {
   border-color: #0dcaf0;
 }
+.empty-chart{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    
+    padding:0px;
+}
+
+.chart-icon{
+    font-size:65px;
+    margin-bottom:20px;
+}
+
+.empty-chart h3{
+        font-size: 28px;
+    margin-bottom: 12px;
+    color: #1d3557;
+}
+
+.empty-chart p{
+    color:#6c757d;
+  
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.add-expense-btn{
+    background:#2ec4c7;
+    color:white;
+    border:none;
+    padding:14px 30px;
+    border-radius:10px;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.add-expense-btn:hover{
+    background:#22b3b6;
+    transform:translateY(-2px);
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -434,12 +478,12 @@ height: 40px !important;;
   }
  .sidebar.mobile-open {
     left:0;
-    width:65px;
+    width:55px;
     padding:10px;
   }
   .sidebar.collapsed {
     left: 0;
-    width: 65px;    /* show only icons */
+    width: 55px;    /* show only icons */
   }
  
   .content{
