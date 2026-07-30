@@ -27,8 +27,37 @@ const getExpense = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const { search, category, from, to, sort } = req.query;
+    const { search, category, from, to, sort,page } = req.query;
+const currentPage = Number(page) || 1;
+    const limit = 5;
+    const offset = (currentPage - 1) * limit;
+    let countQuery = `SELECT COUNT(*) AS total FROM expense WHERE user_id = ?`;
 
+    let countValues = [userId];
+    if (search) {
+      countQuery += `
+            AND (
+                name LIKE ?
+                OR category LIKE ?
+                OR notes LIKE ?
+            )
+            `;
+     countValues.push(`%${search}%`, `%${search}%`, `%${search}%`);
+    }
+    if (category) {
+      countQuery += `
+            AND category = ?
+            `;
+
+      countValues.push(category);
+    }
+    if (from && to) {
+      countQuery += `
+            AND expense_date BETWEEN ? AND ?
+            `;
+
+      countValues.push(from, to);
+    }
     let query = `
         SELECT *
         FROM expense
@@ -76,10 +105,21 @@ const getExpense = async (req, res) => {
     } else {
       query += " ORDER BY expense_date DESC";
     }
-
+query += " LIMIT ? OFFSET ?";
+    values.push(limit);
+    values.push(offset);
+    console.log(req.query);
+    const [countRows] = await db.query(countQuery, countValues);
+    const totalRecords = countRows[0].total;
+    const totalPages = Math.ceil(totalRecords / limit);
     const [expenses] = await db.query(query, values);
 
-    return res.status(200).json(expenses);
+    return res.status(200).json({
+    data:expenses,
+    currentPage,
+    totalPages,
+    totalRecords
+});
   } catch (error) {
     return res.status(500).json({
       message: error.message,

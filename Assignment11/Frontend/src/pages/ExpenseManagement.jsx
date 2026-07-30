@@ -26,6 +26,9 @@ const [filterCategory, setFilterCategory] = useState("");
 const [fromDate, setFromDate] = useState("");
 const [toDate, setToDate] = useState("");
 const [sortBy, setSortBy] = useState("");
+ const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
   const editExpense = (expense) => {
     setEditingId(expense.id);
     setName(expense.name);
@@ -59,6 +62,7 @@ const [sortBy, setSortBy] = useState("");
       if (sortBy) {
         params.append("sort", sortBy);
       }
+      params.append("page",page)
       console.log(sortBy);
       const response = await fetch(
         `http://localhost:3000/api/expense?${params.toString()}`,
@@ -72,7 +76,9 @@ const [sortBy, setSortBy] = useState("");
       console.log("Expense data:", data);
 
       if (response.ok) {
-        setExpenseList(data);
+        setExpenseList(data.data);
+        setTotalPages(data.totalPages);
+        setTotalRecords(data.totalRecords);
       }
     } catch (error) {
       console.error("Error fetching expenses:", error);
@@ -193,7 +199,7 @@ const [sortBy, setSortBy] = useState("");
   };
   useEffect(() => {
     fetchExpenses();
-  }, [searchExpense, filterCategory, fromDate, toDate, sortBy]);
+  }, [searchExpense, filterCategory, fromDate, toDate, sortBy,page]);
   return (
     <>
       <div className="containercard d-flex flex-column gap-2">
@@ -355,7 +361,7 @@ const [sortBy, setSortBy] = useState("");
                   className="date-filter"
                 />
               </div>
-              <select  value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+              <select  value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)} >
                 <option value="">All Categories</option>
                 <option value="Food">Food</option>
                 <option value="Fuel">Fuel</option>
@@ -384,7 +390,7 @@ const [sortBy, setSortBy] = useState("");
                   <th className="text-center">Date</th>
                   <th className="payment-column text-center">Payment</th>
                   <th className="notes-column text-center">Notes</th>
-                  <th>Actions</th>
+                  <th  className="text-center">Actions</th>
                 </tr>
               </thead>
 
@@ -394,7 +400,7 @@ const [sortBy, setSortBy] = useState("");
                     <td className="payment-column text-center">
                       {expense.name}
                     </td>
-                    <td>
+                    <td  className="text-center">
                       <span className="category-badge text-center">
                         {expense.category}
                       </span>
@@ -421,7 +427,7 @@ const [sortBy, setSortBy] = useState("");
                       {expense.notes}
                     </td>
 
-                    <td className="d-flex flex-column justify-content-center  gap-2">
+                    <td className="d-flex flex-column flex-md-row justify-content-center  gap-2">
                       <button className="edit-btn">
                         <FaEdit onClick={() => editExpense(expense)} />
                       </button>
@@ -437,6 +443,33 @@ const [sortBy, setSortBy] = useState("");
                 ))}
               </tbody>
             </table>
+            <div className="pagination-container">
+                <div className="pagination ">
+                  <button
+                    onClick={() => setPage(page - 1)}
+                    disabled={page === 1}
+                  >
+                    Previous
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setPage(index + 1)}
+                      className={page === index + 1 ? "active-page" : ""}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => setPage(page + 1)}
+                    disabled={page === totalPages}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
           </div>
         </div>
       </div>

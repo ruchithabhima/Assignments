@@ -17,7 +17,9 @@ const Reports = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const from = searchParams.get("from") || "";
   const to = searchParams.get("to") || "";
-
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
   const fetchReport = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -25,7 +27,7 @@ const Reports = () => {
       console.log("from:", from);
       console.log("to:", to);
       const response = await fetch(
-        `http://localhost:3000/api/report?from=${from}&to=${to}`,
+        `http://localhost:3000/api/report?from=${from}&to=${to}&page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -40,14 +42,17 @@ const Reports = () => {
         setTotalExpense(Number(data.totalExpense));
         setBalance(Number(data.balance));
         setTransactionHistory(data.transactionHistory);
+        setTotalPages(data.totalPages);
+        setTotalRecords(data.totalRecords);
       }
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
     fetchReport();
-  }, [from, to]);
+  }, [from, to,page]);
   useEffect(() => {
     const currentFrom = searchParams.get("from") || "";
     const currentTo = searchParams.get("to") || "";
@@ -61,15 +66,15 @@ const Reports = () => {
       setSearchParams(params);
     }
   }, [from, to]);
-useEffect(() => {
-  sessionStorage.setItem(
-    "reportFilters",
-    JSON.stringify({
-      from,
-      to,
-    })
-  );
-}, [from, to]);
+  useEffect(() => {
+    sessionStorage.setItem(
+      "reportFilters",
+      JSON.stringify({
+        from,
+        to,
+      }),
+    );
+  }, [from, to]);
   return (
     <>
       <div className="containercard d-flex flex-column gap-2">
@@ -156,7 +161,7 @@ useEffect(() => {
               <tr>
                 <th>Date</th>
                 <th>Type</th>
-                <th className="category-col">Category</th>
+                <th >Category</th>
 
                 <th>Amount</th>
               </tr>
@@ -174,13 +179,40 @@ useEffect(() => {
                     })}
                   </td>
                   <td>{item.type}</td>
-                  <td className="category-col">{item.category || "-"}</td>
+                  <td >{item.category || "-"}</td>
 
                   <td>₹{Number(item.amount)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="pagination-container">
+                <div className="pagination ">
+                  <button
+                    onClick={() => setPage(page - 1)}
+                    disabled={page === 1}
+                  >
+                    Previous
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setPage(index + 1)}
+                      className={page === index + 1 ? "active-page" : ""}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => setPage(page + 1)}
+                    disabled={page === totalPages}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
         </div>
       </div>
     </>

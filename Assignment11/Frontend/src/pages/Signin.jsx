@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/Auth.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const Signin = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -70,6 +71,12 @@ const Signin = () => {
               >
                 Sign In
               </button>
+              <p className="mt-3 blue d-block d-md-none">
+                  Don't have an account?
+                  <Link to="/signup" className="ms-2 text-decoration-none">
+                    Sign up
+                  </Link>
+                </p>
             </div>
           </form>
         </div>
@@ -79,6 +86,12 @@ const Signin = () => {
             Track
             <br /> Your Expenses
           </h1>
+           <a
+              href="signup"
+              className="btn btn-outline-light rounded-pill px-5 mt-3 fontsize"
+            >
+              SIGN UP
+            </a>
         </div>
       </div>
     </div>
