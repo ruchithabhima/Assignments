@@ -365,44 +365,53 @@ const IncomeManagement = () => {
               </thead>
 
               <tbody>
-                {incomeList.map((income) => (
-                  <tr key={income.id}>
-                    <td className="text-center">{income.source}</td>
+                {incomeList.length > 0 ? (
+                  incomeList.map((income) => (
+                    <tr key={income.id}>
+                      <td className="text-center">{income.source}</td>
 
-                    <td className="text-center">₹{Number(income.amount)}</td>
+                      <td className="text-center">₹{Number(income.amount)}</td>
 
-                    <td className="text-center">
-                      {new Date(income.income_date).toLocaleDateString(
-                        "en-GB",
-                        {
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "2-digit",
-                        },
-                      )}
+                      <td className="text-center">
+                        {new Date(income.income_date).toLocaleDateString(
+                          "en-GB",
+                          {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "2-digit",
+                          },
+                        )}
+                      </td>
+                      <td>
+                        <div className="d-flex flex-column flex-md-row justify-content-center align-items-centerr  gap-2">
+                          <button
+                            className="edit-btn"
+                            onClick={() => handleEdit(income.id)}
+                          >
+                            <FaEdit />
+                          </button>
+
+                          <button
+                            className="delete-btn"
+                            onClick={() => handleDelete(income.id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                      </td>
+                      <td className="remarks-column">{income.remarks}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center py-5 text-muted">
+                      No income records found.
                     </td>
-                    <td>
-                      <div className="d-flex flex-column flex-md-row justify-content-center align-items-centerr  gap-2">
-                        <button
-                          className="edit-btn"
-                          onClick={() => handleEdit(income.id)}
-                        >
-                          <FaEdit />
-                        </button>
-
-                        <button
-                          className="delete-btn"
-                          onClick={() => handleDelete(income.id)}
-                        >
-                          <FaTrash />
-                        </button>
-                      </div>
-                    </td>
-                    <td className="remarks-column">{income.remarks}</td>
                   </tr>
-                ))}
+                )}
               </tbody>
-              </table>
+            </table>
+            {totalRecords > 0 && (
               <div className="pagination-container">
                 <div className="pagination ">
                   <button
@@ -430,7 +439,7 @@ const IncomeManagement = () => {
                   </button>
                 </div>
               </div>
-            
+            )}
           </div>
         </div>
       </div>

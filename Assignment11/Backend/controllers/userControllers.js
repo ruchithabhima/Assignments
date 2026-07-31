@@ -3,15 +3,28 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const getUsers = async (req, res) => {
   try {
-    const [rows] = await db.query(`select
+     const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+
+    const offset = (page - 1) * limit;
+
+    const [users] = await db.query(`select
     id,
     name,
     joined_date,
     monthly_budget,
     preferred_currency,
     role
-FROM users`);
-    res.json(rows);
+FROM users limit ? offset ?`,[limit,offset]);
+  const [countResult] = await db.query(
+      "SELECT COUNT(*) AS total FROM users"
+    );
+   res.json({
+      users,
+      totalRecords: countResult[0].total,
+      currentPage: page,
+      totalPages: Math.ceil(countResult[0].total / limit),
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -36,9 +36,9 @@ async function startserver() {
     app.listen(3000, () => {
       console.log("Server Running on port 3000");
     });
-  } catch (e) {
-    console.error("Database Connection Failed", e.message);
-  }
+  } catch (error) {
+  console.error(error);
+}
 }
 
 startserver();

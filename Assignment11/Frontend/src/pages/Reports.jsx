@@ -20,20 +20,28 @@ const Reports = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
+  const [error, setError] = useState("");
   const fetchReport = async () => {
     try {
       const token = localStorage.getItem("token");
       console.log("fetchReport called");
       console.log("from:", from);
       console.log("to:", to);
-      const response = await fetch(
-        `http://localhost:3000/api/report?from=${from}&to=${to}&page=${page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      if (from && to && new Date(from) > new Date(to)) {
+        setError("From Date cannot be later than To Date.");
+        return;
+      }
+      setError("");
+
+      let url = `http://localhost:3000/api/report?page=${page}`;
+      if (from && to) {
+        url += `&from=${from}&to=${to}`;
+      }
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       const data = await response.json();
 
@@ -52,7 +60,7 @@ const Reports = () => {
   };
   useEffect(() => {
     fetchReport();
-  }, [from, to,page]);
+  }, [from, to, page]);
   useEffect(() => {
     const currentFrom = searchParams.get("from") || "";
     const currentTo = searchParams.get("to") || "";
@@ -123,7 +131,7 @@ const Reports = () => {
             </div>
           </div>
         </div>
-
+        {error && <p className="text-danger mt-2">{error}</p>}
         <div class="row ">
           <div className="col-12 col-sm-6 col-lg-4 mb-3">
             <SummaryCards
@@ -161,58 +169,67 @@ const Reports = () => {
               <tr>
                 <th>Date</th>
                 <th>Type</th>
-                <th >Category</th>
+                <th className="d-none d-md-table-cell">Category</th>
 
                 <th>Amount</th>
               </tr>
             </thead>
 
             <tbody>
-              {transactionHistory.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    {" "}
-                    {new Date(item.date).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "2-digit",
-                    })}
-                  </td>
-                  <td>{item.type}</td>
-                  <td >{item.category || "-"}</td>
+              {transactionHistory.length > 0 ? (
+                transactionHistory.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      {" "}
+                      {new Date(item.date).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "2-digit",
+                      })}
+                    </td>
+                    <td>{item.type}</td>
+                    <td className="d-none d-md-table-cell">{item.category || "-"}</td>
 
-                  <td>₹{Number(item.amount)}</td>
+                    <td>₹{Number(item.amount)}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="text-center py-5 text-muted">
+                    {from && to
+                      ? "No transactions found for the selected date range."
+                      : "No transactions available."}
+                  </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
-          <div className="pagination-container">
-                <div className="pagination ">
-                  <button
-                    onClick={() => setPage(page - 1)}
-                    disabled={page === 1}
-                  >
-                    Previous
-                  </button>
+          {totalRecords > 0 && (
+            <div className="pagination-container">
+              <div className="pagination ">
+                <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+                  Previous
+                </button>
 
-                  {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setPage(index + 1)}
-                      className={page === index + 1 ? "active-page" : ""}
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-
+                {Array.from({ length: totalPages }, (_, index) => (
                   <button
-                    onClick={() => setPage(page + 1)}
-                    disabled={page === totalPages}
+                    key={index}
+                    onClick={() => setPage(index + 1)}
+                    className={page === index + 1 ? "active-page" : ""}
                   >
-                    Next
+                    {index + 1}
                   </button>
-                </div>
+                ))}
+
+                <button
+                  onClick={() => setPage(page + 1)}
+                  disabled={page === totalPages}
+                >
+                  Next
+                </button>
               </div>
+            </div>
+          )}
         </div>
       </div>
     </>

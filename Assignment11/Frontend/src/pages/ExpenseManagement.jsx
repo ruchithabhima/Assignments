@@ -395,7 +395,7 @@ const [sortBy, setSortBy] = useState("");
               </thead>
 
               <tbody>
-                {expenseList.map((expense) => (
+               {expenseList.length>0? (expenseList.map((expense) => (
                   <tr key={expense.id}>
                     <td className="payment-column text-center">
                       {expense.name}
@@ -440,9 +440,16 @@ const [sortBy, setSortBy] = useState("");
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))): (
+                  <tr>
+                    <td colSpan="7" className="text-center py-5 text-muted">
+                      No Expense records found.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
+               {totalRecords > 0 && (
             <div className="pagination-container">
                 <div className="pagination ">
                   <button
@@ -470,6 +477,7 @@ const [sortBy, setSortBy] = useState("");
                   </button>
                 </div>
               </div>
+               )}
           </div>
         </div>
       </div>

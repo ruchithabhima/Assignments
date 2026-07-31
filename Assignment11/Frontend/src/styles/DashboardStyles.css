@@ -7,17 +7,17 @@
   margin-left: 210px;
   background: #f8fafc;
 }
-.content.collapsed{
-    margin-left:80px;
+.content.collapsed {
+  margin-left: 80px;
 }
-.filter-btn{
-  height:42px;
-  padding:0 18px;
-  border:none;
-  border-radius:10px;
-  background:#eef9fb;
-  color:#0ea5a5;
-  cursor:pointer;
+.filter-btn {
+  height: 42px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  background: #eef9fb;
+  color: #0ea5a5;
+  cursor: pointer;
 }
 .sidebar {
   width: 210px;
@@ -30,43 +30,43 @@
   z-index: 999;
   height: 100vh;
 }
-.hamburger{
-  cursor:pointer;
-  font-size:22px;
-  margin-right:20px;
+.hamburger {
+  cursor: pointer;
+  font-size: 22px;
+  margin-right: 20px;
 }
 
-.nav-left{
-  display:flex;
-  align-items:center;
-  gap:15px;
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-.sidebar.collapsed{
-  width:80px;
+.sidebar.collapsed {
+  width: 80px;
 }
-.sidebar.collapsed ul{
-    padding:0;
-}
-
-.menu-link{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:white;
-  text-decoration:none;
-  padding:12px;
-  border-radius:12px;
-      font-size: 15px;
+.sidebar.collapsed ul {
+  padding: 0;
 }
 
-.active{
-  background:#a7e8f5;
-  color:#023047;
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.active {
+  background: #a7e8f5;
+  color: #023047;
 }
 .sidebar li svg {
   font-size: 24px;
 }
-.sidebar.collapsed li{
+.sidebar.collapsed li {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,12 +79,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
-
-  
 }
 .containercard {
   padding: 15px;
-  width:100%
+  width: 100%;
 }
 .brand {
   color: #003680;
@@ -103,7 +101,7 @@
   padding-left: 0px;
 }
 .walleticon {
-  color: #3cfbff;;
+  color: #3cfbff;
   font-size: 32px;
 }
 .h2 {
@@ -118,16 +116,16 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-height: 40px !important;;
+  height: 40px !important;
   padding: 10px;
-  min-height:8vh;
+  min-height: 8vh;
 }
 .welcome-card {
   background: #d0ecf0;
   padding: 17px;
   border-radius: 15px;
-  min-width:370px;
-  min-width:100%;
+  min-width: 370px;
+  min-width: 100%;
 }
 .cards {
   display: grid;
@@ -158,6 +156,7 @@ height: 40px !important;;
   align-items: center;
   gap: 15px;
   flex: 1;
+  width:50px;
 }
 
 .transaction-icon {
@@ -204,7 +203,7 @@ height: 40px !important;;
   background: white;
   padding: 20px;
   border-radius: 16px;
-  min-width:50px;
+  min-width: 50px;
 }
 .dot {
   width: 10px;
@@ -227,8 +226,8 @@ height: 40px !important;;
 .value {
   font-size: 25px;
 }
-.welcome-card-head{
-  font-size:25px;
+.welcome-card-head {
+  font-size: 25px;
 }
 .icon-container {
   width: 50px;
@@ -273,7 +272,7 @@ height: 40px !important;;
   width: 180px;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 
   display: flex;
   flex-direction: column;
@@ -286,21 +285,19 @@ height: 40px !important;;
   border: none;
   background: none;
   cursor: pointer;
-  color:#12609e;
+  color: #12609e;
 }
 
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
   background: #f5f5f5;
-
 }
-.logout{
-  color:red !important;
+.logout {
+  color: red !important;
 }
 .chart-container {
   display: flex;
   align-items: center;
-  
 }
 
 .chart-side {
@@ -316,7 +313,7 @@ height: 40px !important;;
   background: white;
   border-radius: 16px;
 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 .info-header {
   display: flex;
@@ -393,48 +390,48 @@ height: 40px !important;;
 .month-select:focus {
   border-color: #0dcaf0;
 }
-.empty-chart{
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    
-    padding:0px;
+.empty-chart {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 0px;
 }
 
-.chart-icon{
-    font-size:65px;
-    margin-bottom:20px;
+.chart-icon {
+  font-size: 65px;
+  margin-bottom: 20px;
 }
 
-.empty-chart h3{
-        font-size: 28px;
-    margin-bottom: 12px;
-    color: #1d3557;
+.empty-chart h3 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #1d3557;
 }
 
-.empty-chart p{
-    color:#6c757d;
-  
-    line-height:1.6;
-    margin-bottom:30px;
+.empty-chart p {
+  color: #6c757d;
+
+  line-height: 1.6;
+  margin-bottom: 30px;
 }
 
-.add-expense-btn{
-    background:#2ec4c7;
-    color:white;
-    border:none;
-    padding:14px 30px;
-    border-radius:10px;
-    font-size:17px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
+.add-expense-btn {
+  background: #2ec4c7;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.add-expense-btn:hover{
-    background:#22b3b6;
-    transform:translateY(-2px);
+.add-expense-btn:hover {
+  background: #22b3b6;
+  transform: translateY(-2px);
 }
 @keyframes fadeIn {
   from {
@@ -449,8 +446,6 @@ height: 40px !important;;
 }
 
 @media (max-width: 768px) {
- 
- 
   .month-filter-container {
     flex-direction: column;
     align-items: flex-start;
@@ -460,52 +455,53 @@ height: 40px !important;;
   .month-select {
     width: 100%;
   }
-  
-  .grid-con{
-    display:grid;
+
+  .grid-con {
+    display: grid;
     grid-template-columns: 1fr;
   }
-  .menu-link{
+  .menu-link {
     font-size: 18px;
   }
   .sidebar {
-    left: -210px;   /* hide full sidebar */
+    left: -210px; /* hide full sidebar */
     width: 70px;
     position: fixed;
     top: 0;
-  height:100vh;
+    height: 100vh;
     z-index: 999;
   }
- .sidebar.mobile-open {
-    left:0;
-    width:55px;
-    padding:10px;
+  .sidebar.mobile-open {
+    left: 0;
+    width: 55px;
+    padding: 10px;
   }
   .sidebar.collapsed {
     left: 0;
-    width: 55px;    /* show only icons */
+    width: 55px; /* show only icons */
   }
- 
-  .content{
+
+  .content {
     margin-left: 0;
     transition: margin-left 0.3s ease;
   }
 
-  .content.sidebar-open{
+  .content.sidebar-open {
     margin-left: 65px;
   }
 
-  
-
- .chart-container{
-    display:flex;
+  .chart-container {
+    display: flex;
     flex-direction: column;
   }
-.transaction-icon2{
-   width: 30px;
-  height: 30px;
+  .transaction-icon2 {
+    width: 30px;
+    height: 30px;
+  }
+  .month-filter-container {
+    padding: 15px;
+  }
+  .hamburger {
+    margin-right: 0px;
+  }
 }
-.month-filter-container{padding:15px;}
-.hamburger{margin-right: 0px;}
-}
-

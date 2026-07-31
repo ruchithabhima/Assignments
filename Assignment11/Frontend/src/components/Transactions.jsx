@@ -71,7 +71,7 @@ const navigate = useNavigate();
                   }
                 >
                   {item.type === "Income" ? "+" : "-"}₹
-                  {Number(item.amount).toFixed(2)}
+                  {Number(item.amount)}
                 </div>
               </div>
             );
